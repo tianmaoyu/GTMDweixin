@@ -9,10 +9,12 @@
 
 namespace GTMDweixinManagement.EF
 {
+    using Newtonsoft.Json;
+    using ModelBase;
     using System;
     using System.Collections.Generic;
     
-    public partial class NoticeInfo
+    public partial class NoticeInfo :ModelBase
     {
         public int ID { get; set; }
         public string Title { get; set; }

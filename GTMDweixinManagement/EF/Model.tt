@@ -23,8 +23,10 @@ foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection)
     fileManager.StartNewFile(entity.Name + ".cs");
     BeginNamespace(code);
 #>
+using Newtonsoft.Json;
+using ModelBase;
 <#=codeStringGenerator.UsingDirectives(inHeader: false)#>
-<#=codeStringGenerator.EntityClassOpening(entity)#>
+<#=codeStringGenerator.EntityClassOpening(entity)#> :ModelBase
 {
 <#
     var propertiesWithDefaultValues = typeMapper.GetPropertiesWithDefaultValues(entity);
@@ -103,6 +105,7 @@ foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection)
 <#
             }
 #>
+    [JsonIgnore]
     <#=codeStringGenerator.NavigationProperty(navigationProperty)#>
 <#
         }
@@ -119,7 +122,7 @@ foreach (var complex in typeMapper.GetItemsToGenerate<ComplexType>(itemCollectio
     BeginNamespace(code);
 #>
 <#=codeStringGenerator.UsingDirectives(inHeader: false, includeCollections: false)#>
-<#=Accessibility.ForType(complex)#> partial class <#=code.Escape(complex)#>
+<#=Accessibility.ForType(complex)#> partial class <#=code.Escape(complex)#> 
 {
 <#
     var complexProperties = typeMapper.GetComplexProperties(complex);

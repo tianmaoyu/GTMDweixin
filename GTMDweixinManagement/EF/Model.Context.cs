@@ -9,11 +9,12 @@
 
 namespace GTMDweixinManagement.EF
 {
+    using DAL;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
-    public partial class GTMDweixinEntities : DbContext
+
+    public partial class GTMDweixinEntities : DbContextBase
     {
         public GTMDweixinEntities()
             : base("name=GTMDweixinEntities")

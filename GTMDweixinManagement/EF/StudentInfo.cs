@@ -9,10 +9,12 @@
 
 namespace GTMDweixinManagement.EF
 {
+    using Newtonsoft.Json;
+    using ModelBase;
     using System;
     using System.Collections.Generic;
     
-    public partial class StudentInfo
+    public partial class StudentInfo :ModelBase
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public StudentInfo()
@@ -28,10 +30,13 @@ namespace GTMDweixinManagement.EF
         public Nullable<int> UserID { get; set; }
         public Nullable<int> SupervisorUserID { get; set; }
     
+        [JsonIgnore]
         public virtual UserInfo UserInfo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [JsonIgnore]
         public virtual ICollection<StudentProjectInfo> StudentProjectInfos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [JsonIgnore]
         public virtual ICollection<StudentSignInfo> StudentSignInfos { get; set; }
     }
 }

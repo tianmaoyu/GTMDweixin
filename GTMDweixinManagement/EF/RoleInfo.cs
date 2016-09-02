@@ -9,10 +9,12 @@
 
 namespace GTMDweixinManagement.EF
 {
+    using Newtonsoft.Json;
+    using ModelBase;
     using System;
     using System.Collections.Generic;
     
-    public partial class RoleInfo
+    public partial class RoleInfo :ModelBase
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public RoleInfo()
@@ -30,9 +32,12 @@ namespace GTMDweixinManagement.EF
         public string Remark { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [JsonIgnore]
         public virtual ICollection<MeunRoleInfo> MeunRoleInfos { get; set; }
+        [JsonIgnore]
         public virtual RoleInfo TreeParentIDRoleInfo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [JsonIgnore]
         public virtual ICollection<UserRoleInfo> UserRoleInfos { get; set; }
     }
 }

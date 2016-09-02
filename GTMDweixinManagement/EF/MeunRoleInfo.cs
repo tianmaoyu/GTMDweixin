@@ -9,16 +9,20 @@
 
 namespace GTMDweixinManagement.EF
 {
+    using Newtonsoft.Json;
+    using ModelBase;
     using System;
     using System.Collections.Generic;
     
-    public partial class MeunRoleInfo
+    public partial class MeunRoleInfo :ModelBase
     {
         public int ID { get; set; }
         public Nullable<int> MeunID { get; set; }
         public Nullable<int> RoleID { get; set; }
     
+        [JsonIgnore]
         public virtual MeunInfo MeunInfo { get; set; }
+        [JsonIgnore]
         public virtual RoleInfo RoleInfo { get; set; }
     }
 }

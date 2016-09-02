@@ -9,10 +9,12 @@
 
 namespace GTMDweixinManagement.EF
 {
+    using Newtonsoft.Json;
+    using ModelBase;
     using System;
     using System.Collections.Generic;
     
-    public partial class MeunInfo
+    public partial class MeunInfo :ModelBase
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public MeunInfo()
@@ -28,8 +30,10 @@ namespace GTMDweixinManagement.EF
         public string URL { get; set; }
         public string Remark { get; set; }
     
+        [JsonIgnore]
         public virtual MeunInfo TreeParentMeunInfo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [JsonIgnore]
         public virtual ICollection<MeunRoleInfo> MeunRoleInfos { get; set; }
     }
 }

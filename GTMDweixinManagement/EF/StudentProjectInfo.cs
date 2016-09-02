@@ -9,16 +9,20 @@
 
 namespace GTMDweixinManagement.EF
 {
+    using Newtonsoft.Json;
+    using ModelBase;
     using System;
     using System.Collections.Generic;
     
-    public partial class StudentProjectInfo
+    public partial class StudentProjectInfo :ModelBase
     {
         public int ID { get; set; }
         public Nullable<int> StudentID { get; set; }
         public Nullable<int> ProjectID { get; set; }
     
+        [JsonIgnore]
         public virtual ProjectInfo ProjectInfo { get; set; }
+        [JsonIgnore]
         public virtual StudentInfo StudentInfo { get; set; }
     }
 }

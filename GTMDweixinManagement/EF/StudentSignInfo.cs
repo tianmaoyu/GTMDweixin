@@ -9,10 +9,12 @@
 
 namespace GTMDweixinManagement.EF
 {
+    using Newtonsoft.Json;
+    using ModelBase;
     using System;
     using System.Collections.Generic;
     
-    public partial class StudentSignInfo
+    public partial class StudentSignInfo :ModelBase
     {
         public int ID { get; set; }
         public Nullable<System.DateTime> FirstDay_Morning { get; set; }
@@ -39,7 +41,9 @@ namespace GTMDweixinManagement.EF
         public int StudentID { get; set; }
         public int SignID { get; set; }
     
+        [JsonIgnore]
         public virtual SignInfo SignInfo { get; set; }
+        [JsonIgnore]
         public virtual StudentInfo StudentInfo { get; set; }
     }
 }
