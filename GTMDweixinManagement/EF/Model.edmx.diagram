@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="35c80c2b3caa4be79fd53ddcfc24bbef" Name="Diagram1" ZoomLevel="92">
+        <EntityTypeShape EntityType="GTMDweixinModel.MeunRoleInfo" Width="2.375" PointX="0.5" PointY="5.625" />
+        <EntityTypeShape EntityType="GTMDweixinModel.UserInfo" Width="2.375" PointX="3.5" PointY="4.875" />
+        <EntityTypeShape EntityType="GTMDweixinModel.UserRoleInfo" Width="2.375" PointX="3.5" PointY="1.625" />
+        <EntityTypeShape EntityType="GTMDweixinModel.FeedbackInfo" Width="2.375" PointX="7.125" PointY="2.25" />
+        <EntityTypeShape EntityType="GTMDweixinModel.NoticeInfo" Width="2.375" PointX="10.25" PointY="2.625" />
+        <EntityTypeShape EntityType="GTMDweixinModel.ProjectInfo" Width="2.375" PointX="6.375" PointY="6.75" />
+        <EntityTypeShape EntityType="GTMDweixinModel.SignInfo" Width="2.375" PointX="9.375" PointY="6.625" />
+        <EntityTypeShape EntityType="GTMDweixinModel.StudentInfo" Width="2.375" PointX="2.75" PointY="11.5" />
+        <EntityTypeShape EntityType="GTMDweixinModel.StudentProjectInfo" Width="2.375" PointX="6" PointY="10.25" />
+        <EntityTypeShape EntityType="GTMDweixinModel.StudentSignInfo" Width="2.375" PointX="9.125" PointY="10.5" />
+        <AssociationConnector Association="GTMDweixinModel.FK_Authority_UserRole_Authority_User" />
+        <AssociationConnector Association="GTMDweixinModel.FK_Business_Student_Authority_User" />
+        <AssociationConnector Association="GTMDweixinModel.FK_Business_Sign_Business_Project" />
+        <AssociationConnector Association="GTMDweixinModel.FK_Business_StudentProject_Business_Project" />
+        <AssociationConnector Association="GTMDweixinModel.FK_Business_StudentSign_Business_Sign" />
+        <AssociationConnector Association="GTMDweixinModel.FK_Business_StudentProject_Business_Student" />
+        <AssociationConnector Association="GTMDweixinModel.FK_Business_StudentSign_Business_Student" />
+        <EntityTypeShape EntityType="GTMDweixinModel.MeunInfo" Width="1.875" PointX="0.625" PointY="9.25" />
+        <EntityTypeShape EntityType="GTMDweixinModel.RoleInfo" Width="2.125" PointX="0.625" PointY="1.625" />
+        <AssociationConnector Association="GTMDweixinModel.FK_Authority_Meun_Authority_Meun" />
+        <AssociationConnector Association="GTMDweixinModel.FK_Authority_MeunRole_Authority_Meun" />
+        <AssociationConnector Association="GTMDweixinModel.FK_Authority_MeunRole_Authority_Role" />
+        <AssociationConnector Association="GTMDweixinModel.FK_Authority_Role_Authority_Role" />
+        <AssociationConnector Association="GTMDweixinModel.FK_Authority_UserRole_Authority_Role" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

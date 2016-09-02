@@ -1,0 +1,943 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GTMDweixinModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Authority_Meun">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="50" />
+          <Property Name="TreeParentID" Type="int" />
+          <Property Name="DisplayOrder" Type="int" />
+          <Property Name="TreePath" Type="nvarchar" MaxLength="100" />
+          <Property Name="URL" Type="nvarchar" MaxLength="50" />
+          <Property Name="Remark" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Authority_MeunRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MeunID" Type="int" />
+          <Property Name="RoleID" Type="int" />
+        </EntityType>
+        <EntityType Name="Authority_Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TreeParentID" Type="int" />
+          <Property Name="DisplayOrder" Type="int" />
+          <Property Name="IsSystemRole" Type="bit" />
+          <Property Name="TreePath" Type="nvarchar" MaxLength="50" />
+          <Property Name="Remark" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Authority_User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="sex" Type="bit" />
+          <Property Name="LoginName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="MobileTelphoneNumber" Type="varchar" MaxLength="50" />
+          <Property Name="IDCardNumber" Type="varchar" MaxLength="50" />
+          <Property Name="QQNumber" Type="varchar" MaxLength="50" />
+          <Property Name="School" Type="varchar" MaxLength="50" />
+          <Property Name="SchoolNumber" Type="varchar" MaxLength="50" />
+          <Property Name="Major" Type="varchar" MaxLength="50" />
+          <Property Name="Grade" Type="varchar" MaxLength="50" />
+          <Property Name="GreateDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Authority_UserRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="RoleID" Type="int" />
+        </EntityType>
+        <EntityType Name="Business_Feedback">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateDate" Type="date" />
+          <Property Name="Centent" Type="ntext" />
+          <Property Name="Creater" Type="int" />
+        </EntityType>
+        <EntityType Name="Business_Notice">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Subtitle" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsDisplay" Type="bit" />
+          <Property Name="DisplayOrder" Type="int" />
+          <Property Name="CreateDate" Type="date" />
+          <Property Name="Creater" Type="int" />
+          <Property Name="Centent" Type="ntext" />
+        </EntityType>
+        <EntityType Name="Business_Project">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsDisplay" Type="bit" />
+          <Property Name="Remark" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Business_Sign">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsDisplay" Type="bit" />
+          <Property Name="BeginDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
+          <Property Name="ProjectID" Type="int" />
+        </EntityType>
+        <EntityType Name="Business_Student">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SuccessfulTotalNumber" Type="int" />
+          <Property Name="IsSupervisor" Type="bit" />
+          <Property Name="EnteredDate" Type="date" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="SupervisorUserID" Type="int" />
+        </EntityType>
+        <EntityType Name="Business_StudentProject">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentID" Type="int" />
+          <Property Name="ProjectID" Type="int" />
+        </EntityType>
+        <EntityType Name="Business_StudentSign">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstDay_Morning" Type="date" />
+          <Property Name="FirstDay_Afternoon" Type="date" />
+          <Property Name="FirstDay_Evening" Type="date" />
+          <Property Name="SecondDay_Morning" Type="date" />
+          <Property Name="SecondDay_Afternoon" Type="date" />
+          <Property Name="SecondDay_Evening" Type="date" />
+          <Property Name="ThirdDay_Morning" Type="date" />
+          <Property Name="ThirdDay_Afternoon" Type="date" />
+          <Property Name="ThirdDay_Evening" Type="date" />
+          <Property Name="FourthDay_Morning" Type="date" />
+          <Property Name="FourthDay_Afternoon" Type="date" />
+          <Property Name="FourthDay_Evening" Type="date" />
+          <Property Name="FifthDay_Morning" Type="date" />
+          <Property Name="FifthDay_Afternoon" Type="date" />
+          <Property Name="FifthDay_Evening" Type="date" />
+          <Property Name="SixthDay_Morning" Type="date" />
+          <Property Name="SixthDay_Afternoon" Type="date" />
+          <Property Name="SixthDay_Evening" Type="date" />
+          <Property Name="SeventhDay_Morning" Type="date" />
+          <Property Name="SeventhDay_Afternoon" Type="date" />
+          <Property Name="SeventhDay_Evening" Type="date" />
+          <Property Name="StudentID" Type="int" Nullable="false" />
+          <Property Name="SignID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Authority_Meun_Authority_Meun">
+          <End Role="Authority_Meun" Type="Self.Authority_Meun" Multiplicity="0..1" />
+          <End Role="Authority_Meun1" Type="Self.Authority_Meun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authority_Meun">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Authority_Meun1">
+              <PropertyRef Name="TreeParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Authority_MeunRole_Authority_Meun">
+          <End Role="Authority_Meun" Type="Self.Authority_Meun" Multiplicity="0..1" />
+          <End Role="Authority_MeunRole" Type="Self.Authority_MeunRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authority_Meun">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Authority_MeunRole">
+              <PropertyRef Name="MeunID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Authority_MeunRole_Authority_Role">
+          <End Role="Authority_Role" Type="Self.Authority_Role" Multiplicity="0..1" />
+          <End Role="Authority_MeunRole" Type="Self.Authority_MeunRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authority_Role">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Authority_MeunRole">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Authority_Role_Authority_Role">
+          <End Role="Authority_Role" Type="Self.Authority_Role" Multiplicity="0..1" />
+          <End Role="Authority_Role1" Type="Self.Authority_Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authority_Role">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Authority_Role1">
+              <PropertyRef Name="TreeParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Authority_UserRole_Authority_Role">
+          <End Role="Authority_Role" Type="Self.Authority_Role" Multiplicity="0..1" />
+          <End Role="Authority_UserRole" Type="Self.Authority_UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authority_Role">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Authority_UserRole">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Authority_UserRole_Authority_User">
+          <End Role="Authority_User" Type="Self.Authority_User" Multiplicity="0..1" />
+          <End Role="Authority_UserRole" Type="Self.Authority_UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authority_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Authority_UserRole">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Business_Sign_Business_Project">
+          <End Role="Business_Project" Type="Self.Business_Project" Multiplicity="0..1" />
+          <End Role="Business_Sign" Type="Self.Business_Sign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business_Project">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Business_Sign">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Business_Student_Authority_User">
+          <End Role="Authority_User" Type="Self.Authority_User" Multiplicity="0..1" />
+          <End Role="Business_Student" Type="Self.Business_Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authority_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Business_Student">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Business_StudentProject_Business_Project">
+          <End Role="Business_Project" Type="Self.Business_Project" Multiplicity="0..1" />
+          <End Role="Business_StudentProject" Type="Self.Business_StudentProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business_Project">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Business_StudentProject">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Business_StudentProject_Business_Student">
+          <End Role="Business_Student" Type="Self.Business_Student" Multiplicity="0..1" />
+          <End Role="Business_StudentProject" Type="Self.Business_StudentProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business_Student">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Business_StudentProject">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Business_StudentSign_Business_Sign">
+          <End Role="Business_Sign" Type="Self.Business_Sign" Multiplicity="1" />
+          <End Role="Business_StudentSign" Type="Self.Business_StudentSign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business_Sign">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Business_StudentSign">
+              <PropertyRef Name="SignID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Business_StudentSign_Business_Student">
+          <End Role="Business_Student" Type="Self.Business_Student" Multiplicity="1" />
+          <End Role="Business_StudentSign" Type="Self.Business_StudentSign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business_Student">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Business_StudentSign">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GTMDweixinModelStoreContainer">
+          <EntitySet Name="Authority_Meun" EntityType="Self.Authority_Meun" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Authority_MeunRole" EntityType="Self.Authority_MeunRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Authority_Role" EntityType="Self.Authority_Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Authority_User" EntityType="Self.Authority_User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Authority_UserRole" EntityType="Self.Authority_UserRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Business_Feedback" EntityType="Self.Business_Feedback" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Business_Notice" EntityType="Self.Business_Notice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Business_Project" EntityType="Self.Business_Project" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Business_Sign" EntityType="Self.Business_Sign" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Business_Student" EntityType="Self.Business_Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Business_StudentProject" EntityType="Self.Business_StudentProject" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Business_StudentSign" EntityType="Self.Business_StudentSign" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Authority_Meun_Authority_Meun" Association="Self.FK_Authority_Meun_Authority_Meun">
+            <End Role="Authority_Meun" EntitySet="Authority_Meun" />
+            <End Role="Authority_Meun1" EntitySet="Authority_Meun" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Authority_MeunRole_Authority_Meun" Association="Self.FK_Authority_MeunRole_Authority_Meun">
+            <End Role="Authority_Meun" EntitySet="Authority_Meun" />
+            <End Role="Authority_MeunRole" EntitySet="Authority_MeunRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Authority_MeunRole_Authority_Role" Association="Self.FK_Authority_MeunRole_Authority_Role">
+            <End Role="Authority_Role" EntitySet="Authority_Role" />
+            <End Role="Authority_MeunRole" EntitySet="Authority_MeunRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Authority_Role_Authority_Role" Association="Self.FK_Authority_Role_Authority_Role">
+            <End Role="Authority_Role" EntitySet="Authority_Role" />
+            <End Role="Authority_Role1" EntitySet="Authority_Role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Authority_UserRole_Authority_Role" Association="Self.FK_Authority_UserRole_Authority_Role">
+            <End Role="Authority_Role" EntitySet="Authority_Role" />
+            <End Role="Authority_UserRole" EntitySet="Authority_UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Authority_UserRole_Authority_User" Association="Self.FK_Authority_UserRole_Authority_User">
+            <End Role="Authority_User" EntitySet="Authority_User" />
+            <End Role="Authority_UserRole" EntitySet="Authority_UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Business_Sign_Business_Project" Association="Self.FK_Business_Sign_Business_Project">
+            <End Role="Business_Project" EntitySet="Business_Project" />
+            <End Role="Business_Sign" EntitySet="Business_Sign" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Business_Student_Authority_User" Association="Self.FK_Business_Student_Authority_User">
+            <End Role="Authority_User" EntitySet="Authority_User" />
+            <End Role="Business_Student" EntitySet="Business_Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Business_StudentProject_Business_Project" Association="Self.FK_Business_StudentProject_Business_Project">
+            <End Role="Business_Project" EntitySet="Business_Project" />
+            <End Role="Business_StudentProject" EntitySet="Business_StudentProject" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Business_StudentProject_Business_Student" Association="Self.FK_Business_StudentProject_Business_Student">
+            <End Role="Business_Student" EntitySet="Business_Student" />
+            <End Role="Business_StudentProject" EntitySet="Business_StudentProject" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Business_StudentSign_Business_Sign" Association="Self.FK_Business_StudentSign_Business_Sign">
+            <End Role="Business_Sign" EntitySet="Business_Sign" />
+            <End Role="Business_StudentSign" EntitySet="Business_StudentSign" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Business_StudentSign_Business_Student" Association="Self.FK_Business_StudentSign_Business_Student">
+            <End Role="Business_Student" EntitySet="Business_Student" />
+            <End Role="Business_StudentSign" EntitySet="Business_StudentSign" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GTMDweixinModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="GTMDweixinEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MeunRoleInfoes" EntityType="GTMDweixinModel.MeunRoleInfo" />
+          <EntitySet Name="UserInfoes" EntityType="GTMDweixinModel.UserInfo" />
+          <EntitySet Name="UserRoleInfoes" EntityType="GTMDweixinModel.UserRoleInfo" />
+          <EntitySet Name="FeedbackInfoes" EntityType="GTMDweixinModel.FeedbackInfo" />
+          <EntitySet Name="NoticeInfoes" EntityType="GTMDweixinModel.NoticeInfo" />
+          <EntitySet Name="ProjectInfoes" EntityType="GTMDweixinModel.ProjectInfo" />
+          <EntitySet Name="SignInfoes" EntityType="GTMDweixinModel.SignInfo" />
+          <EntitySet Name="StudentInfoes" EntityType="GTMDweixinModel.StudentInfo" />
+          <EntitySet Name="StudentProjectInfoes" EntityType="GTMDweixinModel.StudentProjectInfo" />
+          <EntitySet Name="StudentSignInfoes" EntityType="GTMDweixinModel.StudentSignInfo" />
+          <AssociationSet Name="FK_Authority_UserRole_Authority_User" Association="GTMDweixinModel.FK_Authority_UserRole_Authority_User">
+            <End Role="Authority_User" EntitySet="UserInfoes" />
+            <End Role="Authority_UserRole" EntitySet="UserRoleInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Business_Student_Authority_User" Association="GTMDweixinModel.FK_Business_Student_Authority_User">
+            <End Role="Authority_User" EntitySet="UserInfoes" />
+            <End Role="Business_Student" EntitySet="StudentInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Business_Sign_Business_Project" Association="GTMDweixinModel.FK_Business_Sign_Business_Project">
+            <End Role="Business_Project" EntitySet="ProjectInfoes" />
+            <End Role="Business_Sign" EntitySet="SignInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Business_StudentProject_Business_Project" Association="GTMDweixinModel.FK_Business_StudentProject_Business_Project">
+            <End Role="Business_Project" EntitySet="ProjectInfoes" />
+            <End Role="Business_StudentProject" EntitySet="StudentProjectInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Business_StudentSign_Business_Sign" Association="GTMDweixinModel.FK_Business_StudentSign_Business_Sign">
+            <End Role="Business_Sign" EntitySet="SignInfoes" />
+            <End Role="Business_StudentSign" EntitySet="StudentSignInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Business_StudentProject_Business_Student" Association="GTMDweixinModel.FK_Business_StudentProject_Business_Student">
+            <End Role="Business_Student" EntitySet="StudentInfoes" />
+            <End Role="Business_StudentProject" EntitySet="StudentProjectInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Business_StudentSign_Business_Student" Association="GTMDweixinModel.FK_Business_StudentSign_Business_Student">
+            <End Role="Business_Student" EntitySet="StudentInfoes" />
+            <End Role="Business_StudentSign" EntitySet="StudentSignInfoes" />
+          </AssociationSet>
+          <EntitySet Name="MeunInfoes" EntityType="GTMDweixinModel.MeunInfo" />
+          <EntitySet Name="RoleInfoes" EntityType="GTMDweixinModel.RoleInfo" />
+          <AssociationSet Name="FK_Authority_Meun_Authority_Meun" Association="GTMDweixinModel.FK_Authority_Meun_Authority_Meun">
+            <End Role="Authority_Meun_TreeParentID" EntitySet="MeunInfoes" />
+            <End Role="Authority_Meun" EntitySet="MeunInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Authority_MeunRole_Authority_Meun" Association="GTMDweixinModel.FK_Authority_MeunRole_Authority_Meun">
+            <End Role="Authority_Meun" EntitySet="MeunInfoes" />
+            <End Role="MeunRoleInfo" EntitySet="MeunRoleInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Authority_MeunRole_Authority_Role" Association="GTMDweixinModel.FK_Authority_MeunRole_Authority_Role">
+            <End Role="Authority_Role" EntitySet="RoleInfoes" />
+            <End Role="MeunRoleInfo" EntitySet="MeunRoleInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Authority_Role_Authority_Role" Association="GTMDweixinModel.FK_Authority_Role_Authority_Role">
+            <End Role="Authority_Role_TreeParentID" EntitySet="RoleInfoes" />
+            <End Role="Authority_Role" EntitySet="RoleInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Authority_UserRole_Authority_Role" Association="GTMDweixinModel.FK_Authority_UserRole_Authority_Role">
+            <End Role="Authority_Role" EntitySet="RoleInfoes" />
+            <End Role="UserRoleInfo" EntitySet="UserRoleInfoes" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="MeunRoleInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MeunID" Type="Int32" />
+          <Property Name="RoleID" Type="Int32" />
+          <NavigationProperty Name="MeunInfo" Relationship="GTMDweixinModel.FK_Authority_MeunRole_Authority_Meun" FromRole="MeunRoleInfo" ToRole="Authority_Meun" />
+          <NavigationProperty Name="RoleInfo" Relationship="GTMDweixinModel.FK_Authority_MeunRole_Authority_Role" FromRole="MeunRoleInfo" ToRole="Authority_Role" />
+        </EntityType>
+        <EntityType Name="UserInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sex" Type="Boolean" />
+          <Property Name="LoginName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MobileTelphoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IDCardNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="QQNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="School" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SchoolNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Major" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Grade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GreateDate" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="UserRoleInfos" Relationship="GTMDweixinModel.FK_Authority_UserRole_Authority_User" FromRole="Authority_User" ToRole="Authority_UserRole" />
+          <NavigationProperty Name="StudentInfo" Relationship="GTMDweixinModel.FK_Business_Student_Authority_User" FromRole="Authority_User" ToRole="Business_Student" />
+        </EntityType>
+        <EntityType Name="UserRoleInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="RoleID" Type="Int32" />
+          <NavigationProperty Name="UserInfo" Relationship="GTMDweixinModel.FK_Authority_UserRole_Authority_User" FromRole="Authority_UserRole" ToRole="Authority_User" />
+          <NavigationProperty Name="RoleInfo" Relationship="GTMDweixinModel.FK_Authority_UserRole_Authority_Role" FromRole="UserRoleInfo" ToRole="Authority_Role" />
+        </EntityType>
+        <EntityType Name="FeedbackInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="0" />
+          <Property Name="Centent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Creater" Type="Int32" />
+        </EntityType>
+        <EntityType Name="NoticeInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Subtitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsDisplay" Type="Boolean" />
+          <Property Name="DisplayOrder" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="0" />
+          <Property Name="Creater" Type="Int32" />
+          <Property Name="Centent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProjectInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DisplayName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsDisplay" Type="Boolean" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SignInfos" Relationship="GTMDweixinModel.FK_Business_Sign_Business_Project" FromRole="Business_Project" ToRole="Business_Sign" />
+          <NavigationProperty Name="StudentProjectInfos" Relationship="GTMDweixinModel.FK_Business_StudentProject_Business_Project" FromRole="Business_Project" ToRole="Business_StudentProject" />
+        </EntityType>
+        <EntityType Name="SignInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DisplayName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsDisplay" Type="Boolean" />
+          <Property Name="BeginDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <Property Name="ProjectID" Type="Int32" />
+          <NavigationProperty Name="ProjectInfo" Relationship="GTMDweixinModel.FK_Business_Sign_Business_Project" FromRole="Business_Sign" ToRole="Business_Project" />
+          <NavigationProperty Name="StudentSignInfos" Relationship="GTMDweixinModel.FK_Business_StudentSign_Business_Sign" FromRole="Business_Sign" ToRole="Business_StudentSign" />
+        </EntityType>
+        <EntityType Name="StudentInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SuccessfulTotalNumber" Type="Int32" />
+          <Property Name="IsSupervisor" Type="Boolean" />
+          <Property Name="EnteredDate" Type="DateTime" Precision="0" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="SupervisorUserID" Type="Int32" />
+          <NavigationProperty Name="UserInfo" Relationship="GTMDweixinModel.FK_Business_Student_Authority_User" FromRole="Business_Student" ToRole="Authority_User" />
+          <NavigationProperty Name="StudentProjectInfos" Relationship="GTMDweixinModel.FK_Business_StudentProject_Business_Student" FromRole="Business_Student" ToRole="Business_StudentProject" />
+          <NavigationProperty Name="StudentSignInfos" Relationship="GTMDweixinModel.FK_Business_StudentSign_Business_Student" FromRole="Business_Student" ToRole="Business_StudentSign" />
+        </EntityType>
+        <EntityType Name="StudentProjectInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentID" Type="Int32" />
+          <Property Name="ProjectID" Type="Int32" />
+          <NavigationProperty Name="ProjectInfo" Relationship="GTMDweixinModel.FK_Business_StudentProject_Business_Project" FromRole="Business_StudentProject" ToRole="Business_Project" />
+          <NavigationProperty Name="StudentInfo" Relationship="GTMDweixinModel.FK_Business_StudentProject_Business_Student" FromRole="Business_StudentProject" ToRole="Business_Student" />
+        </EntityType>
+        <EntityType Name="StudentSignInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstDay_Morning" Type="DateTime" Precision="0" />
+          <Property Name="FirstDay_Afternoon" Type="DateTime" Precision="0" />
+          <Property Name="FirstDay_Evening" Type="DateTime" Precision="0" />
+          <Property Name="SecondDay_Morning" Type="DateTime" Precision="0" />
+          <Property Name="SecondDay_Afternoon" Type="DateTime" Precision="0" />
+          <Property Name="SecondDay_Evening" Type="DateTime" Precision="0" />
+          <Property Name="ThirdDay_Morning" Type="DateTime" Precision="0" />
+          <Property Name="ThirdDay_Afternoon" Type="DateTime" Precision="0" />
+          <Property Name="ThirdDay_Evening" Type="DateTime" Precision="0" />
+          <Property Name="FourthDay_Morning" Type="DateTime" Precision="0" />
+          <Property Name="FourthDay_Afternoon" Type="DateTime" Precision="0" />
+          <Property Name="FourthDay_Evening" Type="DateTime" Precision="0" />
+          <Property Name="FifthDay_Morning" Type="DateTime" Precision="0" />
+          <Property Name="FifthDay_Afternoon" Type="DateTime" Precision="0" />
+          <Property Name="FifthDay_Evening" Type="DateTime" Precision="0" />
+          <Property Name="SixthDay_Morning" Type="DateTime" Precision="0" />
+          <Property Name="SixthDay_Afternoon" Type="DateTime" Precision="0" />
+          <Property Name="SixthDay_Evening" Type="DateTime" Precision="0" />
+          <Property Name="SeventhDay_Morning" Type="DateTime" Precision="0" />
+          <Property Name="SeventhDay_Afternoon" Type="DateTime" Precision="0" />
+          <Property Name="SeventhDay_Evening" Type="DateTime" Precision="0" />
+          <Property Name="StudentID" Type="Int32" Nullable="false" />
+          <Property Name="SignID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SignInfo" Relationship="GTMDweixinModel.FK_Business_StudentSign_Business_Sign" FromRole="Business_StudentSign" ToRole="Business_Sign" />
+          <NavigationProperty Name="StudentInfo" Relationship="GTMDweixinModel.FK_Business_StudentSign_Business_Student" FromRole="Business_StudentSign" ToRole="Business_Student" />
+        </EntityType>
+        <Association Name="FK_Authority_UserRole_Authority_User">
+          <End Type="GTMDweixinModel.UserInfo" Role="Authority_User" Multiplicity="0..1" />
+          <End Type="GTMDweixinModel.UserRoleInfo" Role="Authority_UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authority_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Authority_UserRole">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Business_Student_Authority_User">
+          <End Type="GTMDweixinModel.UserInfo" Role="Authority_User" Multiplicity="0..1" />
+          <End Type="GTMDweixinModel.StudentInfo" Role="Business_Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authority_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Business_Student">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Business_Sign_Business_Project">
+          <End Type="GTMDweixinModel.ProjectInfo" Role="Business_Project" Multiplicity="0..1" />
+          <End Type="GTMDweixinModel.SignInfo" Role="Business_Sign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business_Project">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Business_Sign">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Business_StudentProject_Business_Project">
+          <End Type="GTMDweixinModel.ProjectInfo" Role="Business_Project" Multiplicity="0..1" />
+          <End Type="GTMDweixinModel.StudentProjectInfo" Role="Business_StudentProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business_Project">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Business_StudentProject">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Business_StudentSign_Business_Sign">
+          <End Type="GTMDweixinModel.SignInfo" Role="Business_Sign" Multiplicity="1" />
+          <End Type="GTMDweixinModel.StudentSignInfo" Role="Business_StudentSign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business_Sign">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Business_StudentSign">
+              <PropertyRef Name="SignID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Business_StudentProject_Business_Student">
+          <End Type="GTMDweixinModel.StudentInfo" Role="Business_Student" Multiplicity="0..1" />
+          <End Type="GTMDweixinModel.StudentProjectInfo" Role="Business_StudentProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business_Student">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Business_StudentProject">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Business_StudentSign_Business_Student">
+          <End Type="GTMDweixinModel.StudentInfo" Role="Business_Student" Multiplicity="1" />
+          <End Type="GTMDweixinModel.StudentSignInfo" Role="Business_StudentSign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business_Student">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Business_StudentSign">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MeunInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DisplayName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TreeParentID" Type="Int32" />
+          <Property Name="DisplayOrder" Type="Int32" />
+          <Property Name="TreePath" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="URL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TreeParentMeunInfo" Relationship="GTMDweixinModel.FK_Authority_Meun_Authority_Meun" FromRole="Authority_Meun" ToRole="Authority_Meun_TreeParentID" />
+          <NavigationProperty Name="MeunRoleInfos" Relationship="GTMDweixinModel.FK_Authority_MeunRole_Authority_Meun" FromRole="Authority_Meun" ToRole="MeunRoleInfo" />
+        </EntityType>
+        <EntityType Name="RoleInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TreeParentID" Type="Int32" />
+          <Property Name="DisplayOrder" Type="Int32" />
+          <Property Name="IsSystemRole" Type="Boolean" />
+          <Property Name="TreePath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MeunRoleInfos" Relationship="GTMDweixinModel.FK_Authority_MeunRole_Authority_Role" FromRole="Authority_Role" ToRole="MeunRoleInfo" />
+          <NavigationProperty Name="TreeParentIDRoleInfo" Relationship="GTMDweixinModel.FK_Authority_Role_Authority_Role" FromRole="Authority_Role" ToRole="Authority_Role_TreeParentID" />
+          <NavigationProperty Name="UserRoleInfos" Relationship="GTMDweixinModel.FK_Authority_UserRole_Authority_Role" FromRole="Authority_Role" ToRole="UserRoleInfo" />
+        </EntityType>
+        <Association Name="FK_Authority_Meun_Authority_Meun">
+          <End Type="GTMDweixinModel.MeunInfo" Role="Authority_Meun_TreeParentID" Multiplicity="0..1" />
+          <End Type="GTMDweixinModel.MeunInfo" Role="Authority_Meun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authority_Meun_TreeParentID">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Authority_Meun">
+              <PropertyRef Name="TreeParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Authority_MeunRole_Authority_Meun">
+          <End Type="GTMDweixinModel.MeunInfo" Role="Authority_Meun" Multiplicity="0..1" />
+          <End Type="GTMDweixinModel.MeunRoleInfo" Role="MeunRoleInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authority_Meun">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MeunRoleInfo">
+              <PropertyRef Name="MeunID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Authority_MeunRole_Authority_Role">
+          <End Type="GTMDweixinModel.RoleInfo" Role="Authority_Role" Multiplicity="0..1" />
+          <End Type="GTMDweixinModel.MeunRoleInfo" Role="MeunRoleInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authority_Role">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MeunRoleInfo">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Authority_Role_Authority_Role">
+          <End Type="GTMDweixinModel.RoleInfo" Role="Authority_Role_TreeParentID" Multiplicity="0..1" />
+          <End Type="GTMDweixinModel.RoleInfo" Role="Authority_Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authority_Role_TreeParentID">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Authority_Role">
+              <PropertyRef Name="TreeParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Authority_UserRole_Authority_Role">
+          <End Type="GTMDweixinModel.RoleInfo" Role="Authority_Role" Multiplicity="0..1" />
+          <End Type="GTMDweixinModel.UserRoleInfo" Role="UserRoleInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authority_Role">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserRoleInfo">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GTMDweixinModelStoreContainer" CdmEntityContainer="GTMDweixinEntities">
+          <EntitySetMapping Name="MeunRoleInfoes">
+            <EntityTypeMapping TypeName="GTMDweixinModel.MeunRoleInfo">
+              <MappingFragment StoreEntitySet="Authority_MeunRole">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="MeunID" ColumnName="MeunID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserInfoes">
+            <EntityTypeMapping TypeName="GTMDweixinModel.UserInfo">
+              <MappingFragment StoreEntitySet="Authority_User">
+                <ScalarProperty Name="GreateDate" ColumnName="GreateDate" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+                <ScalarProperty Name="Major" ColumnName="Major" />
+                <ScalarProperty Name="SchoolNumber" ColumnName="SchoolNumber" />
+                <ScalarProperty Name="School" ColumnName="School" />
+                <ScalarProperty Name="QQNumber" ColumnName="QQNumber" />
+                <ScalarProperty Name="IDCardNumber" ColumnName="IDCardNumber" />
+                <ScalarProperty Name="MobileTelphoneNumber" ColumnName="MobileTelphoneNumber" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+                <ScalarProperty Name="sex" ColumnName="sex" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoleInfoes">
+            <EntityTypeMapping TypeName="GTMDweixinModel.UserRoleInfo">
+              <MappingFragment StoreEntitySet="Authority_UserRole">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FeedbackInfoes">
+            <EntityTypeMapping TypeName="GTMDweixinModel.FeedbackInfo">
+              <MappingFragment StoreEntitySet="Business_Feedback">
+                <ScalarProperty Name="Creater" ColumnName="Creater" />
+                <ScalarProperty Name="Centent" ColumnName="Centent" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NoticeInfoes">
+            <EntityTypeMapping TypeName="GTMDweixinModel.NoticeInfo">
+              <MappingFragment StoreEntitySet="Business_Notice">
+                <ScalarProperty Name="Centent" ColumnName="Centent" />
+                <ScalarProperty Name="Creater" ColumnName="Creater" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+                <ScalarProperty Name="IsDisplay" ColumnName="IsDisplay" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Subtitle" ColumnName="Subtitle" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectInfoes">
+            <EntityTypeMapping TypeName="GTMDweixinModel.ProjectInfo">
+              <MappingFragment StoreEntitySet="Business_Project">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="IsDisplay" ColumnName="IsDisplay" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SignInfoes">
+            <EntityTypeMapping TypeName="GTMDweixinModel.SignInfo">
+              <MappingFragment StoreEntitySet="Business_Sign">
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
+                <ScalarProperty Name="IsDisplay" ColumnName="IsDisplay" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentInfoes">
+            <EntityTypeMapping TypeName="GTMDweixinModel.StudentInfo">
+              <MappingFragment StoreEntitySet="Business_Student">
+                <ScalarProperty Name="SupervisorUserID" ColumnName="SupervisorUserID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="EnteredDate" ColumnName="EnteredDate" />
+                <ScalarProperty Name="IsSupervisor" ColumnName="IsSupervisor" />
+                <ScalarProperty Name="SuccessfulTotalNumber" ColumnName="SuccessfulTotalNumber" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentProjectInfoes">
+            <EntityTypeMapping TypeName="GTMDweixinModel.StudentProjectInfo">
+              <MappingFragment StoreEntitySet="Business_StudentProject">
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentSignInfoes">
+            <EntityTypeMapping TypeName="GTMDweixinModel.StudentSignInfo">
+              <MappingFragment StoreEntitySet="Business_StudentSign">
+                <ScalarProperty Name="SignID" ColumnName="SignID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="SeventhDay_Evening" ColumnName="SeventhDay_Evening" />
+                <ScalarProperty Name="SeventhDay_Afternoon" ColumnName="SeventhDay_Afternoon" />
+                <ScalarProperty Name="SeventhDay_Morning" ColumnName="SeventhDay_Morning" />
+                <ScalarProperty Name="SixthDay_Evening" ColumnName="SixthDay_Evening" />
+                <ScalarProperty Name="SixthDay_Afternoon" ColumnName="SixthDay_Afternoon" />
+                <ScalarProperty Name="SixthDay_Morning" ColumnName="SixthDay_Morning" />
+                <ScalarProperty Name="FifthDay_Evening" ColumnName="FifthDay_Evening" />
+                <ScalarProperty Name="FifthDay_Afternoon" ColumnName="FifthDay_Afternoon" />
+                <ScalarProperty Name="FifthDay_Morning" ColumnName="FifthDay_Morning" />
+                <ScalarProperty Name="FourthDay_Evening" ColumnName="FourthDay_Evening" />
+                <ScalarProperty Name="FourthDay_Afternoon" ColumnName="FourthDay_Afternoon" />
+                <ScalarProperty Name="FourthDay_Morning" ColumnName="FourthDay_Morning" />
+                <ScalarProperty Name="ThirdDay_Evening" ColumnName="ThirdDay_Evening" />
+                <ScalarProperty Name="ThirdDay_Afternoon" ColumnName="ThirdDay_Afternoon" />
+                <ScalarProperty Name="ThirdDay_Morning" ColumnName="ThirdDay_Morning" />
+                <ScalarProperty Name="SecondDay_Evening" ColumnName="SecondDay_Evening" />
+                <ScalarProperty Name="SecondDay_Afternoon" ColumnName="SecondDay_Afternoon" />
+                <ScalarProperty Name="SecondDay_Morning" ColumnName="SecondDay_Morning" />
+                <ScalarProperty Name="FirstDay_Evening" ColumnName="FirstDay_Evening" />
+                <ScalarProperty Name="FirstDay_Afternoon" ColumnName="FirstDay_Afternoon" />
+                <ScalarProperty Name="FirstDay_Morning" ColumnName="FirstDay_Morning" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MeunInfoes">
+            <EntityTypeMapping TypeName="GTMDweixinModel.MeunInfo">
+              <MappingFragment StoreEntitySet="Authority_Meun">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="TreePath" ColumnName="TreePath" />
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+                <ScalarProperty Name="TreeParentID" ColumnName="TreeParentID" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleInfoes">
+            <EntityTypeMapping TypeName="GTMDweixinModel.RoleInfo">
+              <MappingFragment StoreEntitySet="Authority_Role">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="TreePath" ColumnName="TreePath" />
+                <ScalarProperty Name="IsSystemRole" ColumnName="IsSystemRole" />
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+                <ScalarProperty Name="TreeParentID" ColumnName="TreeParentID" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
