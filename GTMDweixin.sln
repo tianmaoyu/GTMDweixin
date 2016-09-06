@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GTMDweixinManagement", "GTMDweixinManagement\GTMDweixinManagement.csproj", "{28DB4B79-EF86-47D3-AC1E-84B2363D55A3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutherityBLL", "AutherityBLL\AutherityBLL.csproj", "{B7043682-AD4C-4946-875B-8164885EE99A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BLL", "BLL", "{2F97FD37-B4E2-43E2-B992-79E32D9E791D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,8 +19,15 @@ Global
 		{28DB4B79-EF86-47D3-AC1E-84B2363D55A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28DB4B79-EF86-47D3-AC1E-84B2363D55A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28DB4B79-EF86-47D3-AC1E-84B2363D55A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7043682-AD4C-4946-875B-8164885EE99A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7043682-AD4C-4946-875B-8164885EE99A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7043682-AD4C-4946-875B-8164885EE99A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7043682-AD4C-4946-875B-8164885EE99A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B7043682-AD4C-4946-875B-8164885EE99A} = {2F97FD37-B4E2-43E2-B992-79E32D9E791D}
 	EndGlobalSection
 EndGlobal
