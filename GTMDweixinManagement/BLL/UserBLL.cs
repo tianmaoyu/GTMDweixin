@@ -1,5 +1,6 @@
 ﻿using EntityFramework.Extensions;
 using GTMDweixinManagement.EF;
+using LinqKit;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -23,9 +24,21 @@ namespace GTMDweixinManagement.BLL
             JObject json = new JObject();
             var PageIndex = Int32.Parse(pagerParas["page"].ToString());
             var PageSize = Int32.Parse(pagerParas["rows"].ToString());
-            
-            var total = db.UserInfoes.ToList().Count;
-            var userInfos = db.UserInfoes.ToList().Skip((PageIndex - 1) * PageSize).Take(PageSize);
+            var queryName = pagerParas["name"];
+            var queryNunmber= pagerParas["phoneNumber"];
+
+            var predicate = PredicateBuilder.True<UserInfo>();
+            predicate = predicate.And(p => p.ID >-1);
+            if (queryName != null && queryName.ToString() != null)
+            {
+                predicate = predicate.And(item => item.Name.Contains(queryName.ToString()));
+            }
+            if (queryNunmber != null && queryNunmber.ToString() != null)
+            {
+                predicate= predicate.And(item => item.MobileTelphoneNumber.Contains(queryNunmber.ToString()));
+            }
+            var total = db.UserInfoes.Where(predicate.Compile()).ToList().Count;
+            var userInfos = db.UserInfoes.Where(predicate.Compile()).ToList().Skip((PageIndex - 1) * PageSize).Take(PageSize);
             var rows= JArray.Parse(JsonConvert.SerializeObject(userInfos));
             json["rows"] = rows;
             json["total"] = total;
