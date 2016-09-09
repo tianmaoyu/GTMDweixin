@@ -25,7 +25,6 @@ namespace GTMDweixinManagement.EF
     
         public int ID { get; set; }
         public string Name { get; set; }
-        public Nullable<bool> sex { get; set; }
         public string LoginName { get; set; }
         public string Password { get; set; }
         public string MobileTelphoneNumber { get; set; }
@@ -36,6 +35,8 @@ namespace GTMDweixinManagement.EF
         public string Major { get; set; }
         public string Grade { get; set; }
         public Nullable<System.DateTime> GreateDate { get; set; }
+        public Nullable<int> Sex { get; set; }
+        public string Email { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         [JsonIgnore]

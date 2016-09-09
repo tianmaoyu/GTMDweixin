@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="35c80c2b3caa4be79fd53ddcfc24bbef" Name="Diagram1" ZoomLevel="92">
+      <Diagram DiagramId="35c80c2b3caa4be79fd53ddcfc24bbef" Name="Diagram1" ZoomLevel="76">
         <EntityTypeShape EntityType="GTMDweixinModel.MeunRoleInfo" Width="2.375" PointX="0.5" PointY="5.625" />
         <EntityTypeShape EntityType="GTMDweixinModel.UserInfo" Width="2.375" PointX="3.5" PointY="4.875" />
         <EntityTypeShape EntityType="GTMDweixinModel.UserRoleInfo" Width="2.375" PointX="3.5" PointY="1.625" />

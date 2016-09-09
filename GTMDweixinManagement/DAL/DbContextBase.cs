@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EntityFramework.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace GTMDweixinManagement.DAL
             Entry<T>(entity).State = EntityState.Deleted;
             SaveChanges();
         }
-
+      
         public List<T> FildAll<T>(Expression<Func<T, bool>> conditions = null) where T : ModelBase.ModelBase
         {
             if (conditions == null)
@@ -39,6 +40,12 @@ namespace GTMDweixinManagement.DAL
             return entity;
         }
 
+        public int DeleteBulk<T>(Expression<Func<T,bool>> conditions) where T : ModelBase.ModelBase
+        {
+            Set<T>().Where(conditions).Delete();
+            SaveChanges();
+            return 1;
+        }
         public T Updata<T>(T entity) where T : ModelBase.ModelBase
         {
             Set<T>().Attach(entity); 

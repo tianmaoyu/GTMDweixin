@@ -3,13 +3,14 @@ $(document).ready(function () {
     $(".list-group .list-group-item").on("click", function () {
        var title= $(this).text()
        var id = $(this).attr("id");
+        var href=$(this).attr("url")
        var tab = $("#tabs").tabs('getTab', title);
        if (tab == undefined) {
            $("#tabs").tabs('add', {
                closable: true,
                title: title,
-               //需要修改
-               href: 'Home/About',
+               //需要修改Index,'User/UserList'
+               href: href,
            })
        }
        else {

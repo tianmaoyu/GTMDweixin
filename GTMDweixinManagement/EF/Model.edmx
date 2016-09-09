@@ -42,18 +42,19 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="50" />
-          <Property Name="sex" Type="bit" />
-          <Property Name="LoginName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="MobileTelphoneNumber" Type="varchar" MaxLength="50" />
-          <Property Name="IDCardNumber" Type="varchar" MaxLength="50" />
-          <Property Name="QQNumber" Type="varchar" MaxLength="50" />
-          <Property Name="School" Type="varchar" MaxLength="50" />
-          <Property Name="SchoolNumber" Type="varchar" MaxLength="50" />
-          <Property Name="Major" Type="varchar" MaxLength="50" />
-          <Property Name="Grade" Type="varchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sex" Type="int" StoreGeneratedPattern="None" />
+          <Property Name="LoginName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MobileTelphoneNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="IDCardNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="QQNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="School" Type="nvarchar" MaxLength="50" />
+          <Property Name="SchoolNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="Major" Type="nvarchar" MaxLength="50" />
+          <Property Name="Grade" Type="nvarchar" MaxLength="50" />
           <Property Name="GreateDate" Type="datetime2" Precision="7" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Authority_UserRole">
           <Key>
@@ -444,20 +445,21 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="sex" Type="Boolean" />
-          <Property Name="LoginName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="MobileTelphoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="IDCardNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="QQNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="School" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SchoolNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Major" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Grade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LoginName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MobileTelphoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDCardNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="QQNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="School" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Major" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Grade" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="GreateDate" Type="DateTime" Precision="7" />
           <NavigationProperty Name="UserRoleInfos" Relationship="GTMDweixinModel.FK_Authority_UserRole_Authority_User" FromRole="Authority_User" ToRole="Authority_UserRole" />
           <NavigationProperty Name="StudentInfo" Relationship="GTMDweixinModel.FK_Business_Student_Authority_User" FromRole="Authority_User" ToRole="Business_Student" />
+          <Property Name="Sex" Type="Int32" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="UserRoleInfo">
           <Key>
@@ -765,6 +767,8 @@
           <EntitySetMapping Name="UserInfoes">
             <EntityTypeMapping TypeName="GTMDweixinModel.UserInfo">
               <MappingFragment StoreEntitySet="Authority_User">
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="GreateDate" ColumnName="GreateDate" />
                 <ScalarProperty Name="Grade" ColumnName="Grade" />
                 <ScalarProperty Name="Major" ColumnName="Major" />
@@ -775,7 +779,6 @@
                 <ScalarProperty Name="MobileTelphoneNumber" ColumnName="MobileTelphoneNumber" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="LoginName" ColumnName="LoginName" />
-                <ScalarProperty Name="sex" ColumnName="sex" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
