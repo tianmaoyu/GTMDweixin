@@ -84,11 +84,16 @@ namespace GTMDweixinManagement.BLL
             db.DeleteBulk<UserInfo>(conditions);
             return 1;
         }
-        public int Add(string str)
-        {
-            UserInfo userInfo = JsonConvert.DeserializeObject<UserInfo>(str);
 
-            return 1;
+        /// <summary>
+        /// 得到所有的用户信息
+        /// </summary>
+        /// <returns></returns>
+        public List<UserInfo> GetAll()
+        {
+            List<UserInfo> userInfos = new List<UserInfo>();
+            userInfos = db.UserInfoes.ToList();
+            return userInfos;
         }
     }
 }

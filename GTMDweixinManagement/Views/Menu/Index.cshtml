@@ -1,0 +1,180 @@
+﻿@{ 
+    Layout = null;
+}
+<body>
+    <ul id="tt" class="easyui-tree">
+        @*<li>
+            <span>全部菜单</span>
+            <ul>
+                <li>
+                    <span>Sub Folder 1</span>
+                    <ul>
+                        <li>
+                            <span><a href="#">File 11</a></span>
+                        </li>
+                        <li>
+                            <span>File 12</span>
+                        </li>
+                        <li>
+                            <span>File 13</span>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <span>File 2</span>
+                </li>
+                <li>
+                    <span>File 3</span>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <span>File21</span>
+        </li>*@
+    </ul>
+
+    <div id="tree-menu" class="easyui-menu" style="width:120px;">
+        <div onclick="newChildrenMenu()" data-options="iconCls:'icon-add'">新建子菜单</div>
+        <div onclick="newMenu()" data-options="iconCls:'icon-remove'">新建</div>
+        <div onclick="editMenu()" data-options="iconCls:'icon-add'">编辑</div>
+        <div onclick="removeMenu()" data-options="iconCls:'icon-remove'">移除</div>
+    </div>
+
+    <div id="dlg-meun-add" class="easyui-dialog" style="width:400px"
+         closed="true" buttons="#dlg-buttons-meun-add">
+        <form id="fm-meun-add" method="post" novalidate style="margin:0;padding:20px 50px">
+            <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">菜单信息</div>
+
+            <div style="margin-bottom:10px">
+                <input name="DisplayName" class="easyui-textbox" data-options="buttonText:'名称',buttonAlign:'left'" style="width:200px">
+            </div>
+
+            <div style="margin-bottom:10px">
+                <input name="URL" class="easyui-textbox" data-options="buttonText:'链接地址',buttonAlign:'left'" style="width:200px">
+            </div>
+
+            <div style="margin-bottom:10px">
+                <input name="Remark" class="easyui-textbox" data-options="buttonText:'说明',buttonAlign:'left'" style="width:200px">
+                
+            </div>
+
+            <div style="margin-bottom:10px">
+                @*<input name="TreeParentID" class="easyui-textbox" data-options="buttonText:'父节点',buttonAlign:'left'" style="width:200px">*@
+            </div>
+            
+        </form>
+    </div>
+    <div id="dlg-buttons-meun-add">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveMenu()" style="width:90px">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript: $('#dlg-meun-add').dialog('close')" style="width:90px">取消</a>
+    </div>
+
+
+    <script>
+        var urlMenu = 'api/Menu/Add';
+        var isUpdataMenu = true;
+        var isAppendMenu = true;
+        $('#tt').tree({
+            url: "api/Menu/GetTree?selectedID=",
+            onContextMenu: function (e, node) {
+                e.preventDefault();
+                // 查找节点
+                debugger;
+                $('#tt').tree('select', node.target);
+                //alert(node.text);
+                // 显示快捷菜单
+                $('#tree-menu').menu('show', {
+                    left: e.pageX+10,
+                    top: e.pageY+10
+                });
+            }
+        });
+
+        //新建
+        function editMenu() {
+            debugger;
+            isUpdataMenu = true;
+            var node = $('#tt').tree('getSelected');
+            if (node) {
+                var id = node.id;
+                urlMenu = 'api/Menu/Add?id=' + id;
+                $.get('api/Menu/GetMenuInfo', { ID: id }, function (data) {
+                    debugger;
+                    if (data) {
+                        $('#dlg-meun-add').dialog('open').dialog('center').dialog('setTitle', '编辑菜单');
+                        $('#fm-meun-add').form('load', data);
+                    }
+                },'json')
+            }
+        }
+
+        //移除
+        function removeMenu() {
+            debugger;
+            var node = $('#tt').tree('getSelected');
+            if (node) {
+                $.messager.confirm('Confirm', '你确定要删除次菜单吗？', function (r) {
+                    if (r) {
+                        var id = node.id;
+                        $.post('api/Menu/Delete', { ID: id }, function (data) {
+                            if (data.success) {
+                                $('#tt').tree('reload');
+                            }
+                        }, 'json');
+                    }
+                })
+              
+            }
+        }
+        //对话框 新建同级
+        function newMenu() {
+            $("#dlg-meun-add").dialog('open').dialog('center').dialog('setTitle', '新建菜单');
+            isAppendMenu = true;
+            isUpdataMenu = false;
+            $('#fm-meun-add').form('clear');
+            urlMenu = 'api/Menu/Add';
+        }
+
+        //对话框 新建子级点
+        function newChildrenMenu() {
+            $("#dlg-meun-add").dialog('open').dialog('center').dialog('setTitle', '新建菜单');
+            isAppendMenu = false;
+            isUpdataMenu = false;
+            $('#fm-meun-add').form('clear');
+            urlMenu = 'api/Menu/Add';
+        }
+
+        function saveMenu() {
+            $('#fm-meun-add').form('submit', {
+                url: urlMenu,
+                onSubmit: function (param) {
+                    //是编辑，还是新建
+                    if (isUpdataMenu) {
+
+                    }
+                    else {
+                        param.TreeParentID = -2;
+                        var node = $('#tt').tree('getSelected');
+                        if (node) {
+                            //添加同级级点，或者添加子节点
+                            if (isAppendMenu) {
+                                var parentNode = $('#tt').tree('getParent', node.target);
+                                if (parentNode) {
+                                    param.TreeParentID = parentNode.id;
+                                }
+                            } else {
+                                param.TreeParentID = node.id;
+                            }
+                        }
+                    }
+                   
+                    return $(this).form('validate');
+                },
+                success: function (result) {
+                    $('#dlg-meun-add').dialog('close');
+                    $('#tt').tree('reload');
+                }
+            });
+        }
+    </script>
+</body>

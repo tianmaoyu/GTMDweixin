@@ -64,12 +64,27 @@ namespace GTMDweixinManagement.APIControllers
             return result;
         }
 
-        
+        /// <summary>
+        /// 编辑
+        /// </summary>
+        /// <param name="pagerParas"></param>
+        /// <returns></returns>
         public JObject Edit(JObject pagerParas)
         {
             UserBLL userBll = new UserBLL();
             userBll.Add(pagerParas);
             return new JObject();
+        }
+       
+        [HttpPost]
+        public JArray GetInfo()
+        {
+            JArray result = new JArray();
+            UserBLL userBll = new UserBLL();
+
+            var userInfos = JsonConvert.SerializeObject(userBll.GetAll());
+            result = JArray.Parse(userInfos);
+            return result;
         }
     }
 }

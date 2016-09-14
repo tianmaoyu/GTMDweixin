@@ -43,7 +43,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="Sex" Type="int" StoreGeneratedPattern="None" />
+          <Property Name="Sex" Type="int" />
           <Property Name="LoginName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="MobileTelphoneNumber" Type="nvarchar" MaxLength="50" />
@@ -116,7 +116,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SuccessfulTotalNumber" Type="int" />
-          <Property Name="IsSupervisor" Type="bit" />
+          <Property Name="IsSupervisor" Type="int" />
           <Property Name="EnteredDate" Type="date" />
           <Property Name="UserID" Type="int" />
           <Property Name="SupervisorUserID" Type="int" />
@@ -527,7 +527,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SuccessfulTotalNumber" Type="Int32" />
-          <Property Name="IsSupervisor" Type="Boolean" />
+          <Property Name="IsSupervisor" Type="Int32" />
           <Property Name="EnteredDate" Type="DateTime" Precision="0" />
           <Property Name="UserID" Type="Int32" />
           <Property Name="SupervisorUserID" Type="Int32" />

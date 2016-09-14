@@ -25,7 +25,7 @@ namespace GTMDweixinManagement.EF
     
         public int ID { get; set; }
         public Nullable<int> SuccessfulTotalNumber { get; set; }
-        public Nullable<bool> IsSupervisor { get; set; }
+        public Nullable<int> IsSupervisor { get; set; }
         public Nullable<System.DateTime> EnteredDate { get; set; }
         public Nullable<int> UserID { get; set; }
         public Nullable<int> SupervisorUserID { get; set; }
