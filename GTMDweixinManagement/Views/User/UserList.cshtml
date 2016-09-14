@@ -1,60 +1,62 @@
-﻿@{ 
+﻿@{
     Layout = null;
 }
 
 <body>
     <style>
-       form .textbox {
+        form .textbox {
             margin-right: 20px;
-            width:250px;
+            width: 250px;
         }
     </style>
-<table id="dg-user"></table>
+    <div class="easyui-layout" style="width:100%;height:100%;">
+        <table id="dg-user"></table>
+    </div>
 
-<div id="dlg-user-add" class="easyui-dialog" style="width:800px"
-     closed="true" buttons="#dlg-buttons-user-add">
-    <form id="fm-user-add" method="post" novalidate style="margin:0;padding:20px 50px">
-        <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">用户信息</div>
+    <div id="dlg-user-add" class="easyui-dialog" style="width:800px"
+         closed="true" buttons="#dlg-buttons-user-add">
+        <form id="fm-user-add" method="post" novalidate style="margin:0;padding:20px 50px">
+            <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">用户信息</div>
 
-        <div style="margin-bottom:10px">
-            <input name="Name" class="easyui-textbox" data-options="buttonText:'名字',buttonAlign:'left'" style="width:200px">
-            <input name="LoginName" class="easyui-textbox" data-options="buttonText:'登录名',buttonAlign:'left'" style="width:200px">
-        </div>
+            <div style="margin-bottom:10px">
+                <input name="Name" class="easyui-textbox" data-options="buttonText:'名字',buttonAlign:'left'" style="width:200px">
+                <input name="LoginName" class="easyui-textbox" data-options="buttonText:'登录名',buttonAlign:'left'" style="width:200px">
+            </div>
 
-        <div style="margin-bottom:10px">
-            <input name="Password" class="easyui-textbox" data-options="buttonText:'登录密码',buttonAlign:'left'" style="width:200px">
-            <select class="easyui-combobox" name="Sex" data-options="buttonText:'性别',buttonAlign:'left'" style="width:200px;">
-                <option value="1">男</option>
-                <option value="2">女</option>
-            </select>
-        </div>
+            <div style="margin-bottom:10px">
+                <input name="Password" class="easyui-textbox" data-options="buttonText:'登录密码',buttonAlign:'left'" style="width:200px">
+                <select class="easyui-combobox" name="Sex" data-options="buttonText:'性别',buttonAlign:'left'" style="width:200px;">
+                    <option value="1">男</option>
+                    <option value="2">女</option>
+                </select>
+            </div>
 
-        <div style="margin-bottom:10px">
-            <input name="MobileTelphoneNumber" class="easyui-textbox" data-options="buttonText:'手机号码',buttonAlign:'left'" style="width:200px">
-            <input name="IDCardNumber" class="easyui-textbox" data-options="buttonText:'身份证号',buttonAlign:'left'" style="width:200px">
-            <input name="QQNumber" class="easyui-textbox" data-options="buttonText:'QQ号',buttonAlign:'left'" style="width:200px">
-        </div>
-       
-        <div style="margin-bottom:10px">
-            <input name="Email" class="easyui-textbox" data-options="buttonText:'邮箱',buttonAlign:'left'" style="width:200px">
-            <input name="School" class="easyui-textbox" data-options="buttonText:'在读学校',buttonAlign:'left'" style="width:200px">
-            <input name="SchoolNumber" class="easyui-textbox" data-options="buttonText:'学生号',buttonAlign:'left'" style="width:200px">
-        </div>
-        
-        <div style="margin-bottom:10px">
-            <input name="Major" class="easyui-textbox" data-options="buttonText:'专业',buttonAlign:'left'"  style="width:200px" >
-            <input name="Grade" class="easyui-textbox" data-options="buttonText:'年级',buttonAlign:'left'"  style="width:200px" >
-            <input name="GreateDate" class="easyui-textbox" data-options="buttonText:'创建日期',buttonAlign:'left'" style="width:200px">
-        </div>
-    </form>
-</div>
-<div id="dlg-buttons-user-add">
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()" style="width:90px">Save</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript: $('#dlg-user-add').dialog('close')" style="width:90px">Cancel</a>
-</div>
+            <div style="margin-bottom:10px">
+                <input name="MobileTelphoneNumber" class="easyui-textbox" data-options="buttonText:'手机号码',buttonAlign:'left'" style="width:200px">
+                <input name="IDCardNumber" class="easyui-textbox" data-options="buttonText:'身份证号',buttonAlign:'left'" style="width:200px">
+                <input name="QQNumber" class="easyui-textbox" data-options="buttonText:'QQ号',buttonAlign:'left'" style="width:200px">
+            </div>
+
+            <div style="margin-bottom:10px">
+                <input name="Email" class="easyui-textbox" data-options="buttonText:'邮箱',buttonAlign:'left'" style="width:200px">
+                <input name="School" class="easyui-textbox" data-options="buttonText:'在读学校',buttonAlign:'left'" style="width:200px">
+                <input name="SchoolNumber" class="easyui-textbox" data-options="buttonText:'学生号',buttonAlign:'left'" style="width:200px">
+            </div>
+
+            <div style="margin-bottom:10px">
+                <input name="Major" class="easyui-textbox" data-options="buttonText:'专业',buttonAlign:'left'" style="width:200px">
+                <input name="Grade" class="easyui-textbox" data-options="buttonText:'年级',buttonAlign:'left'" style="width:200px">
+                <input name="GreateDate" class="easyui-textbox" data-options="buttonText:'创建日期',buttonAlign:'left'" style="width:200px">
+            </div>
+        </form>
+    </div>
+    <div id="dlg-buttons-user-add">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()" style="width:90px">Save</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript: $('#dlg-user-add').dialog('close')" style="width:90px">Cancel</a>
+    </div>
 
     <div id="tb">
-        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true,text:'新建'"onclick="newUser()"></a>
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true,text:'新建'" onclick="newUser()"></a>
         <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true,text:'编辑'" onclick="editUser()"></a>
         <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true,text:'删除'" onclick="deleteUser()"></a>
         <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-redo',plain:true,text:'导入'"></a>
@@ -66,19 +68,19 @@
         </div>
     </div>
 
- <script>
+    <script>
         $(function () {
             $("#dg-user").datagrid({
                 url: "api/User/GetList",
-                toolbar:'#tb',
+                toolbar: '#tb',
                 striped: true,
-                collapsible:true,
-                width:"100%",
+                collapsible: true,
+                width: "100%",
                 height: "100%",
                 fitColumn: false,
                 showFooter: true,
                 columns: [[
-                    { field: 'ID', title: 'ID',checkbox: true},
+                    { field: 'ID', title: 'ID', checkbox: true },
                     { field: 'Name', title: '名字', width: 80 },
                     { field: 'Sex', title: '性别', width: 40 },
                     { field: 'LoginName', title: '登录名', width: 100 },
@@ -105,7 +107,7 @@
         }
         function saveUser() {
             $('#fm-user-add').form('submit', {
-                url:url ,
+                url: url,
                 onSubmit: function () {
                     return $(this).form('validate');
                 },
@@ -119,22 +121,22 @@
                     //        msg: result.errorMsg
                     //    });
                     //} else {
-                     
+
                     //}
                 }
             });
         }
-       //删除
+        //删除
         function deleteUser() {
             debugger;
             var rows = $('#dg-user').datagrid('getSelections');
             var ids = [];
             if (rows) {
-                $.each(rows, function (i,item) {
+                $.each(rows, function (i, item) {
                     ids.push(item["ID"]);
                 })
             }
-            if (ids.length>0) {
+            if (ids.length > 0) {
                 $.messager.confirm('Confirm', '你确定要删除勾选的用户吗？', function (r) {
                     if (r) {
                         $.post('api/User/Delete', { ids: ids }, function (result) {
@@ -169,6 +171,6 @@
                 phoneNumber: phoneNumber
             });
         }
-      
-   </script>
+
+    </script>
 </body>

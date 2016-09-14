@@ -211,6 +211,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIControllers\MenuController.cs" />
+    <Compile Include="APIControllers\ProjectController.cs" />
     <Compile Include="APIControllers\StudentController.cs" />
     <Compile Include="APIControllers\UserController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -220,12 +221,14 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BLL\BaseBLL.cs" />
+    <Compile Include="BLL\ProjectBLL.cs" />
     <Compile Include="BLL\MenuBLL.cs" />
     <Compile Include="BLL\StudentBLL.cs" />
     <Compile Include="BLL\UserBLL.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\StudentProjectController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -760,6 +763,7 @@
     <Content Include="Views\User\UserList.cshtml" />
     <Content Include="Views\Menu\Index.cshtml" />
     <Content Include="Views\Student\Index.cshtml" />
+    <Content Include="Views\StudentProject\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
