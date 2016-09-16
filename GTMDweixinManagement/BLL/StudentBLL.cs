@@ -100,11 +100,9 @@ namespace GTMDweixinManagement.BLL
             db.DeleteBulk<StudentInfo>(conditions);
             return 1;
         }
-        public int Add(string str)
+        public List<StudentInfo> GetAll()
         {
-            StudentInfo StudentInfo = JsonConvert.DeserializeObject<StudentInfo>(str);
-
-            return 1;
+           return db.StudentInfoes.ToList();
         }
     }
 }

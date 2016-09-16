@@ -13,57 +13,75 @@
                 <div onclick="removeProject()" data-options="iconCls:'icon-remove'">移除</div>
             </div>
             <!--end树的菜单--->
-        </div>
-        <div data-options="region:'center'">
-            <table id="project-table"></table>
-            <!---弹出框-->>
-            <div id="dlg-project-add" class="easyui-dialog" style="width:800px"
-                 closed="true" buttons="#dlg-buttons-project-add">
-                <form id="fm-project-add" method="post" novalidate style="margin:0;padding:20px 50px">
-                    <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">用户信息</div>
 
+            <!--project From-->
+            <div id="dlg-project" class="easyui-dialog" style="width:400px"
+                 closed="true" buttons="#dlg-buttons-project">
+                <form id="fm-project" method="post" novalidate style="margin:0;padding:20px 50px">
+                    <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">项目信息</div>
                     <div style="margin-bottom:10px">
-                        <input name="Name" class="easyui-textbox" data-options="buttonText:'名字',buttonAlign:'left'" style="width:200px">
-                        <input name="LoginName" class="easyui-textbox" data-options="buttonText:'登录名',buttonAlign:'left'" style="width:200px">
+                        <input name="ID" class="easyui-textbox" data-options="buttonText:'ID',buttonAlign:'left',editable:false" style="width:200px">
                     </div>
-
                     <div style="margin-bottom:10px">
-                        <input name="Password" class="easyui-textbox" data-options="buttonText:'登录密码',buttonAlign:'left'" style="width:200px">
-                        <select class="easyui-combobox" name="Sex" data-options="buttonText:'性别',buttonAlign:'left'" style="width:200px;">
-                            <option value="1">男</option>
-                            <option value="2">女</option>
+                        <input name="DisplayName" class="easyui-textbox" data-options="buttonText:'名称',buttonAlign:'left'" style="width:200px">
+                    </div>
+                    <div style="margin-bottom:10px">
+                        <select class="easyui-combobox" name="IsActive" data-options="buttonText:'是否激活',buttonAlign:'left'" style="width:200px;">
+                            <option value="true">是</option>
+                            <option value="false">否</option>
                         </select>
                     </div>
-
                     <div style="margin-bottom:10px">
-                        <input name="MobileTelphoneNumber" class="easyui-textbox" data-options="buttonText:'手机号码',buttonAlign:'left'" style="width:200px">
-                        <input name="IDCardNumber" class="easyui-textbox" data-options="buttonText:'身份证号',buttonAlign:'left'" style="width:200px">
-                        <input name="QQNumber" class="easyui-textbox" data-options="buttonText:'QQ号',buttonAlign:'left'" style="width:200px">
+                        <select class="easyui-combobox" name="IsDisplay" data-options="buttonText:'是否显示',buttonAlign:'left'" style="width:200px;">
+                            <option value="true">是</option>
+                            <option value="false">否</option>
+                        </select>
                     </div>
-
                     <div style="margin-bottom:10px">
-                        <input name="Email" class="easyui-textbox" data-options="buttonText:'邮箱',buttonAlign:'left'" style="width:200px">
-                        <input name="School" class="easyui-textbox" data-options="buttonText:'在读学校',buttonAlign:'left'" style="width:200px">
-                        <input name="SchoolNumber" class="easyui-textbox" data-options="buttonText:'学生号',buttonAlign:'left'" style="width:200px">
-                    </div>
-
-                    <div style="margin-bottom:10px">
-                        <input name="Major" class="easyui-textbox" data-options="buttonText:'专业',buttonAlign:'left'" style="width:200px">
-                        <input name="Grade" class="easyui-textbox" data-options="buttonText:'年级',buttonAlign:'left'" style="width:200px">
-                        <input name="GreateDate" class="easyui-textbox" data-options="buttonText:'创建日期',buttonAlign:'left'" style="width:200px">
+                        <input name="Remark" class="easyui-textbox" data-options="buttonText:'说明',buttonAlign:'left'" style="width:200px">
                     </div>
                 </form>
             </div>
-            <div id="dlg-buttons-project-add">
-                <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveProject()" style="width:90px">Save</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript: $('#dlg-project-add').dialog('close')" style="width:90px">Cancel</a>
+            <!--end project From-->
+            <!--project from tool-->
+            <div id="dlg-buttons-project">
+                <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveProject()" style="width:90px">保存</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript: $('#dlg-project').dialog('close')" style="width:90px">取消</a>
+            </div>
+            <!--end project from tool-->
+        </div>
+        <div data-options="region:'center'">
+            <table id="projectstudent-table" class="easyui-datagrid" data-options="toolbar: '#table-projectstudengt'"></table>
+            <!---弹出框-->
+            <div id="dlg-projectstudent" class="easyui-dialog" style="width:400px"
+                 closed="true" buttons="#dlg-buttons-projectstudent">
+                <form id="fm-projectstudent" method="post" novalidate style="margin:0;padding:20px 50px">
+                    <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">用户信息</div>
+                    <div style="margin-bottom:10px">
+                        <input name="ID" class="easyui-textbox" data-options="buttonText:'ID',editable:false,fabuttonAlign:'left'" style="width:200px">
+                    </div>
+                    <div style="margin-bottom:10px">
+                        <select class="easyui-combobox" id="stedentID" name="StudentID" data-options="buttonText:'性别',buttonAlign:'left'" style="width:200px;">
+                        </select>
+                    </div>
+                    <div style="margin-bottom:10px">
+                        <select class="easyui-combobox" id="projectID" name="ProjectID" data-options="buttonText:'所报项目',buttonAlign:'left'" style="width:200px;"></select>
+                    </div>
+                    <div style="margin-bottom:10px">
+                        <input name="GreateDate" class="easyui-datebox" data-options="buttonText:'创建日期',buttonAlign:'left'" style="width:200px">
+                    </div>
+                </form>
+            </div>
+            <div id="dlg-buttons-projectstudent">
+                <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveStudentProject()" style="width:90px">保存</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript: $('#dlg-projectstudent').dialog('close')" style="width:90px">取消</a>
             </div>
             <!---end弹出框-->
             <!---table的tools-->
-            <div id="table-projectstudengt-tb">
-                <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true,text:'新建'" onclick="newProject()"></a>
-                <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true,text:'编辑'" onclick="editProject()"></a>
-                <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true,text:'删除'" onclick="deleteProject()"></a>
+            <div id="table-projectstudengt">
+                <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true,text:'新建'" onclick="newStudentProject()"></a>
+                @*<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true,text:'编辑'" onclick="editStudentProject()"></a>*@
+                <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true,text:'删除'" onclick="deleteStudentProject()"></a>
                 <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-redo',plain:true,text:'导入'"></a>
                 <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-blank',plain:true,text:'导出'"></a>
                 <div class="pull-right" style="margin-right:40px">
@@ -92,11 +110,15 @@
         </div>
     </div>*@
     <script>
+        //project
         var urlProject = 'api/Project/Add';
         var isUpdataProject = true;
         var isAppendProject = true;
         $('#project-tree').tree({
             url: "api/Project/GetList",
+            onDblClick: function (node) {
+                datagridShow(node.id)
+            },
             onContextMenu: function (e, node) {
                 e.preventDefault();
                 debugger;
@@ -107,7 +129,6 @@
                 });
             }
         });
-
         //新建
         function editProject() {
             debugger;
@@ -119,13 +140,12 @@
                 $.get('api/Project/GetProjectInfo', { ID: id }, function (data) {
                     debugger;
                     if (data) {
-                        $('#dlg-meun-add').dialog('open').dialog('center').dialog('setTitle', '编辑菜单');
-                        $('#fm-meun-add').form('load', data);
+                        $('#dlg-project').dialog('open').dialog('center').dialog('setTitle', '编辑菜单');
+                        $('#fm-project').form('load', data);
                     }
                 }, 'json')
             }
         }
-
         //移除
         function removeProject() {
             debugger;
@@ -146,24 +166,14 @@
         }
         //对话框 新建同级
         function newProject() {
-            $("#dlg-meun-add").dialog('open').dialog('center').dialog('setTitle', '新建菜单');
+            $("#dlg-project").dialog('open').dialog('center').dialog('setTitle', '新建菜单');
             isAppendProject = true;
             isUpdataProject = false;
-            $('#fm-meun-add').form('clear');
+            $('#fm-project').form('clear');
             urlProject = 'api/Project/Add';
         }
-
-        //对话框 新建子级点
-        function newChildrenProject() {
-            $("#dlg-meun-add").dialog('open').dialog('center').dialog('setTitle', '新建菜单');
-            isAppendProject = false;
-            isUpdataProject = false;
-            $('#fm-meun-add').form('clear');
-            urlProject = 'api/Project/Add';
-        }
-
         function saveProject() {
-            $('#fm-meun-add').form('submit', {
+            $('#fm-project').form('submit', {
                 url: urlProject,
                 onSubmit: function (param) {
                     //是编辑，还是新建
@@ -189,65 +199,94 @@
                     return $(this).form('validate');
                 },
                 success: function (result) {
-                    $('#dlg-meun-add').dialog('close');
+                    $('#dlg-project').dialog('close');
                     $('#project-tree').tree('reload');
                 }
             });
         }
 
-        $(function () {
-            $("#project-table").datagrid({
-                url: "api/Student/GetList",
-                toolbar: '#table-projectstudengt-tb',
-                striped: true,
-                collapsible: true,
-                width: "100%",
-                height: "100%",
-                fitColumn: false,
-                showFooter: true,
-                columns: [[
-                    { field: 'ID', title: 'ID', checkbox: true },
-                     //
-                    { field: 'Name', title: '名字', width: 80 },
-                    { field: 'LoginName', title: '登录名', width: 100 },
-                    { field: 'MobileTelphoneNumber', title: '手机号码', width: 100 },
-                    { field: 'QQNumber', title: 'QQ号', width: 100 },
-                    { field: 'Email', title: '邮箱', width: 100 },
-                    { field: 'Grade', title: '年级', width: 40 },
-                     //学生表的信息
-                    { field: 'ProjectID', title: '用户号', width: 80 },
-                    { field: 'IsSupervisor', title: '是否督导', width: 40 },
-                    { field: 'SupervisorProjectID', title: '所属督导', width: 100 },
+        //projectStudent
+        function datagridShow(id) {
+            $(function () {
+                $("#projectstudent-table").datagrid({
+                    url: "api/StudentProject/GetList",
+                    toolbar: '#table-projectstudengt',
+                    striped: true,
+                    collapsible: true,
+                    width: "100%",
+                    height: "100%",
+                    fitColumn: false,
+                    showFooter: true,
+                    queryParams: {
+                        projectID: id,
+                    },
+                    columns: [[
+                        { field: 'ID', title: 'ID', checkbox: true },
+                         //
+                        { field: 'Name', title: '名字', width: 80 },
+                        { field: 'LoginName', title: '登录名', width: 100 },
+                        { field: 'MobileTelphoneNumber', title: '手机号码', width: 100 },
+                        { field: 'QQNumber', title: 'QQ号', width: 100 },
+                        { field: 'Email', title: '邮箱', width: 100 },
+                        { field: 'Grade', title: '年级', width: 40 },
+                         //学生表的信息
+                        { field: 'StudentID', title: '学生ID', width: 80 },
+                        { field: 'ProjectID', title: '项目ID', width: 80 },
+                        { field: 'EnteredDate', title: '项目报名日期', width: 100 },
+                         //
+                        { field: 'IsSupervisor', title: '是否督导', width: 40 },
+                        { field: 'SupervisorProjectID', title: '所属督导', width: 100 },
+                        { field: 'SuccessfulTotalNumber', title: '成功的数量', width: 100 },
+                    ]],
+                    pagination: true,
 
-                    { field: 'EnteredDate', title: '报名日期', width: 100 },
-                    { field: 'SuccessfulTotalNumber', title: '成功的数量', width: 100 },
-                ]],
-                pagination: true,
-
-            });
-        })
-        var studentUrl = null;
-        function newStudent() {
-            $("#project-table-add").dialog('open').dialog('center').dialog('setTitle', '新建兼职人员');
-            $('#fm-student-add').form('clear');
-            studentUrl = 'api/Student/Add';
+                });
+            })
         }
-        function saveStudent() {
-            $('#fm-student-add').form('submit', {
+     
+
+        var studentUrl = null;
+        $("#stedentID").combobox({
+            url: 'api/Student/GetStudent',
+            valueField: 'ID',
+            textField: 'Name',
+            filter: function(q, row){
+                   var opts = $(this).combobox('options');
+                   return row[opts.textField].indexOf(q) > -1;
+              }
+        });
+        debugger;
+        $("#projectID").combobox({
+            url: 'api/Project/GetAll',
+            valueField: 'ID',
+            textField: 'DisplayName',
+            filter: function (q, row) {
+                var opts = $(this).combobox('options');
+                return row[opts.textField].indexOf(q) > -1;
+            }
+        });
+
+        function newStudentProject() {
+            $("#dlg-projectstudent").dialog('open').dialog('center').dialog('setTitle', '新建兼职人员');
+            $('#fm-projectstudent').form('clear');
+            studentUrl = 'api/StudentProject/Add';
+        }
+        function saveStudentProject() {
+            $('#fm-projectstudent').form('submit', {
                 url: studentUrl,
                 onSubmit: function () {
                     return $(this).form('validate');
                 },
                 success: function (result) {
-                    $('#project-table-add').dialog('close');        // close the dialog
-                    $('#project-table').datagrid('reload');    // reload the project data
+                    $('#dlg-projectstudent').dialog('close');        // close the dialog
+                    $('#projectstudent-table').datagrid('reload');    // reload the project data
                 }
             });
         }
         //删除
-        function deleteStudent() {
+        function deleteStudentProject() {
             debugger;
-            var rows = $('#project-table').datagrid('getSelections');
+            var rows = $('#projectstudent-table').datagrid('getSelections');
             var ids = [];
             if (rows) {
                 $.each(rows, function (i, item) {
@@ -257,10 +296,10 @@
             if (ids.length > 0) {
                 $.messager.confirm('Confirm', '你确定要删除勾选的用户吗？', function (r) {
                     if (r) {
-                        $.post('api/Student/Delete', { ids: ids }, function (result) {
-                            $('#project-table').datagrid('reload');
+                        $.post('api/StudentProject/Delete', { ids: ids }, function (result) {
+                            $('#projectstudent-table').datagrid('reload');
                             if (result.success) {
-                                $('#project-table').datagrid('reload');    // reload the project data
+                                $('#projectstudent-table').datagrid('reload');    // reload the project data
                             } else {
                                 $.messager.show({    // show error message
                                     title: 'Error',
@@ -273,19 +312,19 @@
             }
         }
         //更新
-        function editStudent() {
-            var row = $('#project-table').datagrid('getSelected');
+        function editStudentProject() {
+            var row = $('#projectstudent-table').datagrid('getSelected');
             if (row) {
-                $('#project-table-add').dialog('open').dialog('center').dialog('setTitle', '编辑用户');
-                $('#fm-student-add').form('load', row);
-                studentUrl = 'api/Student/Add?id=' + row.ID;
+                $('#dlg-projectstudent').dialog('open').dialog('center').dialog('setTitle', '编辑用户');
+                $('#fm-projectstudent').form('load', row);
+                studentUrl = 'api/StudentProject/Add?id=' + row.ID;
             }
         }
 
-        function seacherStudent() {
+        function seacherStudentProject() {
             var name = $("#name").val().trim();
             var phoneNumber = $("#phoneNumber").val().trim();
-            $('#project-table').datagrid('load', {
+            $('#projectstudent-table').datagrid('load', {
                 name: name,
                 phoneNumber: phoneNumber
             });

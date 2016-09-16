@@ -52,9 +52,9 @@ namespace GTMDweixinManagement.APIControllers
 
         // DELETE: api/Project/Delete/5
         [HttpPost]
-        public JObject Delete(int id)
+        public JObject Delete(JObject param)
         {
-            
+            var id = param["ID"].Value<int>();
             ProjectBLL ProjectBLL = new ProjectBLL();
             var deleteSuccess = ProjectBLL.Delete(id);
             JObject result = new JObject();
@@ -75,6 +75,19 @@ namespace GTMDweixinManagement.APIControllers
             ProjectBLL ProjectBLL = new ProjectBLL();
             ProjectBLL.Add(pagerParas);
             return new JObject();
+        }
+        
+        public JObject GetProjectInfo(int id)
+        {
+            ProjectBLL ProjectBLL = new ProjectBLL();
+            return ProjectBLL.GetInfo(id); ;
+        }
+
+        [HttpPost]
+        public JArray GetAll()
+        {
+            var projects = new ProjectBLL().GetAll();
+            return  JArray.Parse(JsonConvert.SerializeObject(projects));
         }
     }
 }

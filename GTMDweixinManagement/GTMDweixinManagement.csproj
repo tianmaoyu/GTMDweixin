@@ -212,6 +212,7 @@
   <ItemGroup>
     <Compile Include="APIControllers\MenuController.cs" />
     <Compile Include="APIControllers\ProjectController.cs" />
+    <Compile Include="APIControllers\StudentProjectController.cs" />
     <Compile Include="APIControllers\StudentController.cs" />
     <Compile Include="APIControllers\UserController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -223,6 +224,7 @@
     <Compile Include="BLL\BaseBLL.cs" />
     <Compile Include="BLL\ProjectBLL.cs" />
     <Compile Include="BLL\MenuBLL.cs" />
+    <Compile Include="BLL\StudentProjectBLL.cs" />
     <Compile Include="BLL\StudentBLL.cs" />
     <Compile Include="BLL\UserBLL.cs" />
     <Compile Include="Controllers\AccountController.cs" />

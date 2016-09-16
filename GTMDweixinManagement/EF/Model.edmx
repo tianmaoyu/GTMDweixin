@@ -128,6 +128,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StudentID" Type="int" />
           <Property Name="ProjectID" Type="int" />
+          <Property Name="EnteredDate" Type="date" />
         </EntityType>
         <EntityType Name="Business_StudentSign">
           <Key>
@@ -544,6 +545,7 @@
           <Property Name="ProjectID" Type="Int32" />
           <NavigationProperty Name="ProjectInfo" Relationship="GTMDweixinModel.FK_Business_StudentProject_Business_Project" FromRole="Business_StudentProject" ToRole="Business_Project" />
           <NavigationProperty Name="StudentInfo" Relationship="GTMDweixinModel.FK_Business_StudentProject_Business_Student" FromRole="Business_StudentProject" ToRole="Business_Student" />
+          <Property Name="EnteredDate" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="StudentSignInfo">
           <Key>
@@ -858,6 +860,7 @@
           <EntitySetMapping Name="StudentProjectInfoes">
             <EntityTypeMapping TypeName="GTMDweixinModel.StudentProjectInfo">
               <MappingFragment StoreEntitySet="Business_StudentProject">
+                <ScalarProperty Name="EnteredDate" ColumnName="EnteredDate" />
                 <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
                 <ScalarProperty Name="StudentID" ColumnName="StudentID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />

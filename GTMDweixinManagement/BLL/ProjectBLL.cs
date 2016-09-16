@@ -36,7 +36,11 @@ namespace GTMDweixinManagement.BLL
         public JArray GetTree()
         {
             JArray jArray = new JArray();
-            var listInfos = db.ProjectInfoes.ToList();
+            var listInfos = db.ProjectInfoes.Select(item=>new {
+                id=item.ID,
+                text=item.DisplayName,
+                state="open",
+            }).ToList();
             JArray children = JArray.Parse(JsonConvert.SerializeObject(listInfos));
             JObject rootNode = new JObject();
             rootNode["id"] = -2;
@@ -71,6 +75,10 @@ namespace GTMDweixinManagement.BLL
                 db.Updata(projectInfo);
             }
             return 1;
+        }
+        public List<ProjectInfo> GetAll()
+        {
+            return db.ProjectInfoes.ToList();
         }
 
         public int Delete(int id)

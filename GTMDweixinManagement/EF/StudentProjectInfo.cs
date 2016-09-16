@@ -19,6 +19,7 @@ namespace GTMDweixinManagement.EF
         public int ID { get; set; }
         public Nullable<int> StudentID { get; set; }
         public Nullable<int> ProjectID { get; set; }
+        public Nullable<System.DateTime> EnteredDate { get; set; }
     
         [JsonIgnore]
         public virtual ProjectInfo ProjectInfo { get; set; }

@@ -11,16 +11,16 @@ using System.Web.Http;
 
 namespace GTMDweixinManagement.APIControllers
 {
-    public class StudentController : ApiController
+    public class StudentProjectController : ApiController
     {
-        public object StudentBLL { get; private set; }
+        public object StudentProjectBLL { get; private set; }
 
         // Post: api/User/GetList
         [HttpPost]
         public JObject GetList(JObject pagerParas)
         {
-            StudentBLL studentBLL = new StudentBLL();
-            return studentBLL.GetList(pagerParas);
+            StudentProjectBLL studentProjectBLL = new StudentProjectBLL();
+            return studentProjectBLL.GetList(pagerParas);
         }
 
         // Post: api/User/Add
@@ -30,10 +30,10 @@ namespace GTMDweixinManagement.APIControllers
             var id = HttpContext.Current.Request.QueryString["id"];
             //var form = HttpContext.Current.Request.Form;
 
-            StudentBLL studentBLL = new StudentBLL();
+            StudentProjectBLL studentProjectBLL = new StudentProjectBLL();
             if (id != null && Int32.Parse(id) > 0)
             {
-                studentBLL.Updata(pagerParas, Int32.Parse(id));
+                studentProjectBLL.Updata(pagerParas, Int32.Parse(id));
             }
             else
             {
@@ -45,8 +45,7 @@ namespace GTMDweixinManagement.APIControllers
                 {
 
                 }
-               
-                studentBLL.Add(pagerParas);
+                studentProjectBLL.Add(pagerParas);
             }
             return "1";
         }
@@ -56,8 +55,8 @@ namespace GTMDweixinManagement.APIControllers
         public JObject Delete(JObject json)
         {
             var ids = JsonConvert.DeserializeObject<List<int>>(json["ids"].ToString());
-            StudentBLL studentBLL = new StudentBLL();
-            var deleteSuccess = studentBLL.Delete(ids);
+            StudentProjectBLL studentProjectBLL = new StudentProjectBLL();
+            var deleteSuccess = studentProjectBLL.Delete(ids);
             JObject result = new JObject();
             if (deleteSuccess == 1)
             {
@@ -69,22 +68,17 @@ namespace GTMDweixinManagement.APIControllers
             }
             return result;
         }
-        [HttpPost]
-        public JArray GetStudent()
-        {
-            var students = new StudentBLL().GetAll().Select(item=> new{
-                ID=item.ID,
-                Name=item.UserInfo.Name,
-            }).ToList();
-            var json =JArray.Parse(JsonConvert.SerializeObject(students));
-            return json;
-        }
 
+        public JArray GetProject()
+        {
+            //new StudentProjectBLL()
+            return new JArray();
+        }
 
         public JObject Edit(JObject pagerParas)
         {
-            StudentBLL studentBLL = new StudentBLL();
-            studentBLL.Add(pagerParas);
+            StudentProjectBLL studentProjectBLL = new StudentProjectBLL();
+            studentProjectBLL.Add(pagerParas);
             return new JObject();
         }
     }
