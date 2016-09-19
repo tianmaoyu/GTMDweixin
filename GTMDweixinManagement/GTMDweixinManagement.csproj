@@ -241,6 +241,7 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAL\DbContextBase.cs" />
     <Compile Include="DAL\IDataRepository.cs" />
+    <Compile Include="EF\Couster\StudentSignInfo.cs" />
     <Compile Include="ModelBase\ModelBase.cs" />
     <Compile Include="EF\FeedbackInfo.cs">
       <DependentUpon>Model.tt</DependentUpon>

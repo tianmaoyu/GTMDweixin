@@ -46,21 +46,38 @@ namespace GTMDweixinManagement.BLL
             var StudentInfos = db.StudentSignInfoes.Where(predicate.Compile()).ToList().Skip((pageIndex - 1) * pageSize).Take(pageSize)
                 .Select( item=>new {
                     ID=item.ID,
-                    ProjectID=item.CreateTime,
-                    EnteredDate = item.FifthDay_Afternoon,
-                    //学生信息
-                    UserID =item.StudentInfo.UserID,
-                    IsSupervisor=item.StudentInfo.IsSupervisor,
-                    SupervisorUserID=item. StudentInfo.SupervisorUserID,
-                    SuccessfulTotalNumber=item.StudentInfo.SuccessfulTotalNumber,
-                    //用户信息
-                    Name =item.StudentInfo.UserInfo.Name,
-                    LoginName=item.StudentInfo.UserInfo.LoginName,
-                    MobileTelphoneNumber=item.StudentInfo.UserInfo.MobileTelphoneNumber,
-                    QQNumber=item.StudentInfo.UserInfo.QQNumber,
-                    Email= item.StudentInfo.UserInfo.Email,
-                    Grade=item.StudentInfo.UserInfo.Grade,
+                    SignID=item.SignID,
+                    StudentID=item.StudentID,
+                    FirstDay_Morning=item.FirstDay_Morning,
+                    FirstDay_Afternoon=item.FirstDay_Afternoon,
+                    FirstDay_Evening=item.FirstDay_Evening,
 
+                    SecondDay_Morning = item.SecondDay_Morning,
+                    SecondDay_Afternoon = item.SecondDay_Afternoon,
+                    SecondDay_Evening = item.SecondDay_Evening,
+
+                    ThirdDay_Morning = item.ThirdDay_Morning,
+                    ThirdDay_Afternoon = item.ThirdDay_Afternoon,
+                    ThirdDay_Evening = item.ThirdDay_Evening,
+
+                    FourthDay_Morning = item.FourthDay_Morning,
+                    FourthDay_Afternoon = item.FourthDay_Afternoon,
+                    FourthDay_Evening = item.FourthDay_Evening,
+
+                    FifthDay_Morning = item.FifthDay_Morning,
+                    FifthDay_Afternoon = item.FifthDay_Afternoon,
+                    FifthDay_Evening = item.FifthDay_Evening,
+
+                    SixthDay_Morning = item.SixthDay_Morning,
+                    SixthDay_Afternoon = item.SixthDay_Afternoon,
+                    SixthDay_Evening = item.SixthDay_Evening,
+
+                    SeventhDay_Morning = item.SeventhDay_Morning,
+                    SeventhDay_Afternoon = item.SeventhDay_Afternoon,
+                    SeventhDay_Evening = item.SeventhDay_Evening,
+
+                    Name = item.StudentInfo.UserInfo.Name,
+                    Total=item.Total
                 });
             var rows = JArray.Parse(JsonConvert.SerializeObject(StudentInfos));
             json["rows"] = rows;

@@ -323,42 +323,45 @@
                     },
                     columns: [[
                         { field: 'ID', title: 'ID',rowspan:2, checkbox: true },
-                        { field: 'Name', title: '名字', rowspan:2,width: 80 },
-                        { title: '星期一', colspan: 3 },
-                        { title: '星期二', colspan: 3 },
-                        { title: '星期三', colspan: 3 },
-                        { title: '星期四', colspan: 3 },
-                        { title: '星期五', colspan: 3 },
-                        { title: '星期六', colspan: 3 },
-                        { title: '星期日', colspan: 3 },
+                        { field: 'Name', title: '名字', rowspan: 2, width: 80, align: 'center' },
+                        { title: '星期一', colspan: 3, align: 'center' },
+                        { title: '星期二', colspan: 3, align: 'center' },
+                        { title: '星期三', colspan: 3, align: 'center' },
+                        { title: '星期四', colspan: 3, align: 'center' },
+                        { title: '星期五', colspan: 3, align: 'center' },
+                        { title: '星期六', colspan: 3, align: 'center' },
+                        { title: '星期日', colspan: 3, align: 'center' },
+                        { field: 'Total', title: '合计', rowspan: 2, width: 80, align: 'center', sortable: true },
                     ], [
-                        { field: 'FirstDay_Morning', title: '早', width: 60, align: 'center' },
-                        { field: 'FirstDay_Afternoon', title: '中', width: 60, align: 'center' },
-                        { field: 'FirstDay_Evening', title: '晚', width: 60, align: 'center' },
+                        {
+                            field: 'FirstDay_Morning', title: '早', width: 60, align: 'center',formatter: imgcheckbox
+                        },
+                        { field: 'FirstDay_Afternoon', title: '中', width: 60, align: 'center', formatter: imgcheckbox },
+                        { field: 'FirstDay_Evening', title: '晚', width: 60, align: 'center', formatter: imgcheckbox },
 
-                        { field: 'SecondDay_Morning', title: '早', width: 60, align: 'center' },
-                        { field: 'SecondDay_Afternoon', title: '中', width: 60, align: 'center' },
-                        { field: 'SecondDay_Evening', title: '晚', width: 60, align: 'center' },
+                        { field: 'SecondDay_Morning', title: '早', width: 60, align: 'center', formatter: imgcheckbox },
+                        { field: 'SecondDay_Afternoon', title: '中', width: 60, align: 'center', formatter: imgcheckbox },
+                        { field: 'SecondDay_Evening', title: '晚', width: 60, align: 'center', formatter: imgcheckbox },
 
-                        { field: 'ThirdDay_Morning', title: '早', width: 60, align: 'center' },
-                        { field: 'ThirdDay_Afternoon', title: '中', width: 60, align: 'center' },
-                        { field: 'ThirdDay_Evening', title: '晚', width: 60, align: 'center' },
+                        { field: 'ThirdDay_Morning', title: '早', width: 60, align: 'center', formatter: imgcheckbox },
+                        { field: 'ThirdDay_Afternoon', title: '中', width: 60, align: 'center', formatter: imgcheckbox },
+                        { field: 'ThirdDay_Evening', title: '晚', width: 60, align: 'center', formatter: imgcheckbox },
 
-                        { field: 'FourthDay_Morning', title: '早', width: 60, align: 'center' },
-                        { field: 'FourthDay_Afternoon', title: '中', width: 60, align: 'center' },
-                        { field: 'FourthDay_Evening', title: '晚', width: 60, align: 'center' },
+                        { field: 'FourthDay_Morning', title: '早', width: 60, align: 'center', formatter: imgcheckbox },
+                        { field: 'FourthDay_Afternoon', title: '中', width: 60, align: 'center', formatter: imgcheckbox },
+                        { field: 'FourthDay_Evening', title: '晚', width: 60, align: 'center', formatter: imgcheckbox },
 
-                        { field: 'FifthDay_Morning', title: '早', width: 60, align: 'right' },
-                        { field: 'FifthDay_Afternoon', title: '中', width: 60, align: 'right' },
-                        { field: 'FifthDay_Evening', title: '晚', width: 60, align: 'center' },
+                        { field: 'FifthDay_Morning', title: '早', width: 60, align: 'right', formatter: imgcheckbox },
+                        { field: 'FifthDay_Afternoon', title: '中', width: 60, align: 'right', formatter: imgcheckbox },
+                        { field: 'FifthDay_Evening', title: '晚', width: 60, align: 'center', formatter: imgcheckbox },
 
-                        { field: 'SixthDay_Morning', title: '早', width: 60, align: 'center' },
-                        { field: 'SixthDay_Afternoon', title: '中', width: 60, align: 'center' },
-                        { field: 'SixthDay_Evening', title: '晚', width: 60, align: 'center' },
+                        { field: 'SixthDay_Morning', title: '早', width: 60, align: 'center', formatter: imgcheckbox },
+                        { field: 'SixthDay_Afternoon', title: '中', width: 60, align: 'center', formatter: imgcheckbox },
+                        { field: 'SixthDay_Evening', title: '晚', width: 60, align: 'center', formatter: imgcheckbox },
 
-                        { field: 'SeventhDay_Morning', title: '早', width: 60, align: 'center' },
-                        { field: 'SeventhDay_Afternoon', title: '中', width: 60, align: 'center' },
-                        { field: 'SeventhDay_Evening', title: '晚', width: 60, align: 'center' },
+                        { field: 'SeventhDay_Morning', title: '早', width: 60, align: 'center', formatter: imgcheckbox },
+                        { field: 'SeventhDay_Afternoon', title: '中', width: 60, align: 'center', formatter: imgcheckbox },
+                        { field: 'SeventhDay_Evening', title: '晚', width: 60, align: 'center', formatter: imgcheckbox },
                     ]],
                     pagination: true,
 
@@ -461,6 +464,8 @@
                 phoneNumber: phoneNumber
             });
         }
-
+        var imgcheckbox = function (cellvalue, options, rowObject) {
+            return cellvalue ? '<img src="Content/themes/icons/ok.png" alt="正常" title="正常" />' : '';
+        };
     </script>
 </body>
