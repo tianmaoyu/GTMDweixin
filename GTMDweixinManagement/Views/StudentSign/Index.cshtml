@@ -1,0 +1,466 @@
+﻿@{ 
+    Layout = null;
+}
+<body>
+    <div class="easyui-layout" style="width:100%;height:100%;">
+        <div data-options="region:'west'" style="width:180px">
+            <ul id="sign-tree"></ul>
+            <!--树的菜单--->
+            <div id="sign-tree-menu" class="easyui-menu" style="width:120px;">
+                <div onclick="newSign()" data-options="iconCls:'icon-remove'">新建</div>
+                <div onclick="editSign()" data-options="iconCls:'icon-add'">编辑</div>
+                <div onclick="removeSign()" data-options="iconCls:'icon-remove'">移除</div>
+            </div>
+            <!--end树的菜单--->
+            <!--project From-->
+            <div id="dlg-sign" class="easyui-dialog" style="width:400px"
+                 closed="true" buttons="#dlg-buttons-sign">
+                <form id="fm-sign" method="post" novalidate style="margin:0;padding:20px 50px">
+                    <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">项目信息</div>
+                    <div style="margin-bottom:10px">
+                        <input name="ID" class="easyui-textbox" data-options="buttonText:'ID',buttonAlign:'left',editable:false" style="width:200px">
+                    </div>
+                    <div style="margin-bottom:10px">
+                        <input name="DisplayName" class="easyui-textbox" data-options="buttonText:'名称',buttonAlign:'left'" style="width:200px">
+                    </div>
+                    <div style="margin-bottom:10px">
+                        <select class="easyui-combobox" name="IsActive" data-options="buttonText:'是否激活',buttonAlign:'left'" style="width:200px;">
+                            <option value="true">是</option>
+                            <option value="false">否</option>
+                        </select>
+                    </div>
+                    <div style="margin-bottom:10px">
+                        <select class="easyui-combobox" name="IsDisplay" data-options="buttonText:'是否显示',buttonAlign:'left'" style="width:200px;">
+                            <option value="true">是</option>
+                            <option value="false">否</option>
+                        </select>
+                    </div>
+                    <div style="margin-bottom:10px">
+                        <input name="BeginDate" class="easyui-datebox" data-options="buttonText:'计划开始时间',buttonAlign:'left'" style="width:200px">
+                    </div>
+                    <div style="margin-bottom:10px">
+                        <input name="EndDate" class="easyui-datebox" data-options="buttonText:'计划结束时间',buttonAlign:'left'" style="width:200px">
+                    </div>
+                    <div style="margin-bottom:10px">
+                        <select class="easyui-combobox" id="projectID-sign" name="ProjectID" data-options="buttonText:'所属项目',buttonAlign:'left'" style="width:200px;"></select>
+                    </div>
+                </form>
+            </div>
+            <!--end project From-->
+            <!--project from tool-->
+            <div id="dlg-buttons-sign">
+                <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveSign()" style="width:90px">保存</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript: $('#dlg-sign').dialog('close')" style="width:90px">取消</a>
+            </div>
+            <!--end project from tool-->
+        </div>
+        <div data-options="region:'center'">
+            <table id="studentsign-table" class="easyui-datagrid" data-options="toolbar: '#table-studentsign'"></table>
+            <!---弹出框-->
+            <div id="dlg-studentsign" class="easyui-dialog" style="width:750px"
+                 closed="true" buttons="#dlg-buttons-projectstudent">
+                <form id="fm-studentsign" method="post" novalidate style="margin:0;padding:20px 50px">
+                    <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">用户信息</div>
+                    <div style="margin-bottom:10px">
+                        <input name="ID" class="easyui-textbox" data-options="buttonText:'ID',editable:false,fabuttonAlign:'left'" style="width:200px">
+                        <select class="easyui-combobox" id="stedentID" name="StudentID" data-options="buttonText:'学生ID',buttonAlign:'left'" style="width:200px;"></select>
+                        <select class="easyui-combobox" id="signID" name="SignID" data-options="buttonText:'签到ID',buttonAlign:'left'" style="width:200px;"></select>
+                    </div>
+                    <div style="margin-bottom:10px;font-size:14px;border-bottom:1px solid #ccc">星期一</div>
+                    <div style="margin-bottom:10px">
+                        <select class="easyui-combobox" name="FirstDay_Morning" data-options="buttonText:'早',buttonAlign:'left'" style="width:200px;">
+                            <option value="true">是</option>
+                            <option value="false">否</option>
+                        </select>
+                        <select class="easyui-combobox" name="FirstDay_Afternoon" data-options="buttonText:'中',buttonAlign:'left'" style="width:200px;">
+                            <option value="true">是</option>
+                            <option value="false">否</option>
+                        </select>
+                        <select class="easyui-combobox" name="FirstDay_Evening" data-options="buttonText:'晚',buttonAlign:'left'" style="width:200px;">
+                            <option value="true">是</option>
+                            <option value="false">否</option>
+                        </select>
+                    </div>
+                    <div style="margin-bottom:10px;font-size:14px;border-bottom:1px solid #ccc">星期二</div>
+                    <div style="margin-bottom:10px">
+                        <select class="easyui-combobox" name="SecondDay_Morning" data-options="buttonText:'早',buttonAlign:'left'" style="width:200px;">
+                            <option value="true">是</option>
+                            <option value="false">否</option>
+                        </select>
+                        <select class="easyui-combobox" name="SecondDay_Afternoon" data-options="buttonText:'中',buttonAlign:'left'" style="width:200px;">
+                            <option value="true">是</option>
+                            <option value="false">否</option>
+                        </select>
+                        <select class="easyui-combobox" name="SecondDay_Evening" data-options="buttonText:'晚',buttonAlign:'left'" style="width:200px;">
+                            <option value="true">是</option>
+                            <option value="false">否</option>
+                        </select>
+                    </div>
+                    <div style="margin-bottom:10px;font-size:14px;border-bottom:1px solid #ccc">星期三</div>
+                    <div style="margin-bottom:10px">
+                        <select class="easyui-combobox" name="ThirdDay_Morning" data-options="buttonText:'早',buttonAlign:'left'" style="width:200px;">
+                            <option value="true">是</option>
+                            <option value="false">否</option>
+                        </select>
+                        <select class="easyui-combobox" name="ThirdDay_Afternoon" data-options="buttonText:'中',buttonAlign:'left'" style="width:200px;">
+                            <option value="true">是</option>
+                            <option value="false">否</option>
+                        </select>
+                        <select class="easyui-combobox" name="ThirdDay_Evening" data-options="buttonText:'晚',buttonAlign:'left'" style="width:200px;">
+                            <option value="true">是</option>
+                            <option value="false">否</option>
+                        </select>
+                    </div>
+                    <div style="margin-bottom:10px;font-size:14px;border-bottom:1px solid #ccc">星期四</div>
+                    <div style="margin-bottom:10px">
+                        <select class="easyui-combobox" name="FourthDay_Morning" data-options="buttonText:'早',buttonAlign:'left'" style="width:200px;">
+                            <option value="true">是</option>
+                            <option value="false">否</option>
+                        </select>
+                        <select class="easyui-combobox" name="FourthDay_Afternoon" data-options="buttonText:'中',buttonAlign:'left'" style="width:200px;">
+                            <option value="true">是</option>
+                            <option value="false">否</option>
+                        </select>
+                        <select class="easyui-combobox" name="FourthDay_Evening" data-options="buttonText:'晚',buttonAlign:'left'" style="width:200px;">
+                            <option value="true">是</option>
+                            <option value="false">否</option>
+                        </select>
+                    </div>
+                    <div style="margin-bottom:10px;font-size:14px;border-bottom:1px solid #ccc">星期五</div>
+                    <div style="margin-bottom:10px">
+                        <select class="easyui-combobox" name="FifthDay_Morning" data-options="buttonText:'早',buttonAlign:'left'" style="width:200px;">
+                            <option value="true">是</option>
+                            <option value="false">否</option>
+                        </select>
+                        <select class="easyui-combobox" name="FifthDay_Afternoon" data-options="buttonText:'中',buttonAlign:'left'" style="width:200px;">
+                            <option value="true">是</option>
+                            <option value="false">否</option>
+                        </select>
+                        <select class="easyui-combobox" name="FifthDay_Evening" data-options="buttonText:'晚',buttonAlign:'left'" style="width:200px;">
+                            <option value="true">是</option>
+                            <option value="false">否</option>
+                        </select>
+                    </div>
+                    <div style="margin-bottom:10px;font-size:14px;border-bottom:1px solid #ccc">星期六</div>
+                    <div style="margin-bottom:10px">
+                        <select class="easyui-combobox" name="SixthDay_Morning" data-options="buttonText:'早',buttonAlign:'left'" style="width:200px;">
+                            <option value="true">是</option>
+                            <option value="false">否</option>
+                        </select>
+                        <select class="easyui-combobox" name="SixthDay_Afternoon" data-options="buttonText:'中',buttonAlign:'left'" style="width:200px;">
+                            <option value="true">是</option>
+                            <option value="false">否</option>
+                        </select>
+                        <select class="easyui-combobox" name="SixthDay_Evening" data-options="buttonText:'晚',buttonAlign:'left'" style="width:200px;">
+                            <option value="true">是</option>
+                            <option value="false">否</option>
+                        </select>
+                    </div>
+                    <div style="margin-bottom:10px;font-size:14px;border-bottom:1px solid #ccc">星期日</div>
+                    <div style="margin-bottom:10px">
+                        <select class="easyui-combobox" name="SeventhDay_Morning" data-options="buttonText:'早',buttonAlign:'left'" style="width:200px;">
+                            <option value="true">是</option>
+                            <option value="false">否</option>
+                        </select>
+                        <select class="easyui-combobox" name="SeventhDay_Afternoon" data-options="buttonText:'中',buttonAlign:'left'" style="width:200px;">
+                            <option value="true">是</option>
+                            <option value="false">否</option>
+                        </select>
+                        <select class="easyui-combobox" name="SeventhDay_Evening" data-options="buttonText:'晚',buttonAlign:'left'" style="width:200px;">
+                            <option value="true">是</option>
+                            <option value="false">否</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div id="dlg-buttons-projectstudent">
+                <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveStudentSign()" style="width:90px">保存</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript: $('#dlg-studentsign').dialog('close')" style="width:90px">取消</a>
+            </div>
+            <!---end弹出框-->
+            <!---table的tools-->
+            <div id="table-studentsign">
+                <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true,text:'新建'" onclick="newStudentSign()"></a>
+                @*<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true,text:'编辑'" onclick="editStudentSign()"></a>*@
+                <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true,text:'删除'" onclick="deleteStudentSign()"></a>
+                <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-redo',plain:true,text:'导入'"></a>
+                <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-blank',plain:true,text:'导出'"></a>
+                <div class="pull-right" style="margin-right:40px">
+                    <input id="name" class="easyui-textbox" data-options="buttonText:'名字',buttonAlign:'left'" style="width:120px">
+                    <input id="phoneNumber" class="easyui-textbox" data-options="buttonText:'手机号',buttonAlign:'left'" style="width:120px;margin-right:2px">
+                    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true,text:'搜索'" onclick="seacherStudentSign()"></a>
+                </div>
+            </div>
+            <!---End-table的tools-->
+        </div>
+    </div>
+    @*<div class="container-fluid">
+            <div class="row-fluid">
+
+                <!--项目树--->
+                <div class="col-sm-2" style="border:dashed 1px red;height:100%">
+                    <ul id="sign-tree" class="easyui-tree"></ul>
+                </div>
+                <!--项目树结束--->
+
+                <!--报名列表--->
+                <div class="col-sm-10" style="border:dashed 1px red;height:100%">
+                    <table id="project-table"></table>
+                </div>
+                <!--报名列表结束--->
+            </div>
+        </div>*@
+    <script>
+        //project
+        var urlSign = 'api/Sign/Add';
+        var isUpdataSign = true;
+        var isAppendSign = true;
+        $('#sign-tree').tree({
+            url: "api/Sign/GetList",
+            onDblClick: function (node) {
+                datagridShow(node.id)
+            },
+            onContextMenu: function (e, node) {
+                e.preventDefault();
+                debugger;
+                $('#sign-tree').tree('select', node.target);
+                $('#sign-tree-menu').menu('show', {
+                    left: e.pageX + 10,
+                    top: e.pageY + 10
+                });
+            }
+        });
+        //新建
+        function editSign() {
+            debugger;
+            isUpdataSign = true;
+            var node = $('#sign-tree').tree('getSelected');
+            if (node) {
+                var id = node.id;
+                urlSign = 'api/Sign/Add?id=' + id;
+                $.get('api/Sign/GetSignInfo', { ID: id }, function (data) {
+                    debugger;
+                    if (data) {
+                        $('#dlg-sign').dialog('open').dialog('center').dialog('setTitle', '编辑菜单');
+                        $('#fm-sign').form('load', data);
+                    }
+                }, 'json')
+            }
+        }
+        //移除
+        function removeSign() {
+            debugger;
+            var node = $('#sign-tree').tree('getSelected');
+            if (node) {
+                $.messager.confirm('Confirm', '你确定要删除次菜单吗？', function (r) {
+                    if (r) {
+                        var id = node.id;
+                        $.post('api/Sign/Delete', { ID: id }, function (data) {
+                            if (data.success) {
+                                $('#sign-tree').tree('reload');
+                            }
+                        }, 'json');
+                    }
+                })
+
+            }
+        }
+        //对话框 新建同级
+        function newSign() {
+            $("#dlg-sign").dialog('open').dialog('center').dialog('setTitle', '新建菜单');
+            isAppendSign = true;
+            isUpdataSign = false;
+            $('#fm-sign').form('clear');
+            urlSign = 'api/Sign/Add';
+        }
+        function saveSign() {
+            $('#fm-sign').form('submit', {
+                url: urlSign,
+                onSubmit: function (param) {
+                    //是编辑，还是新建
+                    if (isUpdataSign) {
+
+                    }
+                    else {
+                        param.TreeParentID = -2;
+                        var node = $('#sign-tree').tree('getSelected');
+                        if (node) {
+                            //添加同级级点，或者添加子节点
+                            if (isAppendSign) {
+                                var parentNode = $('#sign-tree').tree('getParent', node.target);
+                                if (parentNode) {
+                                    param.TreeParentID = parentNode.id;
+                                }
+                            } else {
+                                param.TreeParentID = node.id;
+                            }
+                        }
+                    }
+
+                    return $(this).form('validate');
+                },
+                success: function (result) {
+                    $('#dlg-sign').dialog('close');
+                    $('#sign-tree').tree('reload');
+                }
+            });
+        }
+
+        //projectStudent
+        function datagridShow(id) {
+            $(function () {
+                $("#studentsign-table").datagrid({
+                    url: "api/StudentSign/GetList",
+                    toolbar: '#table-studentsign',
+                    striped: true,
+                    collapsible: true,
+                    width: "100%",
+                    height: "100%",
+                    fitColumn: false,
+                    showFooter: true,
+                    queryParams: {
+                        projectID: id,
+                    },
+                    columns: [[
+                        { field: 'ID', title: 'ID',rowspan:2, checkbox: true },
+                        { field: 'Name', title: '名字', rowspan:2,width: 80 },
+                        { title: '星期一', colspan: 3 },
+                        { title: '星期二', colspan: 3 },
+                        { title: '星期三', colspan: 3 },
+                        { title: '星期四', colspan: 3 },
+                        { title: '星期五', colspan: 3 },
+                        { title: '星期六', colspan: 3 },
+                        { title: '星期日', colspan: 3 },
+                    ], [
+                        { field: 'FirstDay_Morning', title: '早', width: 60, align: 'center' },
+                        { field: 'FirstDay_Afternoon', title: '中', width: 60, align: 'center' },
+                        { field: 'FirstDay_Evening', title: '晚', width: 60, align: 'center' },
+
+                        { field: 'SecondDay_Morning', title: '早', width: 60, align: 'center' },
+                        { field: 'SecondDay_Afternoon', title: '中', width: 60, align: 'center' },
+                        { field: 'SecondDay_Evening', title: '晚', width: 60, align: 'center' },
+
+                        { field: 'ThirdDay_Morning', title: '早', width: 60, align: 'center' },
+                        { field: 'ThirdDay_Afternoon', title: '中', width: 60, align: 'center' },
+                        { field: 'ThirdDay_Evening', title: '晚', width: 60, align: 'center' },
+
+                        { field: 'FourthDay_Morning', title: '早', width: 60, align: 'center' },
+                        { field: 'FourthDay_Afternoon', title: '中', width: 60, align: 'center' },
+                        { field: 'FourthDay_Evening', title: '晚', width: 60, align: 'center' },
+
+                        { field: 'FifthDay_Morning', title: '早', width: 60, align: 'right' },
+                        { field: 'FifthDay_Afternoon', title: '中', width: 60, align: 'right' },
+                        { field: 'FifthDay_Evening', title: '晚', width: 60, align: 'center' },
+
+                        { field: 'SixthDay_Morning', title: '早', width: 60, align: 'center' },
+                        { field: 'SixthDay_Afternoon', title: '中', width: 60, align: 'center' },
+                        { field: 'SixthDay_Evening', title: '晚', width: 60, align: 'center' },
+
+                        { field: 'SeventhDay_Morning', title: '早', width: 60, align: 'center' },
+                        { field: 'SeventhDay_Afternoon', title: '中', width: 60, align: 'center' },
+                        { field: 'SeventhDay_Evening', title: '晚', width: 60, align: 'center' },
+                    ]],
+                    pagination: true,
+
+                });
+            })
+        }
+
+
+        var studentUrl = null;
+        $("#signID").combobox({
+            url: 'api/Sign/GetAll',
+            valueField: 'ID',
+            textField: 'DisplayName',
+            filter: function(q, row){
+                   var opts = $(this).combobox('options');
+                   return row[opts.textField].indexOf(q) > -1;
+              }
+        });
+        $("#stedentID").combobox({
+            url: 'api/Student/GetStudent',
+            valueField: 'ID',
+            textField: 'Name',
+            filter: function (q, row) {
+                var opts = $(this).combobox('options');
+                return row[opts.textField].indexOf(q) > -1;
+            }
+        });
+        
+        debugger;
+        $("#projectID-sign").combobox({
+            url: 'api/Project/GetAll',
+            valueField: 'ID',
+            textField: 'DisplayName',
+            filter: function (q, row) {
+                var opts = $(this).combobox('options');
+                return row[opts.textField].indexOf(q) > -1;
+            }
+        });
+
+        function newStudentSign() {
+            $("#dlg-studentsign").dialog('open').dialog('center').dialog('setTitle', '新建兼职人员');
+            $('#fm-studentsign').form('clear');
+            studentUrl = 'api/StudentSign/Add';
+        }
+        function saveStudentSign() {
+            $('#fm-studentsign').form('submit', {
+                url: studentUrl,
+                onSubmit: function () {
+                    return $(this).form('validate');
+                },
+                success: function (result) {
+                    $('#dlg-studentsign').dialog('close');        // close the dialog
+                    $('#studentsign-table').datagrid('reload');    // reload the project data
+                }
+            });
+        }
+        //删除
+        function deleteStudentSign() {
+            debugger;
+            var rows = $('#studentsign-table').datagrid('getSelections');
+            var ids = [];
+            if (rows) {
+                $.each(rows, function (i, item) {
+                    ids.push(item["ID"]);
+                })
+            }
+            if (ids.length > 0) {
+                $.messager.confirm('Confirm', '你确定要删除勾选的用户吗？', function (r) {
+                    if (r) {
+                        $.post('api/StudentSign/Delete', { ids: ids }, function (result) {
+                            $('#studentsign-table').datagrid('reload');
+                            if (result.success) {
+                                $('#studentsign-table').datagrid('reload');    // reload the project data
+                            } else {
+                                $.messager.show({    // show error message
+                                    title: 'Error',
+                                    msg: result.errorMsg
+                                });
+                            }
+                        }, 'json');
+                    }
+                });
+            }
+        }
+        //更新
+        function editStudentSign() {
+            var row = $('#studentsign-table').datagrid('getSelected');
+            if (row) {
+                $('#dlg-studentsign').dialog('open').dialog('center').dialog('setTitle', '编辑用户');
+                $('#fm-studentsign').form('load', row);
+                studentUrl = 'api/StudentSign/Add?id=' + row.ID;
+            }
+        }
+
+        function seacherStudentSign() {
+            var name = $("#name").val().trim();
+            var phoneNumber = $("#phoneNumber").val().trim();
+            $('#studentsign-table').datagrid('load', {
+                name: name,
+                phoneNumber: phoneNumber
+            });
+        }
+
+    </script>
+</body>

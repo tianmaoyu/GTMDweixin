@@ -17,27 +17,27 @@ namespace GTMDweixinManagement.EF
     public partial class StudentSignInfo :ModelBase
     {
         public int ID { get; set; }
-        public Nullable<System.DateTime> FirstDay_Morning { get; set; }
-        public Nullable<System.DateTime> FirstDay_Afternoon { get; set; }
-        public Nullable<System.DateTime> FirstDay_Evening { get; set; }
-        public Nullable<System.DateTime> SecondDay_Morning { get; set; }
-        public Nullable<System.DateTime> SecondDay_Afternoon { get; set; }
-        public Nullable<System.DateTime> SecondDay_Evening { get; set; }
-        public Nullable<System.DateTime> ThirdDay_Morning { get; set; }
-        public Nullable<System.DateTime> ThirdDay_Afternoon { get; set; }
-        public Nullable<System.DateTime> ThirdDay_Evening { get; set; }
-        public Nullable<System.DateTime> FourthDay_Morning { get; set; }
-        public Nullable<System.DateTime> FourthDay_Afternoon { get; set; }
-        public Nullable<System.DateTime> FourthDay_Evening { get; set; }
-        public Nullable<System.DateTime> FifthDay_Morning { get; set; }
-        public Nullable<System.DateTime> FifthDay_Afternoon { get; set; }
-        public Nullable<System.DateTime> FifthDay_Evening { get; set; }
-        public Nullable<System.DateTime> SixthDay_Morning { get; set; }
-        public Nullable<System.DateTime> SixthDay_Afternoon { get; set; }
-        public Nullable<System.DateTime> SixthDay_Evening { get; set; }
-        public Nullable<System.DateTime> SeventhDay_Morning { get; set; }
-        public Nullable<System.DateTime> SeventhDay_Afternoon { get; set; }
-        public Nullable<System.DateTime> SeventhDay_Evening { get; set; }
+        public Nullable<bool> FirstDay_Morning { get; set; }
+        public Nullable<bool> FirstDay_Afternoon { get; set; }
+        public Nullable<bool> FirstDay_Evening { get; set; }
+        public Nullable<bool> SecondDay_Morning { get; set; }
+        public Nullable<bool> SecondDay_Afternoon { get; set; }
+        public Nullable<bool> SecondDay_Evening { get; set; }
+        public Nullable<bool> ThirdDay_Morning { get; set; }
+        public Nullable<bool> ThirdDay_Afternoon { get; set; }
+        public Nullable<bool> ThirdDay_Evening { get; set; }
+        public Nullable<bool> FourthDay_Morning { get; set; }
+        public Nullable<bool> FourthDay_Afternoon { get; set; }
+        public Nullable<bool> FourthDay_Evening { get; set; }
+        public Nullable<bool> FifthDay_Morning { get; set; }
+        public Nullable<bool> FifthDay_Afternoon { get; set; }
+        public Nullable<bool> FifthDay_Evening { get; set; }
+        public Nullable<bool> SixthDay_Morning { get; set; }
+        public Nullable<bool> SixthDay_Afternoon { get; set; }
+        public Nullable<bool> SixthDay_Evening { get; set; }
+        public Nullable<bool> SeventhDay_Morning { get; set; }
+        public Nullable<bool> SeventhDay_Afternoon { get; set; }
+        public Nullable<bool> SeventhDay_Evening { get; set; }
         public int StudentID { get; set; }
         public int SignID { get; set; }
     

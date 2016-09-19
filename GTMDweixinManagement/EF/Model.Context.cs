@@ -35,8 +35,8 @@ namespace GTMDweixinManagement.EF
         public virtual DbSet<SignInfo> SignInfoes { get; set; }
         public virtual DbSet<StudentInfo> StudentInfoes { get; set; }
         public virtual DbSet<StudentProjectInfo> StudentProjectInfoes { get; set; }
-        public virtual DbSet<StudentSignInfo> StudentSignInfoes { get; set; }
         public virtual DbSet<MeunInfo> MeunInfoes { get; set; }
         public virtual DbSet<RoleInfo> RoleInfoes { get; set; }
+        public virtual DbSet<StudentSignInfo> StudentSignInfoes { get; set; }
     }
 }

@@ -135,27 +135,27 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FirstDay_Morning" Type="date" />
-          <Property Name="FirstDay_Afternoon" Type="date" />
-          <Property Name="FirstDay_Evening" Type="date" />
-          <Property Name="SecondDay_Morning" Type="date" />
-          <Property Name="SecondDay_Afternoon" Type="date" />
-          <Property Name="SecondDay_Evening" Type="date" />
-          <Property Name="ThirdDay_Morning" Type="date" />
-          <Property Name="ThirdDay_Afternoon" Type="date" />
-          <Property Name="ThirdDay_Evening" Type="date" />
-          <Property Name="FourthDay_Morning" Type="date" />
-          <Property Name="FourthDay_Afternoon" Type="date" />
-          <Property Name="FourthDay_Evening" Type="date" />
-          <Property Name="FifthDay_Morning" Type="date" />
-          <Property Name="FifthDay_Afternoon" Type="date" />
-          <Property Name="FifthDay_Evening" Type="date" />
-          <Property Name="SixthDay_Morning" Type="date" />
-          <Property Name="SixthDay_Afternoon" Type="date" />
-          <Property Name="SixthDay_Evening" Type="date" />
-          <Property Name="SeventhDay_Morning" Type="date" />
-          <Property Name="SeventhDay_Afternoon" Type="date" />
-          <Property Name="SeventhDay_Evening" Type="date" />
+          <Property Name="FirstDay_Morning" Type="bit" />
+          <Property Name="FirstDay_Afternoon" Type="bit" />
+          <Property Name="FirstDay_Evening" Type="bit" />
+          <Property Name="SecondDay_Morning" Type="bit" />
+          <Property Name="SecondDay_Afternoon" Type="bit" />
+          <Property Name="SecondDay_Evening" Type="bit" />
+          <Property Name="ThirdDay_Morning" Type="bit" />
+          <Property Name="ThirdDay_Afternoon" Type="bit" />
+          <Property Name="ThirdDay_Evening" Type="bit" />
+          <Property Name="FourthDay_Morning" Type="bit" />
+          <Property Name="FourthDay_Afternoon" Type="bit" />
+          <Property Name="FourthDay_Evening" Type="bit" />
+          <Property Name="FifthDay_Morning" Type="bit" />
+          <Property Name="FifthDay_Afternoon" Type="bit" />
+          <Property Name="FifthDay_Evening" Type="bit" />
+          <Property Name="SixthDay_Morning" Type="bit" />
+          <Property Name="SixthDay_Afternoon" Type="bit" />
+          <Property Name="SixthDay_Evening" Type="bit" />
+          <Property Name="SeventhDay_Morning" Type="bit" />
+          <Property Name="SeventhDay_Afternoon" Type="bit" />
+          <Property Name="SeventhDay_Evening" Type="bit" />
           <Property Name="StudentID" Type="int" Nullable="false" />
           <Property Name="SignID" Type="int" Nullable="false" />
         </EntityType>
@@ -379,7 +379,6 @@
           <EntitySet Name="SignInfoes" EntityType="GTMDweixinModel.SignInfo" />
           <EntitySet Name="StudentInfoes" EntityType="GTMDweixinModel.StudentInfo" />
           <EntitySet Name="StudentProjectInfoes" EntityType="GTMDweixinModel.StudentProjectInfo" />
-          <EntitySet Name="StudentSignInfoes" EntityType="GTMDweixinModel.StudentSignInfo" />
           <AssociationSet Name="FK_Authority_UserRole_Authority_User" Association="GTMDweixinModel.FK_Authority_UserRole_Authority_User">
             <End Role="Authority_User" EntitySet="UserInfoes" />
             <End Role="Authority_UserRole" EntitySet="UserRoleInfoes" />
@@ -396,17 +395,9 @@
             <End Role="Business_Project" EntitySet="ProjectInfoes" />
             <End Role="Business_StudentProject" EntitySet="StudentProjectInfoes" />
           </AssociationSet>
-          <AssociationSet Name="FK_Business_StudentSign_Business_Sign" Association="GTMDweixinModel.FK_Business_StudentSign_Business_Sign">
-            <End Role="Business_Sign" EntitySet="SignInfoes" />
-            <End Role="Business_StudentSign" EntitySet="StudentSignInfoes" />
-          </AssociationSet>
           <AssociationSet Name="FK_Business_StudentProject_Business_Student" Association="GTMDweixinModel.FK_Business_StudentProject_Business_Student">
             <End Role="Business_Student" EntitySet="StudentInfoes" />
             <End Role="Business_StudentProject" EntitySet="StudentProjectInfoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Business_StudentSign_Business_Student" Association="GTMDweixinModel.FK_Business_StudentSign_Business_Student">
-            <End Role="Business_Student" EntitySet="StudentInfoes" />
-            <End Role="Business_StudentSign" EntitySet="StudentSignInfoes" />
           </AssociationSet>
           <EntitySet Name="MeunInfoes" EntityType="GTMDweixinModel.MeunInfo" />
           <EntitySet Name="RoleInfoes" EntityType="GTMDweixinModel.RoleInfo" />
@@ -429,6 +420,15 @@
           <AssociationSet Name="FK_Authority_UserRole_Authority_Role" Association="GTMDweixinModel.FK_Authority_UserRole_Authority_Role">
             <End Role="Authority_Role" EntitySet="RoleInfoes" />
             <End Role="UserRoleInfo" EntitySet="UserRoleInfoes" />
+          </AssociationSet>
+          <EntitySet Name="StudentSignInfoes" EntityType="GTMDweixinModel.StudentSignInfo" />
+          <AssociationSet Name="FK_Business_StudentSign_Business_Sign" Association="GTMDweixinModel.FK_Business_StudentSign_Business_Sign">
+            <End Role="SignInfo" EntitySet="SignInfoes" />
+            <End Role="Business_StudentSign" EntitySet="StudentSignInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Business_StudentSign_Business_Student" Association="GTMDweixinModel.FK_Business_StudentSign_Business_Student">
+            <End Role="StudentInfo" EntitySet="StudentInfoes" />
+            <End Role="Business_StudentSign" EntitySet="StudentSignInfoes" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="MeunRoleInfo">
@@ -520,7 +520,7 @@
           <Property Name="EndDate" Type="DateTime" Precision="0" />
           <Property Name="ProjectID" Type="Int32" />
           <NavigationProperty Name="ProjectInfo" Relationship="GTMDweixinModel.FK_Business_Sign_Business_Project" FromRole="Business_Sign" ToRole="Business_Project" />
-          <NavigationProperty Name="StudentSignInfos" Relationship="GTMDweixinModel.FK_Business_StudentSign_Business_Sign" FromRole="Business_Sign" ToRole="Business_StudentSign" />
+          <NavigationProperty Name="StudentSignInfos" Relationship="GTMDweixinModel.FK_Business_StudentSign_Business_Sign" FromRole="SignInfo" ToRole="Business_StudentSign" />
         </EntityType>
         <EntityType Name="StudentInfo">
           <Key>
@@ -534,7 +534,7 @@
           <Property Name="SupervisorUserID" Type="Int32" />
           <NavigationProperty Name="UserInfo" Relationship="GTMDweixinModel.FK_Business_Student_Authority_User" FromRole="Business_Student" ToRole="Authority_User" />
           <NavigationProperty Name="StudentProjectInfos" Relationship="GTMDweixinModel.FK_Business_StudentProject_Business_Student" FromRole="Business_Student" ToRole="Business_StudentProject" />
-          <NavigationProperty Name="StudentSignInfos" Relationship="GTMDweixinModel.FK_Business_StudentSign_Business_Student" FromRole="Business_Student" ToRole="Business_StudentSign" />
+          <NavigationProperty Name="StudentSignInfos" Relationship="GTMDweixinModel.FK_Business_StudentSign_Business_Student" FromRole="StudentInfo" ToRole="Business_StudentSign" />
         </EntityType>
         <EntityType Name="StudentProjectInfo">
           <Key>
@@ -546,37 +546,6 @@
           <NavigationProperty Name="ProjectInfo" Relationship="GTMDweixinModel.FK_Business_StudentProject_Business_Project" FromRole="Business_StudentProject" ToRole="Business_Project" />
           <NavigationProperty Name="StudentInfo" Relationship="GTMDweixinModel.FK_Business_StudentProject_Business_Student" FromRole="Business_StudentProject" ToRole="Business_Student" />
           <Property Name="EnteredDate" Type="DateTime" Precision="0" />
-        </EntityType>
-        <EntityType Name="StudentSignInfo">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstDay_Morning" Type="DateTime" Precision="0" />
-          <Property Name="FirstDay_Afternoon" Type="DateTime" Precision="0" />
-          <Property Name="FirstDay_Evening" Type="DateTime" Precision="0" />
-          <Property Name="SecondDay_Morning" Type="DateTime" Precision="0" />
-          <Property Name="SecondDay_Afternoon" Type="DateTime" Precision="0" />
-          <Property Name="SecondDay_Evening" Type="DateTime" Precision="0" />
-          <Property Name="ThirdDay_Morning" Type="DateTime" Precision="0" />
-          <Property Name="ThirdDay_Afternoon" Type="DateTime" Precision="0" />
-          <Property Name="ThirdDay_Evening" Type="DateTime" Precision="0" />
-          <Property Name="FourthDay_Morning" Type="DateTime" Precision="0" />
-          <Property Name="FourthDay_Afternoon" Type="DateTime" Precision="0" />
-          <Property Name="FourthDay_Evening" Type="DateTime" Precision="0" />
-          <Property Name="FifthDay_Morning" Type="DateTime" Precision="0" />
-          <Property Name="FifthDay_Afternoon" Type="DateTime" Precision="0" />
-          <Property Name="FifthDay_Evening" Type="DateTime" Precision="0" />
-          <Property Name="SixthDay_Morning" Type="DateTime" Precision="0" />
-          <Property Name="SixthDay_Afternoon" Type="DateTime" Precision="0" />
-          <Property Name="SixthDay_Evening" Type="DateTime" Precision="0" />
-          <Property Name="SeventhDay_Morning" Type="DateTime" Precision="0" />
-          <Property Name="SeventhDay_Afternoon" Type="DateTime" Precision="0" />
-          <Property Name="SeventhDay_Evening" Type="DateTime" Precision="0" />
-          <Property Name="StudentID" Type="Int32" Nullable="false" />
-          <Property Name="SignID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="SignInfo" Relationship="GTMDweixinModel.FK_Business_StudentSign_Business_Sign" FromRole="Business_StudentSign" ToRole="Business_Sign" />
-          <NavigationProperty Name="StudentInfo" Relationship="GTMDweixinModel.FK_Business_StudentSign_Business_Student" FromRole="Business_StudentSign" ToRole="Business_Student" />
         </EntityType>
         <Association Name="FK_Authority_UserRole_Authority_User">
           <End Type="GTMDweixinModel.UserInfo" Role="Authority_User" Multiplicity="0..1" />
@@ -626,18 +595,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Business_StudentSign_Business_Sign">
-          <End Type="GTMDweixinModel.SignInfo" Role="Business_Sign" Multiplicity="1" />
-          <End Type="GTMDweixinModel.StudentSignInfo" Role="Business_StudentSign" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Business_Sign">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Business_StudentSign">
-              <PropertyRef Name="SignID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Business_StudentProject_Business_Student">
           <End Type="GTMDweixinModel.StudentInfo" Role="Business_Student" Multiplicity="0..1" />
           <End Type="GTMDweixinModel.StudentProjectInfo" Role="Business_StudentProject" Multiplicity="*" />
@@ -646,18 +603,6 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Business_StudentProject">
-              <PropertyRef Name="StudentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Business_StudentSign_Business_Student">
-          <End Type="GTMDweixinModel.StudentInfo" Role="Business_Student" Multiplicity="1" />
-          <End Type="GTMDweixinModel.StudentSignInfo" Role="Business_StudentSign" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Business_Student">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Business_StudentSign">
               <PropertyRef Name="StudentID" />
             </Dependent>
           </ReferentialConstraint>
@@ -748,6 +693,61 @@
             </Principal>
             <Dependent Role="UserRoleInfo">
               <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="StudentSignInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstDay_Morning" Type="Boolean" />
+          <Property Name="FirstDay_Afternoon" Type="Boolean" />
+          <Property Name="FirstDay_Evening" Type="Boolean" />
+          <Property Name="SecondDay_Morning" Type="Boolean" />
+          <Property Name="SecondDay_Afternoon" Type="Boolean" />
+          <Property Name="SecondDay_Evening" Type="Boolean" />
+          <Property Name="ThirdDay_Morning" Type="Boolean" />
+          <Property Name="ThirdDay_Afternoon" Type="Boolean" />
+          <Property Name="ThirdDay_Evening" Type="Boolean" />
+          <Property Name="FourthDay_Morning" Type="Boolean" />
+          <Property Name="FourthDay_Afternoon" Type="Boolean" />
+          <Property Name="FourthDay_Evening" Type="Boolean" />
+          <Property Name="FifthDay_Morning" Type="Boolean" />
+          <Property Name="FifthDay_Afternoon" Type="Boolean" />
+          <Property Name="FifthDay_Evening" Type="Boolean" />
+          <Property Name="SixthDay_Morning" Type="Boolean" />
+          <Property Name="SixthDay_Afternoon" Type="Boolean" />
+          <Property Name="SixthDay_Evening" Type="Boolean" />
+          <Property Name="SeventhDay_Morning" Type="Boolean" />
+          <Property Name="SeventhDay_Afternoon" Type="Boolean" />
+          <Property Name="SeventhDay_Evening" Type="Boolean" />
+          <Property Name="StudentID" Type="Int32" Nullable="false" />
+          <Property Name="SignID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SignInfo" Relationship="GTMDweixinModel.FK_Business_StudentSign_Business_Sign" FromRole="Business_StudentSign" ToRole="SignInfo" />
+          <NavigationProperty Name="StudentInfo" Relationship="GTMDweixinModel.FK_Business_StudentSign_Business_Student" FromRole="Business_StudentSign" ToRole="StudentInfo" />
+        </EntityType>
+        <Association Name="FK_Business_StudentSign_Business_Sign">
+          <End Type="GTMDweixinModel.SignInfo" Role="SignInfo" Multiplicity="1" />
+          <End Type="GTMDweixinModel.StudentSignInfo" Role="Business_StudentSign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SignInfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Business_StudentSign">
+              <PropertyRef Name="SignID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Business_StudentSign_Business_Student">
+          <End Type="GTMDweixinModel.StudentInfo" Role="StudentInfo" Multiplicity="1" />
+          <End Type="GTMDweixinModel.StudentSignInfo" Role="Business_StudentSign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentInfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Business_StudentSign">
+              <PropertyRef Name="StudentID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -867,6 +867,32 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="MeunInfoes">
+            <EntityTypeMapping TypeName="GTMDweixinModel.MeunInfo">
+              <MappingFragment StoreEntitySet="Authority_Meun">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="TreePath" ColumnName="TreePath" />
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+                <ScalarProperty Name="TreeParentID" ColumnName="TreeParentID" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleInfoes">
+            <EntityTypeMapping TypeName="GTMDweixinModel.RoleInfo">
+              <MappingFragment StoreEntitySet="Authority_Role">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="TreePath" ColumnName="TreePath" />
+                <ScalarProperty Name="IsSystemRole" ColumnName="IsSystemRole" />
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+                <ScalarProperty Name="TreeParentID" ColumnName="TreeParentID" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="StudentSignInfoes">
             <EntityTypeMapping TypeName="GTMDweixinModel.StudentSignInfo">
               <MappingFragment StoreEntitySet="Business_StudentSign">
@@ -893,32 +919,6 @@
                 <ScalarProperty Name="FirstDay_Evening" ColumnName="FirstDay_Evening" />
                 <ScalarProperty Name="FirstDay_Afternoon" ColumnName="FirstDay_Afternoon" />
                 <ScalarProperty Name="FirstDay_Morning" ColumnName="FirstDay_Morning" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MeunInfoes">
-            <EntityTypeMapping TypeName="GTMDweixinModel.MeunInfo">
-              <MappingFragment StoreEntitySet="Authority_Meun">
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="URL" ColumnName="URL" />
-                <ScalarProperty Name="TreePath" ColumnName="TreePath" />
-                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
-                <ScalarProperty Name="TreeParentID" ColumnName="TreeParentID" />
-                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RoleInfoes">
-            <EntityTypeMapping TypeName="GTMDweixinModel.RoleInfo">
-              <MappingFragment StoreEntitySet="Authority_Role">
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="TreePath" ColumnName="TreePath" />
-                <ScalarProperty Name="IsSystemRole" ColumnName="IsSystemRole" />
-                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
-                <ScalarProperty Name="TreeParentID" ColumnName="TreeParentID" />
-                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
