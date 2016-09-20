@@ -181,13 +181,13 @@
             <!---table的tools-->
             <div id="table-studentsign">
                 <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true,text:'新建'" onclick="newStudentSign()"></a>
-                @*<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true,text:'编辑'" onclick="editStudentSign()"></a>*@
+                <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true,text:'编辑'" onclick="editStudentSign()"></a>
                 <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true,text:'删除'" onclick="deleteStudentSign()"></a>
                 <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-redo',plain:true,text:'导入'"></a>
                 <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-blank',plain:true,text:'导出'"></a>
                 <div class="pull-right" style="margin-right:40px">
                     <input id="name" class="easyui-textbox" data-options="buttonText:'名字',buttonAlign:'left'" style="width:120px">
-                    <input id="phoneNumber" class="easyui-textbox" data-options="buttonText:'手机号',buttonAlign:'left'" style="width:120px;margin-right:2px">
+                    <input id="phoneNumber" class="easyui-textbox" data-options="buttonText:'手机号',buttonAlign:'left',disabled:true" style="width:120px;margin-right:2px">
                     <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true,text:'搜索'" onclick="seacherStudentSign()"></a>
                 </div>
             </div>
@@ -319,7 +319,7 @@
                     fitColumn: false,
                     showFooter: true,
                     queryParams: {
-                        projectID: id,
+                        signID: id,
                     },
                     columns: [[
                         { field: 'ID', title: 'ID',rowspan:2, checkbox: true },
@@ -461,7 +461,8 @@
             var phoneNumber = $("#phoneNumber").val().trim();
             $('#studentsign-table').datagrid('load', {
                 name: name,
-                phoneNumber: phoneNumber
+                phoneNumber: phoneNumber,
+                signID: $('#sign-tree').tree('getSelected').id
             });
         }
         var imgcheckbox = function (cellvalue, options, rowObject) {

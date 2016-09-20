@@ -25,7 +25,7 @@ namespace GTMDweixinManagement.BLL
             var pageSize = pagerParas["rows"].Value<int>();
             var queryName = pagerParas["name"];
             var queryNunmber = pagerParas["phoneNumber"];
-            var signID = pagerParas["projectID"];
+            var signID = pagerParas["signID"];
             var predicate = PredicateBuilder.True<StudentSignInfo>();
 
             if(signID != null && signID.Value<string>() != "")
