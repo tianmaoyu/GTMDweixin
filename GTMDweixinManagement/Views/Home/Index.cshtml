@@ -3,6 +3,22 @@
     //Layout = null;
     ViewBag.Title = "Home Page";
 }
+@*<script src="~/Scripts/UEeditor/ueditor.config.js"></script>
+<script src="~/Scripts/UEeditor/ueditor.all.js"></script>*@
+<script>
+    //加载编辑器
+    var ue = UE.getEditor('container', {
+        //toolbars: [[
+        //           'fullscreen', 'source',
+        //           'bold', 'italic', 'underline', 'forecolor', 'insertorderedlist',
+        //          'fontfamily', 'fontsize',
+        //           'justifyleft', 'justifycenter',
+        //           'link', 'unlink',
+        //           'simpleupload', 'snapscreen'
+        //]]
+    });
+</script>
+<textarea id="container" name="content" style="height: 228px;" type="text/plain"></textarea>
 <h2>Basic ComboBox</h2>
 <p>Type in ComboBox to try auto complete.</p>
 <div style="margin:20px 0"></div>
