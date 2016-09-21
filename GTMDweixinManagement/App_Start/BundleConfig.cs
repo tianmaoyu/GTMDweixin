@@ -29,6 +29,10 @@ namespace GTMDweixinManagement
             bundles.Add(new ScriptBundle("~/bundles/easy-ui").Include(
                 "~/Scripts/jquery.easyui-1.4.5.js",
                 "~/Scripts/locale/easyui-lang-zh_CN.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/ueditor").Include(
+            //   "~/ueditor/ueditor.config.js",
+            //   "~/ueditor/ueditor.all.min.js",
+            //   "~/ueditor/lang/zh-cn/zh-cn.js"));
             //修改样式到这里该
             bundles.Add(new StyleBundle("~/Content/easy-ui").Include(
                 "~/Content/themes/icon.css",

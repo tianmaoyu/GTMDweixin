@@ -1,0 +1,169 @@
+﻿
+@{
+    Layout = null;
+}
+
+<body>
+   
+    <div class="easyui-layout" style="width:100%;height:100%;">
+        <table id="dg-notice"></table>
+    </div>
+
+    <div id="dlg-notice" class="easyui-dialog" style="width:600px"
+         closed="true" buttons="#dlg-buttons-notice">
+        <form id="fm-notice" method="post" novalidate style="margin:0;padding:20px 50px">
+            <div style="margin-bottom:10px;font-size:14px;border-bottom:1px solid #ccc">用户信息</div>
+            <div style="margin-bottom:10px">
+                <input name="ID" class="easyui-textbox" data-options="buttonText:'ID',buttonAlign:'left',editable:false" style="width:200px">
+                <input name="Title" class="easyui-textbox" data-options="buttonText:'名字',buttonAlign:'left'" style="width:200px">
+            </div>
+
+            <div style="margin-bottom:10px">
+                <input name="Subtitle" class="easyui-textbox" data-options="buttonText:'子标题',buttonAlign:'left'" style="width:200px">
+                <select class="easyui-combobox" name="IsActive" data-options="buttonText:'是否激活',buttonAlign:'left'" style="width:200px;">
+                    <option value="true">是</option>
+                    <option value="false">否</option>
+                </select>
+               
+            </div>
+
+            <div style="margin-bottom:10px">
+                <select class="easyui-combobox" name="IsDisplay" data-options="buttonText:'是否显示',buttonAlign:'left'" style="width:200px;">
+                    <option value="true">是</option>
+                    <option value="false">否</option>
+                </select>
+                <input name="DisplayOrder" class="easyui-numberspinner" data-options="buttonText:'显示序号',buttonAlign:'left'" style="width:200px">
+               
+            </div>
+
+            <div style="margin-bottom:10px">
+                <input name="CreateDate" class="easyui-datebox" data-options="buttonText:'创建日期',buttonAlign:'left'" style="width:200px">
+                <input name="Creater" class="easyui-textbox" data-options="buttonText:'创建人',buttonAlign:'left'" style="width:200px">
+                
+            </div>
+             <textarea name="Centent" id="editor" style="width:100%;height:100px;">
+             </textarea>
+        </form>
+    </div>
+    <div id="dlg-buttons-notice">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveNotice()" style="width:90px">Save</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript: $('#dlg-notice').dialog('close')" style="width:90px">Cancel</a>
+    </div>
+
+    <div id="tb">
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true,text:'新建'" onclick="newNotice()"></a>
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true,text:'编辑'" onclick="editNotice()"></a>
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true,text:'删除'" onclick="deleteNotice()"></a>
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-redo',plain:true,text:'导入'"></a>
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-blank',plain:true,text:'导出'"></a>
+        <div class="pull-right" style="margin-right:40px">
+            <input id="name" class="easyui-textbox" data-options="buttonText:'名字',buttonAlign:'left'" style="width:120px">
+            <input id="phoneNumber" class="easyui-textbox" data-options="buttonText:'手机号',buttonAlign:'left'" style="width:120px;margin-right:2px">
+            <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true,text:'搜索'" onclick="seacherNotice()"></a>
+        </div>
+    </div>
+    
+    <script>
+       
+
+        $(function () {
+            $("#dg-notice").datagrid({
+                url: "api/Notice/GetList",
+                toolbar: '#tb',
+                striped: true,
+                collapsible: true,
+                width: "100%",
+                height: "100%",
+                fitColumn: false,
+                showFooter: true,
+                columns: [[
+                    { field: 'ID', title: 'ID', checkbox: true },
+                    { field: 'Title', title: '标题', width: 80 },
+                    { field: 'Subtitle', title: '子标题', width: 40 },
+                    { field: 'IsActive', title: '是否激活', width: 100 },
+                    { field: 'IsDisplay', title: '是否显示', width: 100 },
+                    { field: 'DisplayOrder', title: '序号', width: 100 },
+                    { field: 'CreateDate', title: '创建日期', width: 100 },
+                    { field: 'Creater', title: '作者', width: 100 },
+                    { field: 'Centent', title: '内容', width: 100 },
+                 
+                ]],
+                pagination: true,
+
+            });
+        })
+        var url = null;
+        function newNotice() {
+            $("#dlg-notice").dialog('open').dialog('center').dialog('setTitle', '新建用户');
+            $('#fm-notice').form('clear');
+            url = 'api/Notice/Add';
+        }
+        function saveNotice() {
+            $('#fm-notice').form('submit', {
+                url: url,
+                onSubmit: function () {
+                    return $(this).form('validate');
+                },
+                success: function (result) {
+                    $('#dlg-notice').dialog('close');        // close the dialog
+                    $('#dg-notice').datagrid('reload');    // reload the user data
+                    //var result = eval('(' + result + ')');
+                    //if (result.errorMsg) {
+                    //    $.messager.show({
+                    //        title: 'Error',
+                    //        msg: result.errorMsg
+                    //    });
+                    //} else {
+
+                    //}
+                }
+            });
+        }
+        //删除
+        function deleteNotice() {
+            debugger;
+            var rows = $('#dg-notice').datagrid('getSelections');
+            var ids = [];
+            if (rows) {
+                $.each(rows, function (i, item) {
+                    ids.push(item["ID"]);
+                })
+            }
+            if (ids.length > 0) {
+                $.messager.confirm('Confirm', '你确定要删除勾选的用户吗？', function (r) {
+                    if (r) {
+                        $.post('api/Notice/Delete', { ids: ids }, function (result) {
+                            $('#dg-notice').datagrid('reload');
+                            if (result.success) {
+                                $('#dg-notice').datagrid('reload');    // reload the user data
+                            } else {
+                                $.messager.show({    // show error message
+                                    title: 'Error',
+                                    msg: result.errorMsg
+                                });
+                            }
+                        }, 'json');
+                    }
+                });
+            }
+        }
+        //跟新
+        function editNotice() {
+            var row = $('#dg-notice').datagrid('getSelected');
+            if (row) {
+                $('#dlg-notice').dialog('open').dialog('center').dialog('setTitle', '编辑用户');
+                $('#fm-notice').form('load', row);
+                url = 'api/Notice/Add?id=' + row.ID;
+            }
+        }
+        function seacherNotice() {
+            var name = $("#name").val().trim();
+            var phoneNumber = $("#phoneNumber").val().trim();
+            $('#dg-notice').datagrid('load', {
+                name: name,
+                phoneNumber: phoneNumber
+            });
+        }
+
+    </script>
+</body>

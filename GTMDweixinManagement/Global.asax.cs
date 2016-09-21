@@ -18,6 +18,7 @@ namespace GTMDweixinManagement
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            //RouteTable.Routes.IgnoreRoute("{filename}.ashx");
         }
     }
 }

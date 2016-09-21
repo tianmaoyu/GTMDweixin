@@ -13,6 +13,8 @@ namespace GTMDweixinManagement
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            //routes.Add(new Route("{controller}", new Test.PlainRouteHandler()));
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
