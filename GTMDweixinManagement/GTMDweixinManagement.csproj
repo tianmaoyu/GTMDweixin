@@ -211,6 +211,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIControllers\MenuController.cs" />
+    <Compile Include="APIControllers\FeedbackController.cs" />
     <Compile Include="APIControllers\SignController.cs" />
     <Compile Include="APIControllers\ProjectController.cs" />
     <Compile Include="APIControllers\StudentSignController.cs" />
@@ -225,6 +226,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BLL\BaseBLL.cs" />
+    <Compile Include="BLL\FeedbackBLL.cs" />
     <Compile Include="BLL\SignBLL.cs" />
     <Compile Include="BLL\ProjectBLL.cs" />
     <Compile Include="BLL\MenuBLL.cs" />
@@ -236,6 +238,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\StudentSignController.cs" />
     <Compile Include="Controllers\StudentProjectController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
@@ -777,6 +780,7 @@
     <Content Include="Views\StudentProject\Index.cshtml" />
     <Content Include="Views\StudentSign\Index.cshtml" />
     <Content Include="Views\Notice\Index.cshtml" />
+    <Content Include="Views\Feedback\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
