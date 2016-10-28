@@ -21,6 +21,10 @@ namespace GTMDweixinManagement.BLL
         public JObject GetList(JObject pagerParas)
         {
             JObject json = new JObject();
+            //var properties = pagerParas.Properties();
+            //var values = pagerParas.PropertyValues();
+           
+            
             var pageIndex = pagerParas["page"].Value<int>();
             var pageSize = pagerParas["rows"].Value<int>();
             var queryName = pagerParas["name"];

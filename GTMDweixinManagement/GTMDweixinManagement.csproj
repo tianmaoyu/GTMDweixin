@@ -210,21 +210,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="APIControllers\MenuController.cs" />
-    <Compile Include="APIControllers\FeedbackController.cs" />
-    <Compile Include="APIControllers\SignController.cs" />
-    <Compile Include="APIControllers\ProjectController.cs" />
-    <Compile Include="APIControllers\StudentSignController.cs" />
-    <Compile Include="APIControllers\StudentProjectController.cs" />
-    <Compile Include="APIControllers\StudentController.cs" />
-    <Compile Include="APIControllers\NoticeController.cs" />
-    <Compile Include="APIControllers\UserController.cs" />
+    <Compile Include="APIControllers\Manage\MenuController.cs" />
+    <Compile Include="APIControllers\Manage\FeedbackController.cs" />
+    <Compile Include="APIControllers\Manage\SignController.cs" />
+    <Compile Include="APIControllers\Manage\ProjectController.cs" />
+    <Compile Include="APIControllers\Manage\StudentSignController.cs" />
+    <Compile Include="APIControllers\Manage\StudentProjectController.cs" />
+    <Compile Include="APIControllers\Manage\StudentController.cs" />
+    <Compile Include="APIControllers\Manage\NoticeController.cs" />
+    <Compile Include="APIControllers\Manage\UserController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\WeiXin\Controllers\AccountController.cs" />
     <Compile Include="Areas\WeiXin\WeiXinAreaRegistration.cs" />
     <Compile Include="BLL\BaseBLL.cs" />
     <Compile Include="BLL\FeedbackBLL.cs" />
@@ -703,6 +704,9 @@
     </Content>
     <Content Include="Content\themes\material\images\Thumbs.db" />
     <Content Include="Areas\WeiXin\Views\web.config" />
+    <Content Include="Areas\WeiXin\Views\Shared\_LayoutWeiXin.cshtml" />
+    <Content Include="Areas\WeiXin\Views\Account\Login.cshtml" />
+    <Content Include="Areas\WeiXin\Views\Account\Register.cshtml" />
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
     <Content Include="Scripts\CustomJS\common.js" />
     <Content Include="Scripts\easyloader.js" />
@@ -1072,10 +1076,9 @@
     <Content Include="Scripts\UEeditor\third-party\video-js\font\vjs.woff" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="APIControllers\WeiXin\" />
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\WeiXin\Controllers\" />
     <Folder Include="Areas\WeiXin\Models\" />
-    <Folder Include="Areas\WeiXin\Views\Shared\" />
     <Folder Include="Scripts\UEeditor\net\upload\" />
   </ItemGroup>
   <ItemGroup>
