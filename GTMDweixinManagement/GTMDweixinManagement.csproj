@@ -227,6 +227,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\WeiXin\Controllers\AccountController.cs" />
     <Compile Include="Areas\WeiXin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\WeiXin\Controllers\StudentController.cs" />
     <Compile Include="Areas\WeiXin\WeiXinAreaRegistration.cs" />
     <Compile Include="BLL\BaseBLL.cs" />
     <Compile Include="BLL\FeedbackBLL.cs" />
@@ -730,6 +731,9 @@
     <Content Include="Areas\WeiXin\Views\Account\Login.cshtml" />
     <Content Include="Areas\WeiXin\Views\Account\Register.cshtml" />
     <Content Include="Areas\WeiXin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\WeiXin\Views\Student\Edit.cshtml" />
+    <Content Include="Areas\WeiXin\Views\Account\ModifyPassword.cshtml" />
+    <Content Include="Areas\WeiXin\Views\Student\Enter.cshtml" />
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
     <Content Include="Scripts\CustomJS\common.js" />
     <Content Include="Scripts\easyloader.js" />

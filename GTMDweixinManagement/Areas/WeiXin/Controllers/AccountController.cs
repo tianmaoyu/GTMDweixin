@@ -25,5 +25,11 @@ namespace GTMDweixinManagement.Areas.WeiXin.Controllers
         {
             return View();
         }
+
+        // GET: WeiXin/Account/Register
+        public ActionResult ModifyPassword()
+        {
+            return View();
+        }
     }
 }
