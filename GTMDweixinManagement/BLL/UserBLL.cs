@@ -51,6 +51,12 @@ namespace GTMDweixinManagement.BLL
             db.Insert(userInfo);
             return 1;
         }
+
+        public int Add(UserInfo info)
+        {
+            db.Insert(info);
+            return 1;
+        }
         /// <summary>
         /// 编辑
         /// </summary>
@@ -105,6 +111,15 @@ namespace GTMDweixinManagement.BLL
         public bool Authentication(string mobilePhone ,string password)
         {
            return db.UserInfoes.Any(item => item.MobileTelphoneNumber == mobilePhone && item.Password == password);
+        }
+
+        public bool IsUserdPhone(string phone)
+        {
+            return db.UserInfoes.Any(item => item.MobileTelphoneNumber == phone);
+        }
+        public bool IsUserdUserName(string name)
+        {
+            return db.UserInfoes.Any(item => item.LoginName == name);
         }
     }
 }

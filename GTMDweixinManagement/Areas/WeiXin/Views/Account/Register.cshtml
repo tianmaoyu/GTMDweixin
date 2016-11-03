@@ -22,9 +22,9 @@
                             <label class="weui_label">手机</label>
                         </div>
                         <div class="weui_cell_bd weui_cell_primary">
-                            <input class="weui_input" type="text" name="mobnumber" minlength="4" id="mobnumber" placeholder="请输入手机号"
-                                   required check-type="mobile" check-url="/ucenter/member/checkaccount.html" onblur="checkaccount(this)"
-                                   errormsg="请填写手机号" value=""/>
+                            <input class="weui_input" type="text" name="mobilePhone" minlength="4" id="mobnumber" placeholder="请输入手机号"
+                                   required check-type="mobile" onblur="validatePhone(this)"
+                                   errormsg="请填写手机号" value="" />
                         </div>
                     </div>
                     <div class="weui_cell">
@@ -32,7 +32,7 @@
                             <label class="weui_label">密码</label>
                         </div>
                         <div class="weui_cell_bd weui_cell_primary">
-                            <input class="weui_input" type="password" name="password" value="" placeholder="请输入至少6位密码" id="inputPassword" check-length="6,30">
+                            <input class="weui_input" type="password" name="password" value="" placeholder="请输入至少6位密码" id="inputPassword" check-length="5,18">
                         </div>
                     </div>
                     <div class="weui_cell">
@@ -40,7 +40,7 @@
                             <label class="weui_label">确认密码</label>
                         </div>
                         <div class="weui_cell_bd weui_cell_primary">
-                            <input class="weui_input" type="password" name="password" value="" placeholder="再次输入密码" id="comfromPassword" check-length="6,30">
+                            <input class="weui_input" type=password" name="confirmPassword" value="" placeholder="再次输入密码" id="comfromPassword" check-length="5,18">
                         </div>
                     </div>
                     <div class="weui_cell">
@@ -48,7 +48,7 @@
                             <label class="weui_label">姓名</label>
                         </div>
                         <div class="weui_cell_bd weui_cell_primary">
-                            <input class="weui_input" type="text" name="nickname" value="" placeholder="建议真实名字">
+                            <input id="userName" class="weui_input" type="text" name="userName" onblur="validateUserName(this)" value="" placeholder="建议真实名字">
                             <input id="name" type="hidden" name="role" value="1" placeholder="角色">
                         </div>
                     </div>
@@ -57,94 +57,87 @@
                     <a class="weui_btn weui_btn_primary" id="confirm">提交注册</a>
                 </div>
             </form>
-           
+
             <div class="weui_msg">
                 <div class="weui_text_area">
                     <a href="/WeiXin/Account/login">登录已有账号</a>
                 </div>
             </div>
-            
-            <div class="weui-row weui-no-gutter">
-                    <div class="weui-col-33"><a href="#">1<i class="sstfont sst-weixin"></i></a></div>
-                    <div class="weui-col-33"><a href="#">2<i class="sstfont sst-qq"></i></a></div>
-                    <div class="weui-col-33"><a href="#">3<i class="sstfont sst-weibo"></i></a></div>
-             </div>
+
         </div>
         <script>
-            function checkaccount(obj) {
-                var url = $(obj).attr('check-url');
-                var type = $(obj).attr('check-type');
+            function  validatePhone(obj) {
                 var value = $(obj).val();
                 if (value == '') {
-                    $.toast('请输入手机号码')
+                    $.toast('请输入手机号码',"forbidden")
                 } else {
-                    $.post(url, { type: type, account: value }, function (a) {
-                        $.toast(a.info)
+                    $.showLoading("请稍等,正在验证手机是否可用！");
+                    $.post("/api/WX_Account/ValidatePhone", { mobilePhone: value }, function (data) {
+                        debugger;
+                        if (data.status) {
+                            $.hideLoading();
+                            $.toast("手机号错误或者已经被占用！", "forbidden");
+                        }
+                        $.hideLoading();
+                    });
+                }
+            }
+            function validateUserName(obj) {
+                var value = $(obj).val();
+                if (value == '') {
+                    $.toast('请输入姓名', "forbidden")
+                } else {
+                    $.showLoading("请稍等,正在验证名字是否可以用！");
+                    $.post("/api/WX_Account/ValidateUserName", { userName: value }, function (data) {
+                        if (data.status) {
+                            $.hideLoading();
+                            $.toast("用户名已经被占用！", "forbidden");
+                        }
+                        $.hideLoading();
                     });
                 }
             }
         </script>
         <script>
-            $(function () {
-                $("[data-role='getVerify']").click(function () {
-                    var $this = $(this);
-                    var account = $("#mobnumber").val();
-                    var type = 'mobile';
-                    var verify = $("#reg_verify").val();
-                    var todo = 'register';/*todo20160526修改*/
-                    if (account == '') {
-                        $.toast('请输入手机号码');
-                        return false;
-                    }
-                    $.post("/ucenter/verify/sendverify.html", {
-                        account: account,
-                        type: type,
-                        action: 'member',
-                        verify: verify,
-                        todo: todo
-                    }, function (res) {
-                        if (res.status) {
-                            DecTime.obj = $this
-                            $this.time = "60";
-                            $(this).attr('disabled', true)
-                            DecTime.dec_time();
-                            $.toast(res.info);
-                        }
-                        else {
-                            $.toast(res.info);
-                        }
-                    })
-                })
-            })
-            var DecTime = {
-                obj: 0,
-                time: 0,
-                dec_time: function () {
-                    if (this.time > 0) {
-                        this.obj.text(this.time-- + 'S')
-                        setTimeout("DecTime.dec_time()", 1000)
-                    } else {
-                        this.obj.text("验证手机")
-                        this.obj.attr('disabled', false)
-                    }
-
-                }
-            }
             $('#confirm').click(function () {
                 var data = $("#formyz").serialize();
-                var url = $("#formyz").attr('data-url');
-                $.post(url, data, function (msg) {
+                var valmsg=validation();
+                if (valmsg) {
+                    $.alert(valmsg, "警告！");
+                    return;
+                }
+                $.post("/api/WX_Account/Register", data, function (msg) {
                     if (msg.status == 1) {
-                        $.toast(msg.info);
+                        $.toast("注册成功！");
                         setTimeout(function () {
                             location.href = msg.url;
                         }, 1000);
                     } else {
-
                         $.toast(msg.info);
                     }
                 }, 'json');
             });
+            function validation() {
+                var errorMsg = "";
+                alert($("#mobnumber").val());
+                if ($.trim($("#mobnumber").val()) == "") {
+                    errorMsg += "电话号码不能为空" + "</br>";
+                    return errorMsg;
+                }
+                if ($.trim($("#inputPassword").val()) == "") {
+                    errorMsg += "密码不能为空" + "</br>";
+                    return errorMsg;
+                }
+                if ($.trim($("#userName").val()) == "") {
+                    errorMsg += "用户名不能为空" + "</br>";
+                    return errorMsg;
+                }
+                if ($("#inputPassword").val() != $("#comfromPassword").val()) {
+                    errorMsg += "前后密码不一致" + "</br>";
+                    return errorMsg;
+                }
+                return false;
+            }
         </script>
 
         <script>
@@ -156,26 +149,25 @@
                     var str = obj.val().replace(/\s+/g, "");
                     var html = '';
                     if (str.length == 0) {
-                        $.toast('请输入密码');
+                        $.toast("请输入密码", "forbidden");
                     } else {
                         if (typeof (obj.attr('check-length')) != 'undefined') {
                             var strs = new Array(); //定义一数组
                             strs = obj.attr('check-length').split(","); //字符分割
                             if (strs[1]) {
                                 if (strs[1] < str.length || str.length < strs[0]) {
-                                    $.toast('密码长度最低6位');
+                                    $.toast("密码长度最低5位，最高18位", "forbidden");
                                 }
                             }
                             else {
                                 if (strs[0] < str.length) {
-                                    $.toast('密码长度最低6位');
+                                    $.toast("密码长度最低5位", "forbidden");
                                 }
                             }
                         }
                     }
                 })
             })
-
         </script>
     </div>
 
