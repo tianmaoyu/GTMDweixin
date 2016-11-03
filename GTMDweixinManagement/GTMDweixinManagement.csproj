@@ -219,6 +219,7 @@
     <Compile Include="APIControllers\Manage\StudentController.cs" />
     <Compile Include="APIControllers\Manage\NoticeController.cs" />
     <Compile Include="APIControllers\Manage\UserController.cs" />
+    <Compile Include="APIControllers\WeiXin\WX_AccountController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -346,6 +347,7 @@
     <Content Include="Content\images\icon_nav_tab.png" />
     <Content Include="Content\images\icon_nav_toast.png" />
     <Content Include="Content\images\icon_nav_up.png" />
+    <Content Include="Content\images\wx_checked.png" />
     <Content Include="Content\themes\black\accordion.css" />
     <Content Include="Content\themes\black\calendar.css" />
     <Content Include="Content\themes\black\combo.css" />
@@ -1107,7 +1109,6 @@
     <Content Include="Scripts\UEeditor\third-party\video-js\font\vjs.woff" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="APIControllers\WeiXin\" />
     <Folder Include="App_Data\" />
     <Folder Include="Areas\WeiXin\Models\" />
     <Folder Include="Scripts\UEeditor\net\upload\" />

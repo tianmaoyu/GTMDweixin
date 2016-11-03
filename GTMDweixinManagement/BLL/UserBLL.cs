@@ -95,5 +95,16 @@ namespace GTMDweixinManagement.BLL
             userInfos = db.UserInfoes.ToList();
             return userInfos;
         }
+
+        /// <summary>
+        /// 微信端登录认证
+        /// </summary>
+        /// <param name="mobilePhone">电话号码</param>
+        /// <param name="password">密码</param>
+        /// <returns></returns>
+        public bool Authentication(string mobilePhone ,string password)
+        {
+           return db.UserInfoes.Any(item => item.MobileTelphoneNumber == mobilePhone && item.Password == password);
+        }
     }
 }

@@ -2,6 +2,12 @@
     Layout = "~/Areas/WeiXin/Views/Shared/_LayoutWeiXin.cshtml";
 }
 <body ontouchstart >
+    <h2 style="text-align:center;background-color:#eee">勾班【三】</h2>
+        <div class="weui_panel_bd">
+            <div class="weui_media_box weui_media_text">
+                <p class="weui_media_desc">说明：2016年下半年安全感，2016.08.12-08.19</p>
+            </div>
+           </div>
     <table id="sign">
         <tbody>
             <tr>
@@ -163,10 +169,15 @@
                 }
             });
             //改变总数
+            //var text="<span style='color:red'></span>"
             $("#sign tbody tr:eq(8) th:eq(3)").html(total);
             //return total;
         }
     </script>
-    
+    <div class="weui_btn_area">
+        <a class="weui_btn weui_btn_primary" id="sign-creat">保存</a>
+    </div>
+    <div class="weui_btn_area">
+    </div>
  </body>
 

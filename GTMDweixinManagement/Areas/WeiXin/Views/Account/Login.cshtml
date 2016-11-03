@@ -1,72 +1,86 @@
 ﻿@{
-   Layout = "~/Areas/WeiXin/Views/Shared/_LayoutWeiXin.cshtml";
+    Layout = "~/Areas/WeiXin/Views/Shared/_LayoutWeiXin.cshtml";
 }
+<style>
+  
+</style>
 <body ontouchstart>
     <!--头部导航 开始-->
     <div class="weui_msg">
         <div class="weui_icon_area"><i class="weui_icon_success weui_icon_msg"></i></div>
     </div>
-        @*<div class="weui_cells_title">
+    @*<div class="weui_cells_title">
             <h1 style="text-align:center">登录/注册</h1>
         </div>*@
-        <!--头部导航 结束-->
-        <!--主体部分 开始-->
-        <div class="content">
-            <div class="content-block">
-                <div class="login_logo"> @*<img src="/Public/sstm/imagesm/member/login_logo.png">*@</div>
+    <!--头部导航 结束-->
+    <!--主体部分 开始-->
+    <div class="content">
+        <div class="content-block">
+            <div class="login_logo"> @*<img src="/Public/sstm/imagesm/member/login_logo.png">*@</div>
 
-                <form method="post" data-url="/login" id="formlogin">
-                    <div class="weui_cells weui_cells_form">
-                        <div class="weui_cell">
-                            <div class="weui_cell_hd">
-                                <label class="weui_label">手机</label>
-                            </div>
-                            <div class="weui_cell_bd weui_cell_primary">
-                                <input class="weui_input" type="text" placeholder="请输入手机号" name="username" id="text" value="">
-                            </div>
+            <form method="post" data-url="/login" id="formlogin">
+                <div class="weui_cells weui_cells_form">
+                    <div class="weui_cell">
+                        <div class="weui_cell_hd">
+                            <label class="weui_label">手机</label>
                         </div>
-                        <div class="weui_cell">
-                            <div class="weui_cell_hd">
-                                <label class="weui_label">密码</label>
-                            </div>
-                            <div class="weui_cell_bd weui_cell_primary">
-                                <input class="weui_input" placeholder="请输入密码" type="password" name="password" id="password" value="">
-                            </div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <input class="weui_input" type="text" placeholder="请输入手机号" name="mobilePhone" id="text" value="">
                         </div>
                     </div>
-                </form>
+                    <div class="weui_cell">
+                        <div class="weui_cell_hd">
+                            <label class="weui_label">密码</label>
+                        </div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <input class="weui_input" placeholder="请输入密码" type="password" name="password" id="password" value="">
+                        </div>
+                    </div>
+                    <div class="weui_cell  weui_cell_switch">
+                        <div class="weui_cell_hd">
+                            <label class="weui_label">记住我</label>
+                        </div>
+                        <div class="weui_cell_ft">
+                            <input class="weui_switch" type="checkbox">
+                        </div>
 
-                <div class="weui_btn_area">
-                    <a class="weui_btn weui_btn_primary" id="conf">登录</a>
-                    <a href="/WeiXin/Account/Register" class="weui_btn weui_btn_default">注册</a>
-                </div>
-                <div class="weui_msg">
-                    <div class="weui_text_area">
-                        <a href="#">忘记密码？</a>
                     </div>
                 </div>
-                
-                <script>
-                    $('#conf').click(function () {
-                        var data = $("#formlogin").serialize();
-                        var url = $("#formlogin").attr('data-url');
-                        $.post(url, data, function (msg) {
-                            if (msg.status == 1) {
-                                $.toast(msg.info);
-                                setTimeout(function () {
-                                    location.href = msg.url;
-                                }, 200);
-                            } else {
-                                $.toast(msg.info);
-                            }
-                        }, 'json');
-                    })
-                </script>
+            </form>
 
+            <div class="weui_btn_area">
+                <a class="weui_btn weui_btn_primary" id="btnLogin">登录</a>
+                <a href="/WeiXin/Account/Register" class="weui_btn weui_btn_default">注册</a>
             </div>
-        </div>
+            <div class="weui_msg">
+                <div class="weui_text_area">
+                    <a href="#">忘记密码？</a>
+                </div>
+            </div>
 
-        <div style="display: none;">
-            <!-- 用于加载统计代码等隐藏元素 -->
+            <script>
+                $('#btnLogin').click(function () {
+                    var data = $("#formlogin").serialize();
+                    //debugger;
+                    $.post("/api/WX_Account/Login", data, function (msg) {
+                        //var msg = $.parseJSON(msg);
+                        if (msg.status == 1) {
+                            $.showLoading("请稍等...");
+                            setTimeout(function () {
+                                location.href = msg.url;
+                                $.hideLoading();
+                            }, 200);
+                        } else {
+                            $.toast(msg.info, "forbidden");
+                        }
+                    }, 'json');
+                })
+            </script>
+
         </div>
+    </div>
+
+    <div style="display: none;">
+        <!-- 用于加载统计代码等隐藏元素 -->
+    </div>
 </body>

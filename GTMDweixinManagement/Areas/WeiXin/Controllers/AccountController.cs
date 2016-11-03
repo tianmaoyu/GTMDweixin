@@ -20,6 +20,13 @@ namespace GTMDweixinManagement.Areas.WeiXin.Controllers
             return View();
         }
 
+        // GET: WeiXin/Account/Login/5
+        [HttpPost]
+        public ActionResult Login(FormCollection form)
+        {
+
+            return View();
+        }
         // GET: WeiXin/Account/Register
         public ActionResult Register()
         {
