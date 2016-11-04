@@ -60,6 +60,7 @@ namespace GTMDweixinManagement.APIControllers.WeiXin
             UserInfo user = new UserInfo();
             user.GreateDate = DateTime.Now;
             user.LoginName = userName;
+            user.Password = passsword;
             user.MobileTelphoneNumber = mobilePhone;
             if (userBll.Add(user) == 1)
             {

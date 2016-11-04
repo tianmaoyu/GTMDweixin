@@ -40,7 +40,7 @@
                             <label class="weui_label">确认密码</label>
                         </div>
                         <div class="weui_cell_bd weui_cell_primary">
-                            <input class="weui_input" type=password" name="confirmPassword" value="" placeholder="再次输入密码" id="comfromPassword" check-length="5,18">
+                            <input class="weui_input" type="password" name="confirmPassword" value="" placeholder="再次输入密码" id="comfromPassword" check-length="5,18">
                         </div>
                     </div>
                     <div class="weui_cell">
@@ -49,7 +49,6 @@
                         </div>
                         <div class="weui_cell_bd weui_cell_primary">
                             <input id="userName" class="weui_input" type="text" name="userName" onblur="validateUserName(this)" value="" placeholder="建议真实名字">
-                            <input id="name" type="hidden" name="role" value="1" placeholder="角色">
                         </div>
                     </div>
                 </div>
@@ -108,10 +107,11 @@
                 }
                 $.post("/api/WX_Account/Register", data, function (msg) {
                     if (msg.status == 1) {
-                        $.toast("注册成功！");
+                        $.showLoading("注册成功！请稍等...");
                         setTimeout(function () {
                             location.href = msg.url;
-                        }, 1000);
+                            $.hideLoading();
+                        }, 100);
                     } else {
                         $.toast(msg.info);
                     }

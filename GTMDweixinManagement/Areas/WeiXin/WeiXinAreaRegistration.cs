@@ -17,7 +17,8 @@ namespace GTMDweixinManagement.Areas.WeiXin
             context.MapRoute(
                 "WeiXin_default",
                 "WeiXin/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { action = "Index", id = UrlParameter.Optional },
+               namespaces: new string[] { "GTMDweixinManagement.Areas.WeiXin.Controllers" }
             );
         }
     }

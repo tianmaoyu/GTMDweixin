@@ -54,7 +54,14 @@ namespace GTMDweixinManagement.BLL
 
         public int Add(UserInfo info)
         {
-            db.Insert(info);
+            try
+            {
+                db.Insert(info);
+             }
+            catch (Exception ex)
+            {
+                
+            }
             return 1;
         }
         /// <summary>
