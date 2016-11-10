@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web;
 
 namespace GTMDweixinManagement.BLL
@@ -127,6 +129,46 @@ namespace GTMDweixinManagement.BLL
         public bool IsUserdUserName(string name)
         {
             return db.UserInfoes.Any(item => item.LoginName == name);
+        }
+
+        /// <summary>
+        /// 得到 mvc 中的cookie
+        /// </summary>
+        /// <returns></returns>
+        public UserInfo GetCurrentUser()
+        {
+            UserInfo userInfo = new UserInfo();
+            var cookie = HttpContext.Current.Request.Cookies.Get("session");
+            var mobilePhone = cookie["mobilePhone"];
+            var password = cookie["password"];
+            if (!string.IsNullOrEmpty(mobilePhone))
+            {
+                userInfo = db.UserInfoes.Where(item => item.MobileTelphoneNumber.Equals(mobilePhone)).FirstOrDefault();
+            }
+            return userInfo;
+        }
+  
+        /// <summary>
+        /// 的到web api 中的cookie
+        /// </summary>
+        /// <param name="Request"></param>
+        /// <returns></returns>
+        public UserInfo GetCurrentUser(System.Net.Http.HttpRequestMessage Request)
+        {
+            UserInfo userInfo = new UserInfo();
+            CookieHeaderValue cookie =Request.Headers.GetCookies("session").FirstOrDefault();
+            if (cookie != null)
+            {
+                CookieState cookieState = cookie["session"];
+                var password = cookieState["password"];
+               var mobilePhone = cookieState["mobilePhone"];
+                //得到用户的
+                if (!string.IsNullOrEmpty(mobilePhone))
+                {
+                    userInfo = db.UserInfoes.Where(item => item.MobileTelphoneNumber.Equals(mobilePhone)).FirstOrDefault();
+                }
+            }
+            return userInfo;
         }
     }
 }

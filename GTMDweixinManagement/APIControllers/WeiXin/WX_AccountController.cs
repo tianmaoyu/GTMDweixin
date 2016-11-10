@@ -3,9 +3,11 @@ using GTMDweixinManagement.EF;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web.Http;
 
 namespace GTMDweixinManagement.APIControllers.WeiXin
@@ -28,7 +30,8 @@ namespace GTMDweixinManagement.APIControllers.WeiXin
             if (userBll.Authentication(phoneNumber, password))
             {
                 result["status"] = 1;
-                result["url"] = "/WeiXin/Home/Index";
+                result["url"] = "/WeiXin/Home/Index?phoneNumber="+ phoneNumber+ "&password="+ password;
+                
             }
             result["info"] = "用户名或者密码错误！";
             return result;
@@ -65,7 +68,7 @@ namespace GTMDweixinManagement.APIControllers.WeiXin
             if (userBll.Add(user) == 1)
             {
                 result["status"] = 1;
-                result["url"] = "/WeiXin/Home/Index";
+                result["url"] = "/WeiXin/Home/Index?phoneNumber=" + mobilePhone + "&password=" + passsword;
                 return result;
             }
             return result;

@@ -25,7 +25,7 @@
                             <label class="weui_label">手机</label>
                         </div>
                         <div class="weui_cell_bd weui_cell_primary">
-                            <input class="weui_input" type="text" placeholder="请输入手机号" name="mobilePhone" id="text" value="">
+                            <input class="weui_input" type="text" placeholder="请输入手机号" name="mobilePhone" id="user" value="">
                         </div>
                     </div>
                     <div class="weui_cell">
@@ -36,7 +36,7 @@
                             <input class="weui_input" placeholder="请输入密码" type="password" name="password" id="password" value="">
                         </div>
                     </div>
-                    <div class="weui_cell  weui_cell_switch">
+                    @*<div class="weui_cell  weui_cell_switch">
                         <div class="weui_cell_hd">
                             <label class="weui_label">记住我</label>
                         </div>
@@ -44,7 +44,7 @@
                             <input class="weui_switch" type="checkbox">
                         </div>
 
-                    </div>
+                    </div>*@
                 </div>
             </form>
 
@@ -76,7 +76,36 @@
                     }, 'json');
                 })
             </script>
-
+            <script>
+                $(function () {
+                    var session = getCookie('session');
+                    debugger;
+                    //从一个cookie中获取相应的key,value
+                    var pd = getCookieValue(session, "password");
+                    var pn = getCookieValue(session, "mobilePhone");
+                    //设置 用户名，密码
+                    $("#user").val(pn);
+                    $("#password").val(pd);
+                });
+                function getCookie(name) {
+                    var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+                    if (arr = document.cookie.match(reg))
+                        return unescape(arr[2]);
+                    else
+                        return null;
+                }
+                function getCookieValue(cookie,key) {
+                    var arr = cookie.split("&");
+                    var value = "";
+                    $.each(arr, function (i, val) {
+                        var keyValue = val.split("=");
+                        if (keyValue[0] == key) {
+                            value = keyValue[1];
+                        }
+                    })
+                    return value;
+                }
+            </script>
         </div>
     </div>
 

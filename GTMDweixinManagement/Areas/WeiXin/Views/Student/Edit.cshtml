@@ -38,7 +38,7 @@
         <div class="weui_cell">
             <div class="weui_cell_hd"><label for="name" class="weui_label">专业</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input" name="" id="Major" type="tel" placeholder="请输入专业" >
+                <input class="weui_input" name="Major" id="Major" type="tel" placeholder="请输入专业" >
             </div>
         </div>
         <div class="weui_cell">
@@ -70,16 +70,15 @@
     </div>
  </form>
    <script>
+       //获取他的相关信息
        $(function () {
-           //$("#school").select({
-           //    title: "选择学校",
-           //    items: ["财经大学", "贵阳学院", "贵州医科大学", "贵阳中医学院","其他"]
-           //});
-
-           //$("#major").select({
-           //    title: "选择专业",
-           //    items: ["统计学", "数学与应用数学", "物流管理", "金融","其他"]
-           //});
+           $.getJSON("/api/WX_Student/GetInfo", null, function (data) {
+               alert(data);
+               debugger;
+               loadData("user-info", data);
+           })
+       });
+       $(function () {
            $("#grade").select({
                title: "选择年级",
                items: ["大一", "大二", "大三", "大四", "大五", "研一", "研二", "其他"]
@@ -87,14 +86,15 @@
        });
        $(function () {
            $("#student-save").click(function () {
+               debugger
                var data = $("#user-info").serialize();
                var errorMsg=validateForm();
                if (errorMsg) {
                    $.alert(errorMsg, "警告！");
                    return;
                }
-               $.post("", data, function (data) {
-
+               $.post("/api/WX_Student/Edit", data, function (data) {
+                   alert("ddd");
                })
            })
        })
@@ -109,6 +109,44 @@
                return errorMsg;
            }
            return false;
+       }
+       
+       function setReadOnly(obj, value) {
+           if (value != "" && value) {
+               $(obj)[0].setAttribute("readOnly", 'true');
+           }
+       }
+       //装载表单
+       function loadData(formID,jsonStr) {
+           var obj = jsonStr;
+           var key, value, tagName, type, arr;
+           for (x in obj) {
+               key = x;
+               value = obj[x];
+               $("#"+formID+" [name='" + key + "'],[name='" + key + "[]']").each(function () {
+                   tagName = $(this)[0].tagName;
+                   type = $(this).attr('type');
+                   if (tagName == 'INPUT') {
+                       if (type == 'radio') {
+                           $(this).attr('checked', $(this).val() == value);
+                       } else if (type == 'checkbox') {
+                           arr = value.split(',');
+                           for (var i = 0; i < arr.length; i++) {
+                               if ($(this).val() == arr[i]) {
+                                   $(this).attr('checked', true);
+                                   break;
+                               }
+                           }
+                       } else {
+                           $(this).val(value);
+                           setReadOnly(this, value);
+                       }
+                   } else if (tagName == 'SELECT' || tagName == 'TEXTAREA') {
+                       $(this).val(value);
+                       setReadOnly(this, value);
+                   }
+               });
+           }
        }
    </script>
 </body>

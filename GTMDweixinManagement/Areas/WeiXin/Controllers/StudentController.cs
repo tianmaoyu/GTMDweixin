@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GTMDweixinManagement.BLL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -50,6 +51,8 @@ namespace GTMDweixinManagement.Areas.WeiXin.Controllers
         // GET: WeiXin/Student/Edit/5
         public ActionResult Enter()
         {
+            UserBLL userBLL = new UserBLL();
+            var info= userBLL.GetCurrentUser();
             return View();
         }
         // POST: WeiXin/Student/Edit/5
