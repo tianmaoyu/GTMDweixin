@@ -112,8 +112,38 @@ namespace GTMDweixinManagement.APIControllers.WeiXin
                 result["status"] = true;
                 return result;
             }
-            result["status"] = false;
+            else
+            {
+                result["status"] = false;
+
+            }
             return result;
+        }
+
+        public JObject ModifyPassword(JObject value)
+        {
+            JObject reslut = new JObject();
+            UserBLL userBll = new UserBLL();
+            var user= userBll.GetCurrentUser(this.Request);
+            var oldPassword= value["oldPassword"].Value<string>();
+            if (user.Password.Equals(oldPassword))
+            {
+                user.Password = value["newpassword"].Value<string>();
+                if (userBll.Updata(user) == 1)
+                {
+                    reslut["status"] = true;
+                    return reslut;
+                }
+                else
+                {
+                    reslut["status"] = false;
+                    reslut["msg"] = "出现未知错误！";
+                    return reslut;
+                }
+            }
+            reslut["status"] = false;
+            reslut["msg"] = "当前密码错误！";
+            return reslut;
         }
     }
 }

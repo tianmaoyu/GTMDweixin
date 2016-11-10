@@ -17,13 +17,17 @@ namespace GTMDweixinManagement.Areas.WeiXin.Controllers
         public ActionResult Index()
         {
             //设置cookie
-            String phoneNumber = Request.QueryString["phoneNumber"];
-            string password = Request.QueryString["password"];
-            HttpCookie cookie = new HttpCookie("session");
-            cookie["mobilePhone"] = phoneNumber;
-            cookie["password"] = password;
-            cookie.Expires =DateTime.Now.AddDays(30);
-            HttpContext.Response.Cookies.Add(cookie);
+            UserBLL userBLL = new UserBLL();
+            if (userBLL.GetCurrentUser() == null)
+            {
+                String phoneNumber = Request.QueryString["phoneNumber"];
+                string password = Request.QueryString["password"];
+                HttpCookie cookie = new HttpCookie("session");
+                cookie["mobilePhone"] = phoneNumber;
+                cookie["password"] = password;
+                cookie.Expires = DateTime.Now.AddDays(30);
+                HttpContext.Response.Cookies.Add(cookie);
+            }
             return View();
         }
        
