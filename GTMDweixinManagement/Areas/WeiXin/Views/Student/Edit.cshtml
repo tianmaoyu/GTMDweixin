@@ -73,7 +73,6 @@
        //获取他的相关信息
        $(function () {
            $.getJSON("/api/WX_Student/GetInfo", null, function (data) {
-               alert(data);
                //debugger;
                loadData("user-info", data);
            })
