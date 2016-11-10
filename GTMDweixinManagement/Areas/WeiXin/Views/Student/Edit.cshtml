@@ -74,7 +74,7 @@
        $(function () {
            $.getJSON("/api/WX_Student/GetInfo", null, function (data) {
                alert(data);
-               debugger;
+               //debugger;
                loadData("user-info", data);
            })
        });
@@ -94,7 +94,7 @@
                    return;
                }
                $.post("/api/WX_Student/Edit", data, function (data) {
-                   alert("ddd");
+                   $.toast('保存成功！')
                })
            })
        })

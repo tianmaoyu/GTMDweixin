@@ -51,8 +51,10 @@ namespace GTMDweixinManagement.APIControllers.WeiXin
                 info.QQNumber = value["QQNumber"].Value<string>();
                 info.Email = value["Email"].Value<string>();
                 info.Name = value["Name"].Value<string>();
+                info.Grade= value["Grade"].Value<string>();
+                userBLL.Updata(info);
             }
-            int i = 0;
+
         }
 
         // PUT: api/WX_Student/5

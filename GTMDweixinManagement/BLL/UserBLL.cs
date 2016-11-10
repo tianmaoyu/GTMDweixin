@@ -66,6 +66,16 @@ namespace GTMDweixinManagement.BLL
             }
             return 1;
         }
+
+        public int Updata(UserInfo userInfo)
+        {
+            if (userInfo != null)
+            {
+                db.Updata(userInfo);
+            }
+            return 1;
+        }
+
         /// <summary>
         /// 编辑
         /// </summary>
