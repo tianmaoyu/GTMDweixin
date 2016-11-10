@@ -29,6 +29,7 @@ namespace GTMDweixinManagement.EF
         public Nullable<System.DateTime> EnteredDate { get; set; }
         public Nullable<int> UserID { get; set; }
         public Nullable<int> SupervisorUserID { get; set; }
+        public string Remark { get; set; }
     
         [JsonIgnore]
         public virtual UserInfo UserInfo { get; set; }

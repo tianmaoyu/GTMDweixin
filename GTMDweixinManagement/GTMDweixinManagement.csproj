@@ -220,6 +220,7 @@
     <Compile Include="APIControllers\Manage\NoticeController.cs" />
     <Compile Include="APIControllers\Manage\UserController.cs" />
     <Compile Include="APIControllers\WeiXin\WX_AccountController.cs" />
+    <Compile Include="APIControllers\WeiXin\WX_StudentController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />

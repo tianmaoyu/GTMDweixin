@@ -3,47 +3,48 @@
 }
 <body style="background-color:#eee">
     <div class="weui_cells_title">信息录入</div>
+  <form id="user-info">
     <div id="student-creat" class="weui_cells weui_cells_form">
         <div class="weui_cell">
             <div class="weui_cell_hd"><label class="weui_label">姓名</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input" name="Name" type="tel" placeholder="真实姓名">
+                <input class="weui_input" name="Name" type="tel" placeholder="真实姓名" required>
             </div>
         </div>
         <div class="weui_cell">
             <div class="weui_cell_hd"><label class="weui_label">身份证</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input" name="IDCardNumber" type="tel" placeholder="请输入省份证号码">
+                <input class="weui_input" name="IDCardNumber" type="tel" placeholder="请输入省份证号码" required>
             </div>
         </div>
         <div class="weui_cell">
             <div class="weui_cell_hd"><label class="weui_label">QQ</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input" name="QQNumber" type="number" placeholder="请输入qq号">
+                <input class="weui_input" name="QQNumber" type="number" placeholder="请输入qq号" required>
             </div>
         </div>
         <div class="weui_cell">
             <div class="weui_cell_hd"><label class="weui_label">邮箱</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input" name="Email" type="tel" placeholder="请输入邮箱">
+                <input class="weui_input" name="Email" type="tel" placeholder="请输入邮箱" required>
             </div>
         </div>
         <div class="weui_cell">
             <div class="weui_cell_hd"><label for="name" class="weui_label">学校</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input" id="school" name="School" type="text" value="" readonly="">
+                <input class="weui_input" id="school" name="School" type="tel" placeholder="请输入学校">
             </div>
         </div>
         <div class="weui_cell">
             <div class="weui_cell_hd"><label for="name" class="weui_label">专业</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input" name="" id="Major" type="text" value="" readonly="">
+                <input class="weui_input" name="" id="Major" type="tel" placeholder="请输入专业" >
             </div>
         </div>
         <div class="weui_cell">
             <div class="weui_cell_hd"><label for="name" class="weui_label">年级</label></div>
             <div class="weui_cell_bd weui_cell_primary">
-                <input class="weui_input" name="Grade" id="grade" type="text" value="" readonly="">
+                <input class="weui_input" name="Grade" id="grade" type="text" value="" readonly=""  placeholder="请选择年级">
             </div>
         </div>
         <div class="weui_cell">
@@ -63,29 +64,51 @@
         </div>
     </div>
     <div class="weui_btn_area">
-        <a class="weui_btn weui_btn_primary" id="student-creat">保存</a>
+        <a class="weui_btn weui_btn_primary" id="student-save">保存</a>
     </div>
     <div class="weui_btn_area">
     </div>
+ </form>
    <script>
-       $(function(){
-           //$.get('', function (data, status) {
+       $(function () {
+           //$("#school").select({
+           //    title: "选择学校",
+           //    items: ["财经大学", "贵阳学院", "贵州医科大学", "贵阳中医学院","其他"]
+           //});
 
-           //})
-           $("#school").select({
-               title: "选择学校",
-              items: ["法官", "医生", "猎人", "学生", "记者", "其他"]
-           });
-
-           $("#major").select({
-               title: "选择专业",
-               items: ["法官", "医生", "猎人", "学生", "记者", "其他"]
-           });
+           //$("#major").select({
+           //    title: "选择专业",
+           //    items: ["统计学", "数学与应用数学", "物流管理", "金融","其他"]
+           //});
            $("#grade").select({
                title: "选择年级",
-               items: ["大一", "大二", "大三", "大四", "大五","研一","研二","其他"]
+               items: ["大一", "大二", "大三", "大四", "大五", "研一", "研二", "其他"]
            });
+       });
+       $(function () {
+           $("#student-save").click(function () {
+               var data = $("#user-info").serialize();
+               var errorMsg=validateForm();
+               if (errorMsg) {
+                   $.alert(errorMsg, "警告！");
+                   return;
+               }
+               $.post("", data, function (data) {
+
+               })
+           })
        })
-      
+       function validateForm() {
+           var errorMsg = "";
+           if ($.trim($("input[name='Name']").val()) == "") {
+               errorMsg += "姓名不能为空！" + "</br>";
+               return errorMsg;
+           }
+           if ($.trim($("input[name='IDCardNumber']").val()) == "") {
+               errorMsg += "身份证不能为空！" + "</br>";
+               return errorMsg;
+           }
+           return false;
+       }
    </script>
 </body>

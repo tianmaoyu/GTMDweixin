@@ -120,6 +120,7 @@
           <Property Name="EnteredDate" Type="date" />
           <Property Name="UserID" Type="int" />
           <Property Name="SupervisorUserID" Type="int" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="Business_StudentProject">
           <Key>
@@ -535,6 +536,7 @@
           <NavigationProperty Name="UserInfo" Relationship="GTMDweixinModel.FK_Business_Student_Authority_User" FromRole="Business_Student" ToRole="Authority_User" />
           <NavigationProperty Name="StudentProjectInfos" Relationship="GTMDweixinModel.FK_Business_StudentProject_Business_Student" FromRole="Business_Student" ToRole="Business_StudentProject" />
           <NavigationProperty Name="StudentSignInfos" Relationship="GTMDweixinModel.FK_Business_StudentSign_Business_Student" FromRole="StudentInfo" ToRole="Business_StudentSign" />
+          <Property Name="Remark" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="StudentProjectInfo">
           <Key>
@@ -848,6 +850,7 @@
           <EntitySetMapping Name="StudentInfoes">
             <EntityTypeMapping TypeName="GTMDweixinModel.StudentInfo">
               <MappingFragment StoreEntitySet="Business_Student">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
                 <ScalarProperty Name="SupervisorUserID" ColumnName="SupervisorUserID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="EnteredDate" ColumnName="EnteredDate" />
