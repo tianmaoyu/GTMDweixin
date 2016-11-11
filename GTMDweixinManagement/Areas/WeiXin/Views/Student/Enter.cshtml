@@ -21,12 +21,13 @@
                         var projectName = value["DisplayName"];
                         var remark = value["Remark"];
                         var projectID = value["ID"];
+                        var Entered = value["Entered"];
                         var creatDate = value["CreateTime"].toString().slice(0, 10);
                         debugger;
                         htmlStr += "<div class='weui_media_box weui_media_text'>"
                                    + "<div class='weui_cell weui_cell_switch' style='padding-left:0;padding-top:0'>"
                                      + "<div class='weui_cell_hd weui_cell_primary'>" + projectName + "</div>"
-                                     + " <div class='weui_cell_ft'><input projectID='" + projectID + "' class='weui_switch' type='checkbox'></div>"
+                                     + " <div class='weui_cell_ft'><input projectID='" + projectID + "' class='weui_switch'  checked=" + Entered + " type='checkbox'></div>"
                                    + "</div>"
                                    + "<p class='weui_media_desc'>" + remark + "</p>"
                                    + " <ul class='weui_media_info'>"

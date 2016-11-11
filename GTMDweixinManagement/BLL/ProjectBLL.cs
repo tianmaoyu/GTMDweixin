@@ -91,5 +91,25 @@ namespace GTMDweixinManagement.BLL
             return 1;
         }
 
+        public  List<ProjectInfo> GetEnterProject(System.Net.Http.HttpRequestMessage request)
+        {
+            var studentInfo= new StudentBLL().GetCurrentStudent(request);
+            if (studentInfo != null)
+            {
+                StudentProjectBLL studentProjectBLL = new StudentProjectBLL();
+                //得到学生加入的项目
+                var studentProjectInfos = studentProjectBLL.GetAll().Where(item => item.StudentID == studentInfo.ID);
+                if (studentProjectInfos.Any())
+                {
+                    List<int> ids = studentProjectInfos.Select(item => (int)item.ProjectID).ToList();
+                    var projectinfos = new ProjectBLL().GetAll().Where(item => ids.Contains(item.ID));
+                    if (projectinfos.Any())
+                    {
+                        return projectinfos.ToList();
+                    }
+                }
+            }
+            return null;
+        }
     }
 }

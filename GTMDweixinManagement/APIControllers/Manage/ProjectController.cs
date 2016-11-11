@@ -96,41 +96,55 @@ namespace GTMDweixinManagement.APIControllers
         /// <returns></returns>
         public JArray GetActive()
         {
+            //所有的可报名的
             var projects = new ProjectBLL().GetAll().Where(item => item.IsActive == true);
+
+            //得到 当前此人参加的项目，并且是激活状态的项目id ,(可报名的)
+            ProjectBLL projectBll = new ProjectBLL();
+            var projectInfos = projectBll.GetEnterProject(this.Request);
+            if (projectInfos.Any())
+            {
+                //所有的可报名的。并且已经报名的
+                var infos = projectInfos.Where(item => item.IsActive == true);
+                if (infos.Any())
+                {
+                 //已经参加的项目，并且在可报名利表中的
+                  var ids= infos.Select(item => item.ID);
+                  var _projects=  projects.Select(item =>new
+                    {
+                        Entered = ids.Contains(item.ID),
+                        ID=item.ID,
+                        DisplayName = item.DisplayName,
+                        Remark = item.Remark,
+                        CreateTime = item.CreateTime,
+                        IsActive= item.IsActive,
+                        IsDisplay=item.IsDisplay
+                    });
+                    return JArray.Parse(JsonConvert.SerializeObject(_projects));
+                }
+            }
             return JArray.Parse(JsonConvert.SerializeObject(projects));
         }
 
         /// <summary>
-        /// 得到当前这个人之前参加过的项目列表
+        /// 得到当前这个人之前参加过的项目列表,并且已经关闭的
         /// </summary>
         /// <returns></returns>
         public JArray GetAttended()
         {
-            UserBLL userBll = new UserBLL();
-            //当前用户信息
-            var currentUser = userBll.GetCurrentUser(this.Request);
-            if (currentUser != null)
+           ProjectBLL projectBll = new ProjectBLL();
+           var projectInfos=  projectBll.GetEnterProject(this.Request);
+            if (projectInfos.Any())
             {
-                //当前学生信息
-                var currentstudent = currentUser.StudentInfo.FirstOrDefault();
-                if (currentstudent != null)
+                var infos = projectInfos.Where(item => item.IsActive == false);
+                if (infos.Any())
                 {
-                    StudentProjectBLL studentProjectBLL = new StudentProjectBLL();
-                    //得到学生加入的项目
-                    var studentProjectInfos = studentProjectBLL.GetAll().Where(item => item.StudentID == currentstudent.ID);
-                    if (studentProjectInfos.Any())
-                    {
-                        List<int> ids = studentProjectInfos.Select(item => (int)item.ProjectID).ToList();
-                        var projectinfos = new ProjectBLL().GetAll().Where(item => ids.Contains(item.ID)).Where(item => item.IsActive == false);
-                        if (projectinfos.Any())
-                        {
-                            return JArray.Parse(JsonConvert.SerializeObject(projectinfos));
-                        }
-                    }
+                    return JArray.Parse(JsonConvert.SerializeObject(infos));
                 }
             }
             return new JArray();
         }
+
 
     }
 }
