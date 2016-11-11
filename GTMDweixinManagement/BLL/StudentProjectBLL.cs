@@ -107,5 +107,10 @@ namespace GTMDweixinManagement.BLL
             db.DeleteBulk<StudentProjectInfo>(conditions);
             return 1;
         }
+
+        public IQueryable<StudentProjectInfo> GetAll()
+        {
+            return db.StudentProjectInfoes;
+        }
     }
 }
