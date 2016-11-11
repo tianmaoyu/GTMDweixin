@@ -27,7 +27,7 @@
                         htmlStr += "<div class='weui_media_box weui_media_text'>"
                                    + "<div class='weui_cell weui_cell_switch' style='padding-left:0;padding-top:0'>"
                                      + "<div class='weui_cell_hd weui_cell_primary'>" + projectName + "</div>"
-                                     + " <div class='weui_cell_ft'><input projectID='" + projectID + "' class='weui_switch'  checked=" + Entered + " type='checkbox'></div>"
+                                     + " <div class='weui_cell_ft'><input projectID='" + projectID + "' class='weui_switch'  data-entered=" + Entered + " type='checkbox'></div>"
                                    + "</div>"
                                    + "<p class='weui_media_desc'>" + remark + "</p>"
                                    + " <ul class='weui_media_info'>"
@@ -40,6 +40,7 @@
                     $("#usable-project").html(htmlStr);
                     //给checkebox 添加事件
                     checkboxClick();
+                    checked();
                 };
             });
             //得到当前用户过期的列表（参加过的）
@@ -68,6 +69,20 @@
             })
         })
        
+        //报已经报名的勾上
+        function checked() {
+            var arr = $("#usable-project input");
+            $.each(arr, function (index, element) {
+                debugger;
+                var entered = $(element).attr("data-entered");
+                if (entered == "false") {
+                    $(element)[0].checked = false;
+                } else {
+                    $(element)[0].checked = true;
+                }
+            })
+        }
+
         function checkboxClick() {
             $("#usable-project input").change(function () {
                 debugger;
