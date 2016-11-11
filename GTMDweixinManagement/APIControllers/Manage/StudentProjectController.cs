@@ -81,5 +81,40 @@ namespace GTMDweixinManagement.APIControllers
             studentProjectBLL.Add(pagerParas);
             return new JObject();
         }
+
+        /// <summary>
+        /// 微信端报名
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public JObject Enter(JObject value)
+        {
+            JObject reslut = new JObject();
+            String projectID = value["projectID"].Value<String>();
+            if (!String.IsNullOrEmpty(projectID))
+            {
+                UserBLL userBll = new UserBLL();
+                var user= userBll.GetCurrentUser(this.Request);
+                if (user != null)
+                {
+                    var studentInfo = user.StudentInfo.FirstOrDefault();
+                    if (studentInfo != null)
+                    {
+                        StudentProjectBLL studentProjectBLL = new StudentProjectBLL();
+                        EF.StudentProjectInfo sp = new EF.StudentProjectInfo();
+                        sp.ProjectID= Int32.Parse(projectID);
+                        sp.StudentID= studentInfo.ID;
+                        sp.EnteredDate = DateTime.Now;
+                        if (studentProjectBLL.Add(sp) == 1)
+                        {
+                            reslut["status"] = true;
+                            return reslut;
+                        }
+                    }
+                }
+            }
+            reslut["msg"] = "报名出现错误！";
+            return reslut;
+        }
     }
 }

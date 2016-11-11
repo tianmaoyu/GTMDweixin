@@ -74,6 +74,12 @@ namespace GTMDweixinManagement.BLL
             db.Insert(studentProjectInfo);
             return 1;
         }
+        //新增
+        public int Add(StudentProjectInfo studentProjectInfo)
+        {
+            db.Insert(studentProjectInfo);
+            return 1;
+        }
         /// <summary>
         /// 编辑
         /// </summary>

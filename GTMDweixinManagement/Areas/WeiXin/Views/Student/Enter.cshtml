@@ -19,13 +19,14 @@
                     var htmlStr = "";
                     $.each(data, function (index, value) {
                         var projectName = value["DisplayName"];
-                        var remark = value["Remark"]
+                        var remark = value["Remark"];
+                        var projectID = value["ID"];
                         var creatDate = value["CreateTime"].toString().slice(0, 10);
                         debugger;
                         htmlStr += "<div class='weui_media_box weui_media_text'>"
                                    + "<div class='weui_cell weui_cell_switch' style='padding-left:0;padding-top:0'>"
                                      + "<div class='weui_cell_hd weui_cell_primary'>" + projectName + "</div>"
-                                     + " <div class='weui_cell_ft'><input class='weui_switch' type='checkbox'></div>"
+                                     + " <div class='weui_cell_ft'><input projectID='" + projectID + "' class='weui_switch' type='checkbox'></div>"
                                    + "</div>"
                                    + "<p class='weui_media_desc'>" + remark + "</p>"
                                    + " <ul class='weui_media_info'>"
@@ -36,6 +37,8 @@
                                 + "</div>";
                     })
                     $("#usable-project").html(htmlStr);
+                    //给checkebox 添加事件
+                    checkboxClick();
                 };
             });
             //得到当前用户过期的列表（参加过的）
@@ -44,7 +47,7 @@
                     var htmlStr = "";
                     $.each(data, function (index, value) {
                         var projectName = value["DisplayName"];
-                        var remark = value["Remark"]
+                        var remark = value["Remark"];
                         var creatDate = value["CreateTime"].toString().slice(0, 10);
                         debugger;
                         htmlStr += "<div class='weui_media_box weui_media_text'>"
@@ -63,5 +66,36 @@
                 }
             })
         })
+       
+        function checkboxClick() {
+            $("#usable-project input").change(function () {
+                debugger;
+                var that = this;
+                if ($(that)[0].checked) {
+                    $.confirm("你确定报名吗？", function () {
+                        var projectID = $(that).attr("projectID");
+                        $.showLoading("请稍等...");
+                        $.post("/api/StudentProject/Enter", { projectID: projectID }, function (data) {
+                            $.hideLoading();
+                            if (data["status"]) {
+                                $.toast("报名成功！");
+                            }
+                            else {
+                                $.toast(data.msg, "forbidden");
+                                $(that)[0].checked = false;
+                            }
+                        })
+                          
+                    }, function () {
+                        $(that)[0].checked = false;
+                    });
+                }
+                //报名后不允许关闭
+                else {
+                    $(that)[0].checked = true;
+                    $.toast("不允许关闭！", "forbidden");
+                }
+            })
+        }
     </script>
 </body>

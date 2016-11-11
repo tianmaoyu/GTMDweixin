@@ -104,5 +104,23 @@ namespace GTMDweixinManagement.BLL
         {
            return db.StudentInfoes.ToList();
         }
+
+        public StudentInfo GetCurrentStudent(System.Net.Http.HttpRequestMessage  request)
+        {
+            StudentInfo student = new StudentInfo();
+            UserBLL userBll = new UserBLL();
+            //当前用户信息
+            var currentUser = userBll.GetCurrentUser(request);
+            if (currentUser != null)
+            {
+                //当前学生信息
+                var currentstudent = currentUser.StudentInfo.FirstOrDefault();
+                if (currentstudent != null)
+                {
+                    return currentstudent;
+                }
+            }
+            return student;
+        }
     }
 }
