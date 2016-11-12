@@ -4,38 +4,66 @@
 <body ontouchstart>
     <div class="weui_panel weui_panel_access">
         <div class="weui_panel_hd" style="text-align:center;background-color:#eee">可勾班列表</div>
-        <div class="weui_panel_bd">
-            <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
-                <div class="weui_media_bd">
-                    <h4 class="weui_media_title">2016.8.7-2016.8.14</h4>
-                    <p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
-                </div>
-            </a>
-            <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
-                <div class="weui_media_bd">
-                    <h4 class="weui_media_title">2016.8.7-2016.8.14</h4>
-                    <p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
-                </div>
-            </a>
-        </div>
+        <div id="useable-sign" class="weui_panel_bd">没有</div>
     </div>
 
     <div class="weui_panel weui_panel_access">
         <div class="weui_panel_hd" style="text-align:center;background-color:#eee">我的历史勾班列表</div>
-        <div class="weui_panel_bd">
-            <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
-                <div class="weui_media_bd">
-                    <h4 class="weui_media_title">2016.8.7-2016.8.14</h4>
-                    <p class="weui_media_desc">项目：地地道道的，由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
-                </div>
-            </a>
-            <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
-                <div class="weui_media_bd">
-                    <h4 class="weui_media_title">2016.8.7-2016.8.14</h4>
-                    <p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
-                </div>
-            </a>
-        </div>
+        <div id="expire-sgin" class="weui_panel_bd">没有 </div>
         <a class="weui_panel_ft" href="javascript:void(0);">查看更多</a>
     </div>
+    <script>
+       
+        $(function () {
+            //得到自己报名的项目，并且报名的项目有勾班列表
+            $.get("/api/Sign/GetUseableSign", null, function (data) {
+                debugger;
+                if (data) {
+                    var html = "";
+                    $.each(data, function (index, value) {
+                        var beginDate = value["BeginDate"].slice(0, 10);
+                        var endDate = value["EndDate"].slice(0, 10);
+                        var name = value["DisplayName"];
+                        var signID = value["ID"];
+                        html += "<a href='javascript:void(0);' " + "data-sign=" + signID + " class='weui_media_box weui_media_appmsg'>"
+                        + " <div class='weui_media_bd>"
+                        + "  <h4 class='weui_media_title'>" + name + "</h4>"
+                        + "<p class='weui_media_desc'>" + "时间段：" + beginDate + "———" + endDate + "</p>"
+                        + " </div>"
+                        + " </a>"
+                    })
+                    $("#useable-sign").html(html);
+                    signClick();
+                }
+            });
+            //得到之前自己勾班的，勾班列表
+            $.get("/api/Sign/GetExpireSign", null, function (data) {
+                if (data) {
+                    var html = "";
+                    $.each(data, function (index, value) {
+                        var beginDate = value["BeginDate"].slice(0, 10);
+                        var endDate = value["EndDate"].slice(0, 10);
+                        var name = value["DisplayName"];
+                        var signID = value["ID"];
+                        html += "<a href='javascript:void(0);' class='weui_media_box weui_media_appmsg'>"
+                        + " <div class='weui_media_bd>"
+                        + "  <h4 class='weui_media_title'>" + name + "</h4>"
+                        + "<p class='weui_media_desc'>" + "时间段：" + beginDate + "———" + endDate + "</p>"
+                        + " </div>"
+                        + " </a>"
+                    })
+                    $("#expire-sgin").html(html);
+                    signClick();
+                }
+            });
+        });
+        function signClick() {
+            $("#useable-sign a").click(function () {
+                var signID = $(this).attr("data-sign");
+                $.showLoading("请稍等.....");
+                location.href = "/WeiXin/StudentSign/Create";
+                $.hideLoading();
+            })
+        }
+    </script>
 </body>

@@ -91,5 +91,51 @@ namespace GTMDweixinManagement.BLL
             return 1;
         }
 
+        /// <summary>
+        /// 得到可以勾班的列表
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public List<SignInfo> GetUseableSign(System.Net.Http.HttpRequestMessage request)
+        {
+            var infos = GetCurrentStudentSign(request);
+            if (infos.Any())
+            {
+               return infos.Where(item => item.IsActive == true).ToList();
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 得到当前学生已经勾的勾班列表
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public List<SignInfo> GetExpireSign(System.Net.Http.HttpRequestMessage request)
+        {
+            var infos = GetCurrentStudentSign(request);
+            if (infos.Any())
+            {
+                return infos.Where(item => item.IsActive == false).ToList();
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 得到当前的学生已经勾班的，和可以勾班的，勾班列表
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        private List<SignInfo> GetCurrentStudentSign(System.Net.Http.HttpRequestMessage request)
+        {
+            ProjectBLL projectBll = new ProjectBLL();
+            var projects = projectBll.GetEnterProject(request);
+            if (projects.Any())
+            {
+                var ids = projects.Select(item => item.ID);
+                return db.SignInfoes.Where(item => ids.Contains((int)item.ProjectID)).ToList();
+            }
+            return null;
+        }
     }
 }

@@ -13,9 +13,8 @@ namespace GTMDweixinManagement.APIControllers
 {
     public class SignController : ApiController
     {
-        public object ProjectBLL { get; private set; }
 
-        // Post: api/Project/GetList
+        // Post: api/Sign/GetList
         [HttpPost]
         public JArray GetList()
         {
@@ -23,7 +22,7 @@ namespace GTMDweixinManagement.APIControllers
             return signBLL.GetTree();
         }
 
-        // Post: api/Project/Add
+        // Post: api/Sign/Add
         [HttpPost]
         public string Add(JObject pagerParas)
         {
@@ -50,7 +49,7 @@ namespace GTMDweixinManagement.APIControllers
             return "1";
         }
 
-        // DELETE: api/Project/Delete/5
+        // DELETE: api/Sign/Delete/5
         [HttpPost]
         public JObject Delete(JObject param)
         {
@@ -88,6 +87,36 @@ namespace GTMDweixinManagement.APIControllers
         {
             var signs = new SignBLL().GetAll();
             return  JArray.Parse(JsonConvert.SerializeObject(signs));
+        }
+
+        /// <summary>
+        /// 得到可以勾班的班次
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public JArray GetUseableSign(JObject value)
+        {
+            var infos=   new SignBLL().GetUseableSign(this.Request);
+            if (infos.Any())
+            {
+                return JArray.Parse(JsonConvert.SerializeObject(infos));
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 得到勾过的勾班列表
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public JArray GetExpireSign(JObject value)
+        {
+            var infos = new SignBLL().GetExpireSign(this.Request);
+            if (infos.Any())
+            {
+                return JArray.Parse(JsonConvert.SerializeObject(infos));
+            }
+            return null;
         }
     }
 }

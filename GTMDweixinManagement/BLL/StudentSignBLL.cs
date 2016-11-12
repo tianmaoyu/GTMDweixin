@@ -123,10 +123,11 @@ namespace GTMDweixinManagement.BLL
         }
         public int Delete(List<int> ids)
         {
-
             Expression<Func<StudentSignInfo, bool>> conditions = item => ids.Contains(item.ID);
             db.DeleteBulk<StudentSignInfo>(conditions);
             return 1;
         }
+
+       
     }
 }
