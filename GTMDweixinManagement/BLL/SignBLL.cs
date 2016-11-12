@@ -33,6 +33,11 @@ namespace GTMDweixinManagement.BLL
         }
 
 
+        public SignInfo GetInfoByID(int id)
+        {
+            return db.SignInfoes.Where(item => item.ID == id).FirstOrDefault();
+        }
+
         public JArray GetTree()
         {
             JArray jArray = new JArray();

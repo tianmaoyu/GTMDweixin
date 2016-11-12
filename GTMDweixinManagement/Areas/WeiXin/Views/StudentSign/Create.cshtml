@@ -1,14 +1,15 @@
-﻿@{
+﻿@model GTMDweixinManagement.EF.SignInfo
+@{
     Layout = "~/Areas/WeiXin/Views/Shared/_LayoutWeiXin.cshtml";
 }
 <body ontouchstart >
-    <h2 style="text-align:center;background-color:#eee">勾班【三】</h2>
+    <h2 style="text-align:center;background-color:#eee">勾班</h2>
         <div class="weui_panel_bd">
             <div class="weui_media_box weui_media_text">
-                <p class="weui_media_desc">说明：2016年下半年安全感，2016.08.12-08.19</p>
+                <p class="weui_media_desc">说明：@Model.DisplayName  | 时间段： @(((DateTime)Model.BeginDate).ToLongDateString().ToString()) --@(((DateTime)Model.EndDate).ToLongDateString().ToString())</p>
             </div>
            </div>
-    <table id="sign">
+    <table id="sign" data-sign="@Model.ID">
         <tbody>
             <tr>
                 <th>星期/日期</th>
@@ -16,80 +17,21 @@
                 <th>中班</th>
                 <th>晚班</th>
             </tr>
+          
+           @for (int i = 0; i <= 6; i++)
+           {
             <tr>
                 <td>
-                    <div>星期一</div>
-                    <div class="info_meta"><span>2016.08.12</span></div>
+                    <div>@(((DateTime)Model.BeginDate).AddDays(i).ToString("ddd", new System.Globalization.CultureInfo("zh-cn")))</div>
+                    <div class="info_meta"><span>@(((DateTime)Model.BeginDate).AddDays(i).ToString("yyyy.MM.dd"))</span></div>
                 </td>
-                <td>
-                    <div class="icon_sp_area">
-                        <i class="weui_icon_success"></i>
-                    </div>
-                </td>
-                <td></td>
-                <td></td>
-               
+                @for (int j = 0; j <= 2; j++)
+                {
+                   <td class="dateCheck" data-date="@(((DateTime)Model.BeginDate).AddDays(i).ToString("yyyy-MM-dd")+"-"+j)"></td>
+                }
             </tr>
-            <tr>
-                <td>
-                    <div>星期二</div>
-                    <div class="info_meta"><span >2016.08.13</span></div>
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-              
-             </tr>
-            <tr>
-                <td>
-                    <div>星期三</div>
-                    <div class="info_meta"><span >2016.08.14</span></div>
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                
-            </tr>
-            <tr>
-                <td>
-                    <div>星期四</div>
-                    <div class="info_meta"><span >2016.08.15</span></div>
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-               
-            </tr>
-            <tr>
-                <td>
-                    <div>星期五</div>
-                    <div class="info_meta"><span >2016.08.16</span></div>
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-              
-            </tr>
-            <tr>
-                <td>
-                    <div>星期六</div>
-                    <div class="info_meta"><span >2016.08.17</span></div>
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-               
-            </tr>
-            <tr>
-                <td>
-                    <div>星期日</div>
-                    <div  class="info_meta"><span>2016.08.18</span></div>
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-              
-            </tr>
+           }
+
             <tr>
                 <th>
                     <div>合计</div>
@@ -173,9 +115,35 @@
             $("#sign tbody tr:eq(8) th:eq(3)").html(total);
             //return total;
         }
+        function submitCreate() {
+            //取得勾班的记录
+            var data = {};
+            var arr = $(".dateCheck");
+            $.each(arr, function (index, value) {
+                var _this = this;
+                var _date = $(_this).attr("data-date");
+                //是否勾到
+                if ($(_this).html().indexOf("div") > 0) {
+                    data[_date] = true;
+                } else {
+                    data[_date] = false;
+                }
+            })
+            debugger;
+            data["signID"] = $("#sign").attr("data-sign");
+            $.showLoading();
+            $.post("/api/StudentSign/Greate", data, function (result) {
+                $.hideLoading();
+                if (result["status"]) {
+                    $.toast("保存成功！");
+                } else {
+                    $.toast(result["msg"], "forbidden");
+                }
+            })
+        }
     </script>
     <div class="weui_btn_area">
-        <a class="weui_btn weui_btn_primary" id="sign-creat">保存</a>
+        <a class="weui_btn weui_btn_primary" onclick="submitCreate()" id="sign-create">保存</a>
     </div>
     <div class="weui_btn_area">
     </div>

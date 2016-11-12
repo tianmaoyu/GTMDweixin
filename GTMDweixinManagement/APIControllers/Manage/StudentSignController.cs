@@ -81,5 +81,52 @@ namespace GTMDweixinManagement.APIControllers
             studentSignBLL.Add(pagerParas);
             return new JObject();
         }
+
+        /// <summary>
+        /// 微信端提交勾班数据
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public JObject Greate(JObject value)
+        {
+            int signID = value["signID"].Value<int>();
+            value.Remove("signID");
+            EF.StudentSignInfo info = new EF.StudentSignInfo();
+            var studentInfo= new StudentBLL().GetCurrentStudent(Request);
+            if (studentInfo != null&& signID >-1 )
+            {
+               var jarray=  JArray.Parse(value.ToString());
+               
+                var list = jarray.ToObject<List<Tuple<string, bool>>>();
+                info.FirstDay_Morning = list[0].Item2;
+                info.FirstDay_Afternoon = list[1].Item2;
+                info.FifthDay_Evening = list[3].Item2;
+
+                info.SecondDay_Morning = list[4].Item2;
+                info.SecondDay_Afternoon = list[5].Item2;
+                info.SecondDay_Evening = list[6].Item2;
+
+                info.ThirdDay_Morning = list[7].Item2;
+                info.ThirdDay_Afternoon = list[8].Item2;
+                info.ThirdDay_Evening = list[9].Item2;
+
+                info.FourthDay_Morning = list[10].Item2;
+                info.FourthDay_Afternoon = list[11].Item2;
+                info.FourthDay_Evening = list[12].Item2;
+
+                info.FifthDay_Morning = list[13].Item2;
+                info.FifthDay_Afternoon = list[14].Item2;
+                info.FifthDay_Evening = list[15].Item2;
+
+                info.SixthDay_Morning = list[16].Item2;
+                info.SixthDay_Afternoon = list[17].Item2;
+                info.FifthDay_Evening = list[18].Item2;
+
+                info.SeventhDay_Morning = list[19].Item2;
+                info.SeventhDay_Afternoon = list[20].Item2;
+                info.SeventhDay_Evening = list[21].Item2;
+            }
+            return null;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GTMDweixinManagement.BLL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -21,8 +22,16 @@ namespace GTMDweixinManagement.Areas.WeiXin.Controllers
         }
 
         // GET: WeiXin/StudentSign/Create
-        public ActionResult Create()
+        public ActionResult Create(int signID=-1)
         {
+            if (signID != -1)
+            {
+                var info = new SignBLL().GetInfoByID(signID);
+                if (info != null)
+                {
+                    return View(info);
+                }
+            }
             return View();
         }
 

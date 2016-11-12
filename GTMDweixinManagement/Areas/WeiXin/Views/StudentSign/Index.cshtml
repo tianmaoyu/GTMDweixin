@@ -61,7 +61,7 @@
             $("#useable-sign a").click(function () {
                 var signID = $(this).attr("data-sign");
                 $.showLoading("请稍等.....");
-                location.href = "/WeiXin/StudentSign/Create";
+                location.href = "/WeiXin/StudentSign/Create?signID=" + signID;
                 $.hideLoading();
             })
         }
