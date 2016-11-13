@@ -15,9 +15,11 @@
     <script>
        
         $(function () {
+            $.showLoading();
             //得到自己报名的项目，并且报名的项目有勾班列表
             $.get("/api/Sign/GetUseableSign", null, function (data) {
                 debugger;
+                $.hideLoading();
                 if (data) {
                     var html = "";
                     $.each(data, function (index, value) {
@@ -57,6 +59,7 @@
                 }
             });
         });
+       
         function signClick() {
             $("#useable-sign a").click(function () {
                 var signID = $(this).attr("data-sign");

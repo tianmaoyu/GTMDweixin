@@ -95,6 +95,12 @@ namespace GTMDweixinManagement.BLL
             db.Insert(studentSignInfo);
             return 1;
         }
+
+        public int Add(StudentSignInfo studentSignInfo)
+        {
+            db.Insert(studentSignInfo);
+            return 1;
+        }
         /// <summary>
         /// 编辑
         /// </summary>
@@ -128,6 +134,10 @@ namespace GTMDweixinManagement.BLL
             return 1;
         }
 
+        public List<StudentSignInfo> Find(Expression<Func<StudentSignInfo,bool>> condition)
+        {
+            return db.StudentSignInfoes.Where(condition).ToList();
+        }
        
     }
 }

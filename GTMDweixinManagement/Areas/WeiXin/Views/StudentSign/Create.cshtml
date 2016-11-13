@@ -2,13 +2,13 @@
 @{
     Layout = "~/Areas/WeiXin/Views/Shared/_LayoutWeiXin.cshtml";
 }
-<body ontouchstart >
+<body ontouchstart>
     <h2 style="text-align:center;background-color:#eee">勾班</h2>
-        <div class="weui_panel_bd">
-            <div class="weui_media_box weui_media_text">
-                <p class="weui_media_desc">说明：@Model.DisplayName  | 时间段： @(((DateTime)Model.BeginDate).ToLongDateString().ToString()) --@(((DateTime)Model.EndDate).ToLongDateString().ToString())</p>
-            </div>
-           </div>
+    <div class="weui_panel_bd">
+        <div class="weui_media_box weui_media_text">
+            <p class="weui_media_desc">说明：@Model.DisplayName  | 时间段： @(((DateTime)Model.BeginDate).ToLongDateString().ToString()) --@(((DateTime)Model.EndDate).ToLongDateString().ToString())</p>
+        </div>
+    </div>
     <table id="sign" data-sign="@Model.ID">
         <tbody>
             <tr>
@@ -17,20 +17,20 @@
                 <th>中班</th>
                 <th>晚班</th>
             </tr>
-          
-           @for (int i = 0; i <= 6; i++)
-           {
-            <tr>
-                <td>
-                    <div>@(((DateTime)Model.BeginDate).AddDays(i).ToString("ddd", new System.Globalization.CultureInfo("zh-cn")))</div>
-                    <div class="info_meta"><span>@(((DateTime)Model.BeginDate).AddDays(i).ToString("yyyy.MM.dd"))</span></div>
-                </td>
-                @for (int j = 0; j <= 2; j++)
+
+            @for (int i = 0; i <= 6; i++)
+            {
+                <tr>
+                    <td>
+                        <div>@(((DateTime)Model.BeginDate).AddDays(i).ToString("ddd", new System.Globalization.CultureInfo("zh-cn")))</div>
+                        <div class="info_meta"><span>@(((DateTime)Model.BeginDate).AddDays(i).ToString("yyyy.MM.dd"))</span></div>
+                    </td>
+                    @for (int j = 0; j <= 2; j++)
                 {
-                   <td class="dateCheck" data-date="@(((DateTime)Model.BeginDate).AddDays(i).ToString("yyyy-MM-dd")+"-"+j)"></td>
-                }
-            </tr>
-           }
+                        <td class="dateCheck" data-date="@(((DateTime)Model.BeginDate).AddDays(i).ToString("yyyy-MM-dd")+"-"+j)"></td>
+                    }
+                </tr>
+            }
 
             <tr>
                 <th>
@@ -43,37 +43,43 @@
         </tbody>
     </table>
     <style>
-        #sign{
-            width:100%;
-            height:100%;
+        #sign {
+            width: 100%;
+            height: 100%;
             border-collapse: collapse;
         }
-        #sign tr:first-child{
-            text-align:center;
-            font-size:14px;
-            background-color:#eee;
+
+            #sign tr:first-child {
+                text-align: center;
+                font-size: 14px;
+                background-color: #eee;
+            }
+
+            #sign tr {
+                height: 44px;
+            }
+
+            #sign td {
+                text-align: center;
+                border: 1px solid #D9D9D9;
+                width: 25%;
+            }
+
+        .odd {
+            background-color: #ffffff;
         }
-          #sign tr{
-            height:44px;
+
+        .even {
+            background-color: #eee;
         }
-        #sign td{
-            text-align:center;
-            border:1px solid #D9D9D9;
-            width:25%;
+
+        .info_meta {
+            font-size: 11px;
+            line-height: 12px;
         }
-        .odd{
-             background-color: #ffffff;
-        }
-       .even{ 
-           background-color:#eee;
-       }
-       .info_meta{
-           font-size:11px;
-           line-height:12px;
-       }
-       td:hover
-       {
-          background-color: #D9D9D9;
+
+        td:hover {
+            background-color: #D9D9D9;
         }
     </style>
     <script>
@@ -81,6 +87,7 @@
             $("#sign tbody tr:odd").addClass("odd");
             $("#sign tbody tr:even").addClass("even");
             targetCheck();
+            initSign();
         })
         function targetCheck() {
             $("#sign tbody tr:not(:eq(8)) td:not(:eq(0))").click(
@@ -100,7 +107,7 @@
                     getSignTotal();
                     //改变总是
                     //alert(getSignTotal());
-            })
+                })
         }
         function getSignTotal() {
             var tdList = $("#sign tbody tr td");
@@ -118,18 +125,20 @@
         function submitCreate() {
             //取得勾班的记录
             var data = {};
+            var list = [];
             var arr = $(".dateCheck");
             $.each(arr, function (index, value) {
                 var _this = this;
                 var _date = $(_this).attr("data-date");
                 //是否勾到
                 if ($(_this).html().indexOf("div") > 0) {
-                    data[_date] = true;
+                    list.push(true);
                 } else {
-                    data[_date] = false;
+                    list.push(false);
                 }
             })
             debugger;
+            data["list"] = list;
             data["signID"] = $("#sign").attr("data-sign");
             $.showLoading();
             $.post("/api/StudentSign/Greate", data, function (result) {
@@ -141,11 +150,31 @@
                 }
             })
         }
+        //初始化当前用户勾的班次
+        function initSign() {
+            var signID = $("#sign").attr("data-sign");
+            if (signID) {
+                $.showLoading();
+                $.get("/api/StudentSign/GetSignInfo", { signID: signID },
+                   function (data) {
+                       $.hideLoading();
+                       debugger;
+                       if (data) {
+                           var elements = $(".dateCheck");
+                           for (var i = 0; i < elements.length; i++) {
+                               if (data[i]) {
+                                   $(elements[i]).click();
+                               }
+                           }
+                       }
+                   })
+            }
+        }
+
     </script>
     <div class="weui_btn_area">
         <a class="weui_btn weui_btn_primary" onclick="submitCreate()" id="sign-create">保存</a>
     </div>
     <div class="weui_btn_area">
     </div>
- </body>
-
+</body>
