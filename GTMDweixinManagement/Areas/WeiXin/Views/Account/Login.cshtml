@@ -2,7 +2,7 @@
     Layout = "~/Areas/WeiXin/Views/Shared/_LayoutWeiXin.cshtml";
 }
 <style>
-  
+
 </style>
 <body ontouchstart>
     <!--头部导航 开始-->
@@ -37,14 +37,14 @@
                         </div>
                     </div>
                     @*<div class="weui_cell  weui_cell_switch">
-                        <div class="weui_cell_hd">
-                            <label class="weui_label">记住我</label>
-                        </div>
-                        <div class="weui_cell_ft">
-                            <input class="weui_switch" type="checkbox">
-                        </div>
+                            <div class="weui_cell_hd">
+                                <label class="weui_label">记住我</label>
+                            </div>
+                            <div class="weui_cell_ft">
+                                <input class="weui_switch" type="checkbox">
+                            </div>
 
-                    </div>*@
+                        </div>*@
                 </div>
             </form>
 
@@ -61,7 +61,7 @@
             <script>
                 $('#btnLogin').click(function () {
                     var data = $("#formlogin").serialize();
-                    //debugger;
+                    debugger;
                     $.post("/api/WX_Account/Login", data, function (msg) {
                         //var msg = $.parseJSON(msg);
                         if (msg.status == 1) {
@@ -94,15 +94,17 @@
                     else
                         return null;
                 }
-                function getCookieValue(cookie,key) {
-                    var arr = cookie.split("&");
-                    var value = "";
-                    $.each(arr, function (i, val) {
-                        var keyValue = val.split("=");
-                        if (keyValue[0] == key) {
-                            value = keyValue[1];
-                        }
-                    })
+                function getCookieValue(cookie, key) {
+                    if (cookie) {
+                        var arr = cookie.split("&");
+                        var value = "";
+                        $.each(arr, function (i, val) {
+                            var keyValue = val.split("=");
+                            if (keyValue[0] == key) {
+                                value = keyValue[1];
+                            }
+                        })
+                    }
                     return value;
                 }
             </script>

@@ -148,9 +148,19 @@ namespace GTMDweixinManagement.BLL
         public UserInfo GetCurrentUser()
         {
             UserInfo userInfo = new UserInfo();
+            string mobilePhone = "";
+            string password = "";
             var cookie = HttpContext.Current.Request.Cookies.Get("session");
-            var mobilePhone = cookie["mobilePhone"];
-            var password = cookie["password"];
+            if (cookie!=null)
+            {
+                 mobilePhone = cookie["mobilePhone"];
+                 password = cookie["password"];
+            }
+            else
+            {
+                mobilePhone = HttpContext.Current.Request.QueryString["mobilePhone"];
+            }
+         
             if (!string.IsNullOrEmpty(mobilePhone))
             {
                 userInfo = db.UserInfoes.Where(item => item.MobileTelphoneNumber.Equals(mobilePhone)).FirstOrDefault();
