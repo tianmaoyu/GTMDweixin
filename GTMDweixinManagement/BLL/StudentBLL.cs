@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
@@ -16,6 +17,7 @@ namespace GTMDweixinManagement.BLL
         public StudentBLL()
         {
             db = new GTMDweixinEntities();
+           
         }
 
         public JObject GetList(JObject pagerParas)
@@ -67,6 +69,19 @@ namespace GTMDweixinManagement.BLL
             db.Insert(StudentInfo);
             return 1;
         }
+
+
+        public int Updata(int studentID,int supervisorID)
+        {
+            var info=  db.StudentInfoes.Where(item => item.ID == studentID).FirstOrDefault();
+            if (info != null)
+            {
+                info.SupervisorUserID = supervisorID;
+            }
+            db.SaveChanges();
+            return 1;
+        }
+
         /// <summary>
         /// 编辑
         /// </summary>

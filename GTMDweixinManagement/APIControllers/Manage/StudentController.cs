@@ -15,7 +15,7 @@ namespace GTMDweixinManagement.APIControllers
     {
         public object StudentBLL { get; private set; }
 
-        // Post: api/User/GetList
+        // Post: api/Student/GetList
         [HttpPost]
         public JObject GetList(JObject pagerParas)
         {
@@ -80,12 +80,50 @@ namespace GTMDweixinManagement.APIControllers
             return json;
         }
 
+        [HttpPost]
+        public JObject UpdateSupervisor(JObject pagerParas)
+        {
+            var id = pagerParas["supervisor"].Value<int>();
+            StudentBLL studentBLL = new StudentBLL();
+            var info= studentBLL.GetCurrentStudent(Request);
+            try
+            {
+                studentBLL.Updata(info.ID, id);
+            }
+            catch(Exception ex)
+            {
+               
+            }
+            return null;
+        }
 
         public JObject Edit(JObject pagerParas)
         {
             StudentBLL studentBLL = new StudentBLL();
             studentBLL.Add(pagerParas);
             return new JObject();
+        }
+
+        /// <summary>
+        /// 得到所有的督导
+        /// </summary>
+        /// <returns></returns>
+        ///  api/Student/GetAllSupervisor
+        [HttpGet]
+        public JArray GetAllSupervisor()
+        {
+            StudentBLL studentBLL = new StudentBLL();
+            var infos= studentBLL.GetAll().Where(item => item.IsSupervisor == 1);
+            if (infos.Any())
+            {
+               var _infos= infos.Select(item => new
+                {
+                    title = item.UserInfo.LoginName,
+                    value = item.UserID
+                });
+                return JArray.Parse(JsonConvert.SerializeObject(_infos));
+            }
+            return new JArray();
         }
     }
 }

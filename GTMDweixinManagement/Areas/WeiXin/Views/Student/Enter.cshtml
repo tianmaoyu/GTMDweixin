@@ -13,6 +13,7 @@
     </div>
     <script>
         //得到可以报名的项目列表
+        var that = null;
         $(function () {
             $.get("/api/Project/GetActive", null, function (data) {
                 if (data) {
@@ -68,7 +69,7 @@
                 }
             })
         })
-       
+
         //报已经报名的勾上
         function checked() {
             var arr = $("#usable-project input");
@@ -86,32 +87,100 @@
         function checkboxClick() {
             $("#usable-project input").change(function () {
                 debugger;
-                var that = this;
+                that = this;
                 if ($(that)[0].checked) {
-                    $.confirm("你确定报名吗？", function () {
-                        var projectID = $(that).attr("projectID");
-                        $.showLoading("请稍等...");
-                        $.post("/api/StudentProject/Enter", { projectID: projectID }, function (data) {
-                            $.hideLoading();
-                            if (data["status"]) {
-                                $.toast("报名成功！");
-                            }
-                            else {
-                                $.toast(data.msg, "forbidden");
-                                $(that)[0].checked = false;
-                            }
-                        })
-                          
-                    }, function () {
-                        $(that)[0].checked = false;
-                    });
+                    $("#selectsupervisor").removeClass("select-supervisor");
+                    //$.confirm("你确定报名吗？", function () {
+                    //    var projectID = $(that).attr("projectID");
+                    //    $.showLoading("请稍等...");
+                    //    $.post("/api/StudentProject/Enter", { projectID: projectID }, function (data) {
+                    //        $.hideLoading();
+                    //        if (data["status"]) {
+                    //            $.toast("报名成功！");
+                    //        }
+                    //        else {
+                    //            $.toast(data.msg, "forbidden");
+                    //            $(that)[0].checked = false;
+                    //        }
+                    //    })
+
+                    //}, function () {
+                    //    $(that)[0].checked = false;
+                    //});
                 }
-                //报名后不允许关闭
+                    //报名后不允许关闭
                 else {
                     $(that)[0].checked = true;
                     $.toast("不允许关闭！", "forbidden");
                 }
             })
         }
+        $(function () {
+            $.get("/api/Student/GetAllSupervisor", null, function (data) {
+                debugger;
+                $("#select-supervisor").select({
+                    title: "选择督导",
+                    items: data,
+                });
+            })
+        });
+        function selectOK() {
+            var id = $("#select-supervisor").attr("data-values");
+            debugger;
+            if (id=="") {
+                $.toast("请选择一个督导", "forbidden");
+                return;
+            }
+            //把当前的学生的督导更新
+            $.post("/api/Student/UpdateSupervisor", { supervisor: id }, function (data) { });
+            //添加报名信息
+            var projectID = $(that).attr("projectID");
+            $.showLoading("请稍等...");
+            $.post("/api/StudentProject/Enter", { projectID: projectID }, function (data) {
+                $.hideLoading();
+                if (data["status"]) {
+                    $.toast("报名成功！");
+                    $("#selectsupervisor").addClass("select-supervisor");
+                }
+                else {
+                    $.toast(data.msg, "forbidden");
+                    $(that)[0].checked = false;
+                    $("#selectsupervisor").addClass("select-supervisor");
+                }
+            })
+        }
+        function selectCancel() {
+            $(that)[0].checked = false;
+            $("#selectsupervisor").addClass("select-supervisor");
+        }
+    </script>
+    <style>
+        .select-supervisor {
+            display: none;
+        }
+    </style>
+    <div id="selectsupervisor" class="select-supervisor">
+        <div class="weui_mask weui_mask_visible"></div>
+        <div class="weui_dialog weui_dialog_visible">
+            <div class="weui_dialog_hd">
+                <strong class="weui_dialog_title">请选择一个督导</strong>
+            </div>
+            <hr />
+            <div class="weui_dialog_bd">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label for="name" class="weui_label">所属督导</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" name="Grade" id="select-supervisor" type="text" value="" data-values="" readonly="" placeholder="请选自己的督导">
+                    </div>
+                </div>
+            </div>
+            <div class="weui_dialog_ft">
+                <a href="javascript:;" onclick="selectCancel()" class="weui_btn_dialog default">取消</a>
+                <a href="javascript:;" onclick="selectOK()" class="weui_btn_dialog primary">确定</a>
+            </div>
+        </div>
+    </div>
+    <script>
+
     </script>
 </body>

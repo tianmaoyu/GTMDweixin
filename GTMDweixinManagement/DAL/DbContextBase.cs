@@ -48,10 +48,19 @@ namespace GTMDweixinManagement.DAL
         }
         public T Updata<T>(T entity) where T : ModelBase.ModelBase
         {
-            Set<T>().Attach(entity); 
-            Entry<T>(entity).State = EntityState.Modified;
-            SaveChanges();
-            return entity;
+
+            try
+            {
+                Set<T>().Attach(entity);
+                Entry<T>(entity).State = EntityState.Modified;
+                SaveChanges();
+                return entity;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+         
         }
     }
 }

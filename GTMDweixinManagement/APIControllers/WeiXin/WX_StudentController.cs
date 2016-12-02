@@ -66,5 +66,7 @@ namespace GTMDweixinManagement.APIControllers.WeiXin
         public void Delete(int id)
         {
         }
+        //得到督导列表
+        
     }
 }
