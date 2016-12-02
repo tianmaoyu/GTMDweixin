@@ -127,8 +127,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="StudentID" Type="int" />
-          <Property Name="ProjectID" Type="int" />
+          <Property Name="StudentID" Type="int" Nullable="false" />
+          <Property Name="ProjectID" Type="int" Nullable="false" />
           <Property Name="EnteredDate" Type="date" />
         </EntityType>
         <EntityType Name="Business_StudentSign">
@@ -159,6 +159,65 @@
           <Property Name="SeventhDay_Evening" Type="bit" />
           <Property Name="StudentID" Type="int" Nullable="false" />
           <Property Name="SignID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Flow_FlowInstance">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="50" />
+          <Property Name="FlowTypeID" Type="int" />
+          <Property Name="StateID" Type="int" />
+          <Property Name="IsActivation" Type="int" />
+          <Property Name="CreaterUserID" Type="int" />
+          <Property Name="UpdataUserID" Type="int" />
+          <Property Name="UpdataDate" Type="date" />
+          <Property Name="FromDataID" Type="int" />
+        </EntityType>
+        <EntityType Name="Flow_FlowTask">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreatorID" Type="int" />
+          <Property Name="FlowInstanceID" Type="int" />
+          <Property Name="CreatorUserID" Type="int" />
+          <Property Name="CreateDate" Type="date" />
+          <Property Name="TaskerUserID" Type="int" />
+          <Property Name="StepID" Type="int" />
+          <Property Name="StateID" Type="int" />
+        </EntityType>
+        <EntityType Name="Flow_FlowType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Flow_FromData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplyDate" Type="date" />
+          <Property Name="TaskTime" Type="int" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Flow_State">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Flow_Step">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_Authority_Meun_Authority_Meun">
           <End Role="Authority_Meun" Type="Self.Authority_Meun" Multiplicity="0..1" />
@@ -257,7 +316,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Business_StudentProject_Business_Project">
-          <End Role="Business_Project" Type="Self.Business_Project" Multiplicity="0..1" />
+          <End Role="Business_Project" Type="Self.Business_Project" Multiplicity="1" />
           <End Role="Business_StudentProject" Type="Self.Business_StudentProject" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Business_Project">
@@ -269,7 +328,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Business_StudentProject_Business_Student">
-          <End Role="Business_Student" Type="Self.Business_Student" Multiplicity="0..1" />
+          <End Role="Business_Student" Type="Self.Business_Student" Multiplicity="1" />
           <End Role="Business_StudentProject" Type="Self.Business_StudentProject" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Business_Student">
@@ -304,6 +363,126 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Flow_FlowInstance_Authority_User">
+          <End Role="Authority_User" Type="Self.Authority_User" Multiplicity="0..1" />
+          <End Role="Flow_FlowInstance" Type="Self.Flow_FlowInstance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authority_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Flow_FlowInstance">
+              <PropertyRef Name="CreaterUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flow_FlowInstance_Authority_User1">
+          <End Role="Authority_User" Type="Self.Authority_User" Multiplicity="0..1" />
+          <End Role="Flow_FlowInstance" Type="Self.Flow_FlowInstance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authority_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Flow_FlowInstance">
+              <PropertyRef Name="UpdataUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flow_FlowInstance_Flow_FlowType">
+          <End Role="Flow_FlowType" Type="Self.Flow_FlowType" Multiplicity="0..1" />
+          <End Role="Flow_FlowInstance" Type="Self.Flow_FlowInstance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flow_FlowType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Flow_FlowInstance">
+              <PropertyRef Name="FlowTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flow_FlowInstance_Flow_FromData1">
+          <End Role="Flow_FromData" Type="Self.Flow_FromData" Multiplicity="0..1" />
+          <End Role="Flow_FlowInstance" Type="Self.Flow_FlowInstance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flow_FromData">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Flow_FlowInstance">
+              <PropertyRef Name="FromDataID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flow_FlowInstance_Flow_State">
+          <End Role="Flow_State" Type="Self.Flow_State" Multiplicity="0..1" />
+          <End Role="Flow_FlowInstance" Type="Self.Flow_FlowInstance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flow_State">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Flow_FlowInstance">
+              <PropertyRef Name="StateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flow_FlowTask_Authority_User">
+          <End Role="Authority_User" Type="Self.Authority_User" Multiplicity="0..1" />
+          <End Role="Flow_FlowTask" Type="Self.Flow_FlowTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authority_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Flow_FlowTask">
+              <PropertyRef Name="CreatorUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flow_FlowTask_Authority_User1">
+          <End Role="Authority_User" Type="Self.Authority_User" Multiplicity="0..1" />
+          <End Role="Flow_FlowTask" Type="Self.Flow_FlowTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authority_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Flow_FlowTask">
+              <PropertyRef Name="TaskerUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flow_FlowTask_Flow_FlowInstance">
+          <End Role="Flow_FlowInstance" Type="Self.Flow_FlowInstance" Multiplicity="0..1" />
+          <End Role="Flow_FlowTask" Type="Self.Flow_FlowTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flow_FlowInstance">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Flow_FlowTask">
+              <PropertyRef Name="FlowInstanceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flow_FlowTask_Flow_State">
+          <End Role="Flow_State" Type="Self.Flow_State" Multiplicity="0..1" />
+          <End Role="Flow_FlowTask" Type="Self.Flow_FlowTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flow_State">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Flow_FlowTask">
+              <PropertyRef Name="StateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flow_FlowTask_Flow_Step">
+          <End Role="Flow_Step" Type="Self.Flow_Step" Multiplicity="0..1" />
+          <End Role="Flow_FlowTask" Type="Self.Flow_FlowTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flow_Step">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Flow_FlowTask">
+              <PropertyRef Name="StepID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="GTMDweixinModelStoreContainer">
           <EntitySet Name="Authority_Meun" EntityType="Self.Authority_Meun" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Authority_MeunRole" EntityType="Self.Authority_MeunRole" Schema="dbo" store:Type="Tables" />
@@ -317,6 +496,12 @@
           <EntitySet Name="Business_Student" EntityType="Self.Business_Student" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Business_StudentProject" EntityType="Self.Business_StudentProject" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Business_StudentSign" EntityType="Self.Business_StudentSign" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Flow_FlowInstance" EntityType="Self.Flow_FlowInstance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Flow_FlowTask" EntityType="Self.Flow_FlowTask" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Flow_FlowType" EntityType="Self.Flow_FlowType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Flow_FromData" EntityType="Self.Flow_FromData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Flow_State" EntityType="Self.Flow_State" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Flow_Step" EntityType="Self.Flow_Step" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Authority_Meun_Authority_Meun" Association="Self.FK_Authority_Meun_Authority_Meun">
             <End Role="Authority_Meun" EntitySet="Authority_Meun" />
             <End Role="Authority_Meun1" EntitySet="Authority_Meun" />
@@ -364,6 +549,46 @@
           <AssociationSet Name="FK_Business_StudentSign_Business_Student" Association="Self.FK_Business_StudentSign_Business_Student">
             <End Role="Business_Student" EntitySet="Business_Student" />
             <End Role="Business_StudentSign" EntitySet="Business_StudentSign" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flow_FlowInstance_Authority_User" Association="Self.FK_Flow_FlowInstance_Authority_User">
+            <End Role="Authority_User" EntitySet="Authority_User" />
+            <End Role="Flow_FlowInstance" EntitySet="Flow_FlowInstance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flow_FlowInstance_Authority_User1" Association="Self.FK_Flow_FlowInstance_Authority_User1">
+            <End Role="Authority_User" EntitySet="Authority_User" />
+            <End Role="Flow_FlowInstance" EntitySet="Flow_FlowInstance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flow_FlowInstance_Flow_FlowType" Association="Self.FK_Flow_FlowInstance_Flow_FlowType">
+            <End Role="Flow_FlowType" EntitySet="Flow_FlowType" />
+            <End Role="Flow_FlowInstance" EntitySet="Flow_FlowInstance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flow_FlowInstance_Flow_FromData1" Association="Self.FK_Flow_FlowInstance_Flow_FromData1">
+            <End Role="Flow_FromData" EntitySet="Flow_FromData" />
+            <End Role="Flow_FlowInstance" EntitySet="Flow_FlowInstance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flow_FlowInstance_Flow_State" Association="Self.FK_Flow_FlowInstance_Flow_State">
+            <End Role="Flow_State" EntitySet="Flow_State" />
+            <End Role="Flow_FlowInstance" EntitySet="Flow_FlowInstance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flow_FlowTask_Authority_User" Association="Self.FK_Flow_FlowTask_Authority_User">
+            <End Role="Authority_User" EntitySet="Authority_User" />
+            <End Role="Flow_FlowTask" EntitySet="Flow_FlowTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flow_FlowTask_Authority_User1" Association="Self.FK_Flow_FlowTask_Authority_User1">
+            <End Role="Authority_User" EntitySet="Authority_User" />
+            <End Role="Flow_FlowTask" EntitySet="Flow_FlowTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flow_FlowTask_Flow_FlowInstance" Association="Self.FK_Flow_FlowTask_Flow_FlowInstance">
+            <End Role="Flow_FlowInstance" EntitySet="Flow_FlowInstance" />
+            <End Role="Flow_FlowTask" EntitySet="Flow_FlowTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flow_FlowTask_Flow_State" Association="Self.FK_Flow_FlowTask_Flow_State">
+            <End Role="Flow_State" EntitySet="Flow_State" />
+            <End Role="Flow_FlowTask" EntitySet="Flow_FlowTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flow_FlowTask_Flow_Step" Association="Self.FK_Flow_FlowTask_Flow_Step">
+            <End Role="Flow_Step" EntitySet="Flow_Step" />
+            <End Role="Flow_FlowTask" EntitySet="Flow_FlowTask" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -431,7 +656,53 @@
             <End Role="StudentInfo" EntitySet="StudentInfoes" />
             <End Role="Business_StudentSign" EntitySet="StudentSignInfoes" />
           </AssociationSet>
-        </EntityContainer>
+          <EntitySet Name="Flow_FlowInstance" EntityType="GTMDweixinModel.Flow_FlowInstance" />
+          <EntitySet Name="Flow_FlowTask" EntityType="GTMDweixinModel.Flow_FlowTask" />
+          <EntitySet Name="Flow_FlowType" EntityType="GTMDweixinModel.Flow_FlowType" />
+          <EntitySet Name="Flow_FromData" EntityType="GTMDweixinModel.Flow_FromData" />
+          <EntitySet Name="Flow_State" EntityType="GTMDweixinModel.Flow_State" />
+          <EntitySet Name="Flow_Step" EntityType="GTMDweixinModel.Flow_Step" />
+          <AssociationSet Name="FK_Flow_FlowInstance_Authority_User" Association="GTMDweixinModel.FK_Flow_FlowInstance_Authority_User">
+            <End Role="UserInfo" EntitySet="UserInfoes" />
+            <End Role="Flow_FlowInstance" EntitySet="Flow_FlowInstance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flow_FlowInstance_Authority_User1" Association="GTMDweixinModel.FK_Flow_FlowInstance_Authority_User1">
+            <End Role="UserInfo" EntitySet="UserInfoes" />
+            <End Role="Flow_FlowInstance" EntitySet="Flow_FlowInstance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flow_FlowTask_Authority_User" Association="GTMDweixinModel.FK_Flow_FlowTask_Authority_User">
+            <End Role="UserInfo" EntitySet="UserInfoes" />
+            <End Role="Flow_FlowTask" EntitySet="Flow_FlowTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flow_FlowTask_Authority_User1" Association="GTMDweixinModel.FK_Flow_FlowTask_Authority_User1">
+            <End Role="UserInfo" EntitySet="UserInfoes" />
+            <End Role="Flow_FlowTask" EntitySet="Flow_FlowTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flow_FlowInstance_Flow_FlowType" Association="GTMDweixinModel.FK_Flow_FlowInstance_Flow_FlowType">
+            <End Role="Flow_FlowType" EntitySet="Flow_FlowType" />
+            <End Role="Flow_FlowInstance" EntitySet="Flow_FlowInstance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flow_FlowInstance_Flow_FromData1" Association="GTMDweixinModel.FK_Flow_FlowInstance_Flow_FromData1">
+            <End Role="Flow_FromData" EntitySet="Flow_FromData" />
+            <End Role="Flow_FlowInstance" EntitySet="Flow_FlowInstance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flow_FlowInstance_Flow_State" Association="GTMDweixinModel.FK_Flow_FlowInstance_Flow_State">
+            <End Role="Flow_State" EntitySet="Flow_State" />
+            <End Role="Flow_FlowInstance" EntitySet="Flow_FlowInstance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flow_FlowTask_Flow_FlowInstance" Association="GTMDweixinModel.FK_Flow_FlowTask_Flow_FlowInstance">
+            <End Role="Flow_FlowInstance" EntitySet="Flow_FlowInstance" />
+            <End Role="Flow_FlowTask" EntitySet="Flow_FlowTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flow_FlowTask_Flow_State" Association="GTMDweixinModel.FK_Flow_FlowTask_Flow_State">
+            <End Role="Flow_State" EntitySet="Flow_State" />
+            <End Role="Flow_FlowTask" EntitySet="Flow_FlowTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flow_FlowTask_Flow_Step" Association="GTMDweixinModel.FK_Flow_FlowTask_Flow_Step">
+            <End Role="Flow_Step" EntitySet="Flow_Step" />
+            <End Role="Flow_FlowTask" EntitySet="Flow_FlowTask" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="MeunRoleInfo">
           <Key>
             <PropertyRef Name="ID" />
@@ -462,7 +733,11 @@
           <NavigationProperty Name="StudentInfo" Relationship="GTMDweixinModel.FK_Business_Student_Authority_User" FromRole="Authority_User" ToRole="Business_Student" />
           <Property Name="Sex" Type="Int32" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
+          <NavigationProperty Name="Flow_FlowInstance" Relationship="GTMDweixinModel.FK_Flow_FlowInstance_Authority_User" FromRole="UserInfo" ToRole="Flow_FlowInstance" />
+          <NavigationProperty Name="Flow_FlowInstance1" Relationship="GTMDweixinModel.FK_Flow_FlowInstance_Authority_User1" FromRole="UserInfo" ToRole="Flow_FlowInstance" />
+          <NavigationProperty Name="Flow_FlowTask" Relationship="GTMDweixinModel.FK_Flow_FlowTask_Authority_User" FromRole="UserInfo" ToRole="Flow_FlowTask" />
+          <NavigationProperty Name="Flow_FlowTask1" Relationship="GTMDweixinModel.FK_Flow_FlowTask_Authority_User1" FromRole="UserInfo" ToRole="Flow_FlowTask" />
+          </EntityType>
         <EntityType Name="UserRoleInfo">
           <Key>
             <PropertyRef Name="ID" />
@@ -543,8 +818,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StudentID" Type="Int32" />
-          <Property Name="ProjectID" Type="Int32" />
+          <Property Name="StudentID" Type="Int32" Nullable="false" />
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ProjectInfo" Relationship="GTMDweixinModel.FK_Business_StudentProject_Business_Project" FromRole="Business_StudentProject" ToRole="Business_Project" />
           <NavigationProperty Name="StudentInfo" Relationship="GTMDweixinModel.FK_Business_StudentProject_Business_Student" FromRole="Business_StudentProject" ToRole="Business_Student" />
           <Property Name="EnteredDate" Type="DateTime" Precision="0" />
@@ -586,7 +861,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Business_StudentProject_Business_Project">
-          <End Type="GTMDweixinModel.ProjectInfo" Role="Business_Project" Multiplicity="0..1" />
+          <End Type="GTMDweixinModel.ProjectInfo" Role="Business_Project" Multiplicity="1" />
           <End Type="GTMDweixinModel.StudentProjectInfo" Role="Business_StudentProject" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Business_Project">
@@ -598,7 +873,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Business_StudentProject_Business_Student">
-          <End Type="GTMDweixinModel.StudentInfo" Role="Business_Student" Multiplicity="0..1" />
+          <End Type="GTMDweixinModel.StudentInfo" Role="Business_Student" Multiplicity="1" />
           <End Type="GTMDweixinModel.StudentProjectInfo" Role="Business_StudentProject" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Business_Student">
@@ -750,6 +1025,201 @@
             </Principal>
             <Dependent Role="Business_StudentSign">
               <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Flow_FlowInstance">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DisplayName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FlowTypeID" Type="Int32" />
+          <Property Name="StateID" Type="Int32" />
+          <Property Name="IsActivation" Type="Int32" />
+          <Property Name="CreaterUserID" Type="Int32" />
+          <Property Name="UpdataUserID" Type="Int32" />
+          <Property Name="UpdataDate" Type="DateTime" Precision="0" />
+          <Property Name="FromDataID" Type="Int32" />
+          <NavigationProperty Name="Authority_User" Relationship="GTMDweixinModel.FK_Flow_FlowInstance_Authority_User" FromRole="Flow_FlowInstance" ToRole="UserInfo" />
+          <NavigationProperty Name="Authority_User1" Relationship="GTMDweixinModel.FK_Flow_FlowInstance_Authority_User1" FromRole="Flow_FlowInstance" ToRole="UserInfo" />
+          <NavigationProperty Name="Flow_FlowType" Relationship="GTMDweixinModel.FK_Flow_FlowInstance_Flow_FlowType" FromRole="Flow_FlowInstance" ToRole="Flow_FlowType" />
+          <NavigationProperty Name="Flow_FromData" Relationship="GTMDweixinModel.FK_Flow_FlowInstance_Flow_FromData1" FromRole="Flow_FlowInstance" ToRole="Flow_FromData" />
+          <NavigationProperty Name="Flow_State" Relationship="GTMDweixinModel.FK_Flow_FlowInstance_Flow_State" FromRole="Flow_FlowInstance" ToRole="Flow_State" />
+          <NavigationProperty Name="Flow_FlowTask" Relationship="GTMDweixinModel.FK_Flow_FlowTask_Flow_FlowInstance" FromRole="Flow_FlowInstance" ToRole="Flow_FlowTask" />
+        </EntityType>
+        <EntityType Name="Flow_FlowTask">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreatorID" Type="Int32" />
+          <Property Name="FlowInstanceID" Type="Int32" />
+          <Property Name="CreatorUserID" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="0" />
+          <Property Name="TaskerUserID" Type="Int32" />
+          <Property Name="StepID" Type="Int32" />
+          <Property Name="StateID" Type="Int32" />
+          <NavigationProperty Name="Authority_User" Relationship="GTMDweixinModel.FK_Flow_FlowTask_Authority_User" FromRole="Flow_FlowTask" ToRole="UserInfo" />
+          <NavigationProperty Name="Authority_User1" Relationship="GTMDweixinModel.FK_Flow_FlowTask_Authority_User1" FromRole="Flow_FlowTask" ToRole="UserInfo" />
+          <NavigationProperty Name="Flow_FlowInstance" Relationship="GTMDweixinModel.FK_Flow_FlowTask_Flow_FlowInstance" FromRole="Flow_FlowTask" ToRole="Flow_FlowInstance" />
+          <NavigationProperty Name="Flow_State" Relationship="GTMDweixinModel.FK_Flow_FlowTask_Flow_State" FromRole="Flow_FlowTask" ToRole="Flow_State" />
+          <NavigationProperty Name="Flow_Step" Relationship="GTMDweixinModel.FK_Flow_FlowTask_Flow_Step" FromRole="Flow_FlowTask" ToRole="Flow_Step" />
+        </EntityType>
+        <EntityType Name="Flow_FlowType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DisplayName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Remark" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Flow_FlowInstance" Relationship="GTMDweixinModel.FK_Flow_FlowInstance_Flow_FlowType" FromRole="Flow_FlowType" ToRole="Flow_FlowInstance" />
+        </EntityType>
+        <EntityType Name="Flow_FromData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplyDate" Type="DateTime" Precision="0" />
+          <Property Name="TaskTime" Type="Int32" />
+          <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Flow_FlowInstance" Relationship="GTMDweixinModel.FK_Flow_FlowInstance_Flow_FromData1" FromRole="Flow_FromData" ToRole="Flow_FlowInstance" />
+        </EntityType>
+        <EntityType Name="Flow_State">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DisplayName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Remark" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Flow_FlowInstance" Relationship="GTMDweixinModel.FK_Flow_FlowInstance_Flow_State" FromRole="Flow_State" ToRole="Flow_FlowInstance" />
+          <NavigationProperty Name="Flow_FlowTask" Relationship="GTMDweixinModel.FK_Flow_FlowTask_Flow_State" FromRole="Flow_State" ToRole="Flow_FlowTask" />
+        </EntityType>
+        <EntityType Name="Flow_Step">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DisplayName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Flow_FlowTask" Relationship="GTMDweixinModel.FK_Flow_FlowTask_Flow_Step" FromRole="Flow_Step" ToRole="Flow_FlowTask" />
+        </EntityType>
+        <Association Name="FK_Flow_FlowInstance_Authority_User">
+          <End Type="GTMDweixinModel.UserInfo" Role="UserInfo" Multiplicity="0..1" />
+          <End Type="GTMDweixinModel.Flow_FlowInstance" Role="Flow_FlowInstance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Flow_FlowInstance">
+              <PropertyRef Name="CreaterUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flow_FlowInstance_Authority_User1">
+          <End Type="GTMDweixinModel.UserInfo" Role="UserInfo" Multiplicity="0..1" />
+          <End Type="GTMDweixinModel.Flow_FlowInstance" Role="Flow_FlowInstance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Flow_FlowInstance">
+              <PropertyRef Name="UpdataUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flow_FlowTask_Authority_User">
+          <End Type="GTMDweixinModel.UserInfo" Role="UserInfo" Multiplicity="0..1" />
+          <End Type="GTMDweixinModel.Flow_FlowTask" Role="Flow_FlowTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Flow_FlowTask">
+              <PropertyRef Name="CreatorUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flow_FlowTask_Authority_User1">
+          <End Type="GTMDweixinModel.UserInfo" Role="UserInfo" Multiplicity="0..1" />
+          <End Type="GTMDweixinModel.Flow_FlowTask" Role="Flow_FlowTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Flow_FlowTask">
+              <PropertyRef Name="TaskerUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flow_FlowInstance_Flow_FlowType">
+          <End Type="GTMDweixinModel.Flow_FlowType" Role="Flow_FlowType" Multiplicity="0..1" />
+          <End Type="GTMDweixinModel.Flow_FlowInstance" Role="Flow_FlowInstance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flow_FlowType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Flow_FlowInstance">
+              <PropertyRef Name="FlowTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flow_FlowInstance_Flow_FromData1">
+          <End Type="GTMDweixinModel.Flow_FromData" Role="Flow_FromData" Multiplicity="0..1" />
+          <End Type="GTMDweixinModel.Flow_FlowInstance" Role="Flow_FlowInstance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flow_FromData">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Flow_FlowInstance">
+              <PropertyRef Name="FromDataID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flow_FlowInstance_Flow_State">
+          <End Type="GTMDweixinModel.Flow_State" Role="Flow_State" Multiplicity="0..1" />
+          <End Type="GTMDweixinModel.Flow_FlowInstance" Role="Flow_FlowInstance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flow_State">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Flow_FlowInstance">
+              <PropertyRef Name="StateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flow_FlowTask_Flow_FlowInstance">
+          <End Type="GTMDweixinModel.Flow_FlowInstance" Role="Flow_FlowInstance" Multiplicity="0..1" />
+          <End Type="GTMDweixinModel.Flow_FlowTask" Role="Flow_FlowTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flow_FlowInstance">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Flow_FlowTask">
+              <PropertyRef Name="FlowInstanceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flow_FlowTask_Flow_State">
+          <End Type="GTMDweixinModel.Flow_State" Role="Flow_State" Multiplicity="0..1" />
+          <End Type="GTMDweixinModel.Flow_FlowTask" Role="Flow_FlowTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flow_State">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Flow_FlowTask">
+              <PropertyRef Name="StateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flow_FlowTask_Flow_Step">
+          <End Type="GTMDweixinModel.Flow_Step" Role="Flow_Step" Multiplicity="0..1" />
+          <End Type="GTMDweixinModel.Flow_FlowTask" Role="Flow_FlowTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flow_Step">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Flow_FlowTask">
+              <PropertyRef Name="StepID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -926,7 +1396,72 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="Flow_FlowInstance">
+            <EntityTypeMapping TypeName="GTMDweixinModel.Flow_FlowInstance">
+              <MappingFragment StoreEntitySet="Flow_FlowInstance">
+                <ScalarProperty Name="FromDataID" ColumnName="FromDataID" />
+                <ScalarProperty Name="UpdataDate" ColumnName="UpdataDate" />
+                <ScalarProperty Name="UpdataUserID" ColumnName="UpdataUserID" />
+                <ScalarProperty Name="CreaterUserID" ColumnName="CreaterUserID" />
+                <ScalarProperty Name="IsActivation" ColumnName="IsActivation" />
+                <ScalarProperty Name="StateID" ColumnName="StateID" />
+                <ScalarProperty Name="FlowTypeID" ColumnName="FlowTypeID" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Flow_FlowTask">
+            <EntityTypeMapping TypeName="GTMDweixinModel.Flow_FlowTask">
+              <MappingFragment StoreEntitySet="Flow_FlowTask">
+                <ScalarProperty Name="StateID" ColumnName="StateID" />
+                <ScalarProperty Name="StepID" ColumnName="StepID" />
+                <ScalarProperty Name="TaskerUserID" ColumnName="TaskerUserID" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreatorUserID" ColumnName="CreatorUserID" />
+                <ScalarProperty Name="FlowInstanceID" ColumnName="FlowInstanceID" />
+                <ScalarProperty Name="CreatorID" ColumnName="CreatorID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Flow_FlowType">
+            <EntityTypeMapping TypeName="GTMDweixinModel.Flow_FlowType">
+              <MappingFragment StoreEntitySet="Flow_FlowType">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Flow_FromData">
+            <EntityTypeMapping TypeName="GTMDweixinModel.Flow_FromData">
+              <MappingFragment StoreEntitySet="Flow_FromData">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="TaskTime" ColumnName="TaskTime" />
+                <ScalarProperty Name="ApplyDate" ColumnName="ApplyDate" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Flow_State">
+            <EntityTypeMapping TypeName="GTMDweixinModel.Flow_State">
+              <MappingFragment StoreEntitySet="Flow_State">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Flow_Step">
+            <EntityTypeMapping TypeName="GTMDweixinModel.Flow_Step">
+              <MappingFragment StoreEntitySet="Flow_Step">
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

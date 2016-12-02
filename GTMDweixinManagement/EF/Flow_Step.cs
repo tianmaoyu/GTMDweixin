@@ -14,16 +14,19 @@ namespace GTMDweixinManagement.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class StudentProjectInfo :ModelBase
+    public partial class Flow_Step :ModelBase
     {
-        public int ID { get; set; }
-        public int StudentID { get; set; }
-        public int ProjectID { get; set; }
-        public Nullable<System.DateTime> EnteredDate { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Flow_Step()
+        {
+            this.Flow_FlowTask = new HashSet<Flow_FlowTask>();
+        }
     
+        public int ID { get; set; }
+        public string DisplayName { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         [JsonIgnore]
-        public virtual ProjectInfo ProjectInfo { get; set; }
-        [JsonIgnore]
-        public virtual StudentInfo StudentInfo { get; set; }
+        public virtual ICollection<Flow_FlowTask> Flow_FlowTask { get; set; }
     }
 }

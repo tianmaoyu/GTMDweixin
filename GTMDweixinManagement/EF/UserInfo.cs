@@ -21,6 +21,10 @@ namespace GTMDweixinManagement.EF
         {
             this.UserRoleInfos = new HashSet<UserRoleInfo>();
             this.StudentInfo = new HashSet<StudentInfo>();
+            this.Flow_FlowInstance = new HashSet<Flow_FlowInstance>();
+            this.Flow_FlowInstance1 = new HashSet<Flow_FlowInstance>();
+            this.Flow_FlowTask = new HashSet<Flow_FlowTask>();
+            this.Flow_FlowTask1 = new HashSet<Flow_FlowTask>();
         }
     
         public int ID { get; set; }
@@ -44,5 +48,17 @@ namespace GTMDweixinManagement.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         [JsonIgnore]
         public virtual ICollection<StudentInfo> StudentInfo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [JsonIgnore]
+        public virtual ICollection<Flow_FlowInstance> Flow_FlowInstance { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [JsonIgnore]
+        public virtual ICollection<Flow_FlowInstance> Flow_FlowInstance1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [JsonIgnore]
+        public virtual ICollection<Flow_FlowTask> Flow_FlowTask { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [JsonIgnore]
+        public virtual ICollection<Flow_FlowTask> Flow_FlowTask1 { get; set; }
     }
 }

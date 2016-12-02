@@ -38,5 +38,11 @@ namespace GTMDweixinManagement.EF
         public virtual DbSet<MeunInfo> MeunInfoes { get; set; }
         public virtual DbSet<RoleInfo> RoleInfoes { get; set; }
         public virtual DbSet<StudentSignInfo> StudentSignInfoes { get; set; }
+        public virtual DbSet<Flow_FlowInstance> Flow_FlowInstance { get; set; }
+        public virtual DbSet<Flow_FlowTask> Flow_FlowTask { get; set; }
+        public virtual DbSet<Flow_FlowType> Flow_FlowType { get; set; }
+        public virtual DbSet<Flow_FromData> Flow_FromData { get; set; }
+        public virtual DbSet<Flow_State> Flow_State { get; set; }
+        public virtual DbSet<Flow_Step> Flow_Step { get; set; }
     }
 }

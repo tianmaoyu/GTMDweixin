@@ -4,16 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="35c80c2b3caa4be79fd53ddcfc24bbef" Name="Diagram1" ZoomLevel="76">
+      <Diagram DiagramId="35c80c2b3caa4be79fd53ddcfc24bbef" Name="Diagram1" ZoomLevel="82">
         <EntityTypeShape EntityType="GTMDweixinModel.MeunRoleInfo" Width="2.375" PointX="0.5" PointY="5.625" />
-        <EntityTypeShape EntityType="GTMDweixinModel.UserInfo" Width="2.375" PointX="3.5" PointY="4.875" />
+        <EntityTypeShape EntityType="GTMDweixinModel.UserInfo" Width="2.375" PointX="3.625" PointY="8.125" />
         <EntityTypeShape EntityType="GTMDweixinModel.UserRoleInfo" Width="2.375" PointX="3.5" PointY="1.625" />
         <EntityTypeShape EntityType="GTMDweixinModel.FeedbackInfo" Width="2.375" PointX="7.125" PointY="2.25" />
         <EntityTypeShape EntityType="GTMDweixinModel.NoticeInfo" Width="2.375" PointX="10.25" PointY="2.625" />
-        <EntityTypeShape EntityType="GTMDweixinModel.ProjectInfo" Width="2.375" PointX="6.375" PointY="6.75" />
-        <EntityTypeShape EntityType="GTMDweixinModel.SignInfo" Width="2.375" PointX="9.375" PointY="6.625" />
-        <EntityTypeShape EntityType="GTMDweixinModel.StudentInfo" Width="2.375" PointX="2.75" PointY="11.5" />
-        <EntityTypeShape EntityType="GTMDweixinModel.StudentProjectInfo" Width="2.375" PointX="6" PointY="10.25" />
+        <EntityTypeShape EntityType="GTMDweixinModel.ProjectInfo" Width="2.375" PointX="10" PointY="6.5" />
+        <EntityTypeShape EntityType="GTMDweixinModel.SignInfo" Width="2.375" PointX="13.625" PointY="7.125" />
+        <EntityTypeShape EntityType="GTMDweixinModel.StudentInfo" Width="2.375" PointX="11.25" PointY="11" />
+        <EntityTypeShape EntityType="GTMDweixinModel.StudentProjectInfo" Width="2.375" PointX="8" PointY="9.25" />
         <AssociationConnector Association="GTMDweixinModel.FK_Authority_UserRole_Authority_User" />
         <AssociationConnector Association="GTMDweixinModel.FK_Business_Student_Authority_User" />
         <AssociationConnector Association="GTMDweixinModel.FK_Business_Sign_Business_Project" />
@@ -26,9 +26,25 @@
         <AssociationConnector Association="GTMDweixinModel.FK_Authority_MeunRole_Authority_Role" />
         <AssociationConnector Association="GTMDweixinModel.FK_Authority_Role_Authority_Role" />
         <AssociationConnector Association="GTMDweixinModel.FK_Authority_UserRole_Authority_Role" />
-        <EntityTypeShape EntityType="GTMDweixinModel.StudentSignInfo" Width="3.625" PointX="10" PointY="10.125" />
+        <EntityTypeShape EntityType="GTMDweixinModel.StudentSignInfo" Width="3.625" PointX="19.25" PointY="8.75" />
         <AssociationConnector Association="GTMDweixinModel.FK_Business_StudentSign_Business_Sign" />
         <AssociationConnector Association="GTMDweixinModel.FK_Business_StudentSign_Business_Student" />
+        <EntityTypeShape EntityType="GTMDweixinModel.Flow_FlowInstance" Width="1.5" PointX="3.5" PointY="13.625" />
+        <EntityTypeShape EntityType="GTMDweixinModel.Flow_FlowTask" Width="1.5" PointX="5.5" PointY="13.625" />
+        <EntityTypeShape EntityType="GTMDweixinModel.Flow_FlowType" Width="1.5" PointX="0.875" PointY="13.25" />
+        <EntityTypeShape EntityType="GTMDweixinModel.Flow_FromData" Width="1.5" PointX="0.75" PointY="15.5" />
+        <EntityTypeShape EntityType="GTMDweixinModel.Flow_State" Width="1.5" PointX="5.125" PointY="18.125" />
+        <EntityTypeShape EntityType="GTMDweixinModel.Flow_Step" Width="1.5" PointX="8.5" PointY="14.75" />
+        <AssociationConnector Association="GTMDweixinModel.FK_Flow_FlowInstance_Authority_User" />
+        <AssociationConnector Association="GTMDweixinModel.FK_Flow_FlowInstance_Authority_User1" />
+        <AssociationConnector Association="GTMDweixinModel.FK_Flow_FlowTask_Authority_User" />
+        <AssociationConnector Association="GTMDweixinModel.FK_Flow_FlowTask_Authority_User1" />
+        <AssociationConnector Association="GTMDweixinModel.FK_Flow_FlowInstance_Flow_FlowType" />
+        <AssociationConnector Association="GTMDweixinModel.FK_Flow_FlowInstance_Flow_FromData1" />
+        <AssociationConnector Association="GTMDweixinModel.FK_Flow_FlowInstance_Flow_State" />
+        <AssociationConnector Association="GTMDweixinModel.FK_Flow_FlowTask_Flow_FlowInstance" />
+        <AssociationConnector Association="GTMDweixinModel.FK_Flow_FlowTask_Flow_State" />
+        <AssociationConnector Association="GTMDweixinModel.FK_Flow_FlowTask_Flow_Step" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
