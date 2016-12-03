@@ -1,0 +1,51 @@
+﻿@{
+    Layout = "~/Areas/WeiXin/Views/Shared/_LayoutWeiXin.cshtml";
+}
+<body style="background-color:#eee">
+    <h2 style="text-align:center">新建请假条</h2>
+
+    <div class="weui_cells weui_cells_form" style="margin-top:0">
+        <div class="weui_cell">
+            <div class="weui_cell_hd"><label for="" class="weui_label">日 期</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="date" value="">
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_hd"><label for="name" class="weui_label">班次</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" name="Grade" id="task" type="text" value="" readonly="" placeholder="请选择班次">
+            </div>
+        </div>
+
+        <div class="weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label">审批人</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" readonly type="tel" placeholder="干欢宾">
+            </div>
+        </div>
+    </div>
+
+    <div class="weui_cells_title"><label class="weui_label">请假原因</label></div>
+    <div class="weui_cells weui_cells_form">
+        <div class="weui_cell">
+            <div class="weui_cell_bd weui_cell_primary">
+                <textarea class="weui_textarea" placeholder="请输入评论" rows="3"></textarea>
+                <div class="weui_textarea_counter"><span>0</span>/200</div>
+            </div>
+        </div>
+    </div>
+    <div class="weui_opr_area">
+        <p class="weui_btn_area">
+            <a href="javascript:;" class="weui_btn weui_btn_primary">提交申请</a>
+        </p>
+    </div>
+    <script>
+        $(function () {
+            $("#task").select({
+                title: "选择班次",
+                items: ["早班", "中班", "晚班"]
+            });
+        })
+    </script>
+</body>

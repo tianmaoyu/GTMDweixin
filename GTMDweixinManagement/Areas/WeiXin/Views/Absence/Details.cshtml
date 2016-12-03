@@ -1,0 +1,44 @@
+﻿@{
+    Layout = "~/Areas/WeiXin/Views/Shared/_LayoutWeiXin.cshtml";
+}
+<body style="background-color:#eee">
+    <h2 style="text-align:center;background-color:#eee">请假-2016.12.12详情</h2>
+    <div class="weui_msg" style="background-color:white">
+        <div class="circle success">
+            <div>申请</div>
+            <div>2016.12.12</div>
+            <div>张三</div>
+        </div>
+        <div style="margin:0 auto">
+            <img src="~/Content/images/wx_allow.png"/>
+        </div>
+        <div class="circle success">
+            <div>同意</div>
+            <div>2016.12.13</div>
+            <div>甘欢兵</div>
+        </div>
+        <div style="margin:0 auto">
+            <img style="margin-top:2px;margin-bottom:2px" src="~/Content/images/wx_allow.png" />
+        </div>
+        <div class="circle waiting">
+            <div>等待批</div>
+            <div>准中...</div>
+            <div>甘欢兵</div>
+        </div>
+    </div>
+    <style>
+        .circle{
+            margin:0 auto;
+            border-radius:50%;
+            width:30%;
+            height:100%;
+            background-color:#eee;
+        }
+        .success{
+            background-color:#1296db
+        }
+        .waiting{
+            background-color:#808080
+        }
+    </style>
+</body>
