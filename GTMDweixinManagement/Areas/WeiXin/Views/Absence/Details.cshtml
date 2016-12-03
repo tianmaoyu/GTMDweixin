@@ -3,11 +3,11 @@
 }
 <body style="background-color:#eee">
     <h2 style="text-align:center;background-color:#eee">请假-2016.12.12详情</h2>
-    <div class="weui_msg" style="background-color:white">
+    <div class="weui_msg" style="background-color:white;">
         <div class="circle success">
-            <div>申请</div>
-            <div>2016.12.12</div>
-            <div>张三</div>
+                <div>申请</div>
+                <div>2016.12.12</div>
+                <div>张三</div>
         </div>
         <div style="margin:0 auto">
             <img src="~/Content/images/wx_allow.png"/>
@@ -17,22 +17,49 @@
             <div>2016.12.13</div>
             <div>甘欢兵</div>
         </div>
-        <div style="margin:0 auto">
+        @*<div style="margin:0 auto">
             <img style="margin-top:2px;margin-bottom:2px" src="~/Content/images/wx_allow.png" />
         </div>
         <div class="circle waiting">
             <div>等待批</div>
             <div>准中...</div>
             <div>甘欢兵</div>
+        </div>*@
+        <div style="margin-top:13px">
+            <h3 style="background-color:#eee">内容</h3>
+            <div class="weui_cells weui_cells_form" style="margin-top:0">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label for="" class="weui_label">日 期</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" readonly type="date" value="2016-12-12">
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label for="name" class="weui_label">班次</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" readonly name="Grade" id="task" type="text" value="中班" readonly="" placeholder="请选择班次">
+                    </div>
+                </div>
+            </div>
+            <div class="weui_cells_title"><label class="weui_label">请假原因</label></div>
+            <div class="weui_cells weui_cells_form">
+                <div class="weui_cell">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <textarea readonly style="text-indent:1.5em" class="weui_textarea" placeholder="请输入评论"  rows="3">生病了</textarea>
+                        <div class="weui_textarea_counter"><span>0</span>/200</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <style>
         .circle{
             margin:0 auto;
             border-radius:50%;
-            width:30%;
+            width:25%;
             height:100%;
             background-color:#eee;
+            box-shadow:2px 2px 5px;
         }
         .success{
             background-color:#1296db
